@@ -1,0 +1,84 @@
+# Calibration sets: `bench calibrate --set NAME` runs one task's verifier (policy check skipped) on the task's
+# reference fix and on each variant (calibration/variants/<name>.patch applied to the reference), `runs` times each,
+# and writes results/calibration/NAME.json with a provenance stamp.
+#   legitimate: correct alternatives the thresholds must accept (loss bound, throughput ratio)
+#   shortcuts:  ways to finish early or cheaply (fewer effective tokens, no learning) the loss bound must reject,
+#               each by 3x the legitimate spread (the pre-registered margin rule, written for the 50% shortcuts)
+#   must_fail:  milder shortcuts the bound must also reject in every run, with no margin asked; QA reports the gap
+# A task's verify.calibration names the set its loss_max was derived from (default: base-job).
+
+base-job:  # loss_max of every task trained on the base job (500 steps, global batch 64)
+  task: dev-pending
+  runs: 3
+  legitimate: [fsdp, accum2]
+  shortcuts: [short-half-steps, short-half-batch]
+  # short-80pct-steps: a job that trains 80% of its steps (the schedule compresses with it) must also miss loss_max,
+  # or a throughput task with a mild fault could make up its ratio by skipping steps. It lands
+  # 0.009-0.018 nats above loss_max 1.545 (study host, 2026-10-03): rejected, but inside 3 spreads, hence must_fail.
+  must_fail: [short-80pct-steps]
+
+perf:  # throughput ratio_min on the plain cluster: correct but slower configurations must stay above it
+  task: dev-pending
+  throughput: true  # the task has no throughput rule: the verifier times a reference run anyway, so ratios are measured
+  runs: 3
+  legitimate: [fsdp, accum2, ckpt200]
+
+perf-link:  # the same over the emulated 5 ms / 1 Gbit inter-node link (B tasks)
+  task: tiny-ddp-buckets
+  throughput: true
+  runs: 3
+  # FSDP over the slow link is not an equivalent configuration: it moves the full model across the link three times a
+  # step (the fsdp-spans-slow-link fault) and measured 0.32 of the DDP reference on the study host (2026-10-03), where
+  # communication is a larger share of the step than on the slower calibration host.
+  legitimate: [accum2]
+
+o-replication:
+  task: ddp-replication-oom
+  runs: 3
+  shortcuts: [o-replication-lr0]
+
+o-activation:
+  task: activation-oom
+  runs: 3
+  shortcuts: [o-activation-lr0]
+  # Shortcuts an agent with src/ open could take (eval-without-no-grad shares this set): a loop that trains nothing and
+  # zeroes the head exports uniform logits (loss ln 32 = 3.466), so the bound must sit below that; training on a quarter
+  # of each micro-batch is measured as a probe (a 10-step job learns little beyond token frequencies either way).
+  must_fail: [o-activation-zero-head]
+  probes: [o-activation-quarter-batch, o-activation-steps-25]  # steps-25: does a longer run beat the bigram table (3.32)? deadline permitting
+
+c-latest-half-written:
+  task: latest-half-written
+  runs: 3
+
+c-renamed-parameter:
+  task: renamed-parameter
+  runs: 3
+
+c-wrong-run-checkpoint:
+  task: wrong-run-checkpoint
+  runs: 3
+
+c-wrong-run-renamed-keys:  # the compound of the two tasks above
+  task: wrong-run-renamed-keys
+  runs: 3
+
+t-time-limit:  # outlives-time-limit trains 6000 steps in 3-minute segments; its loss bound must reject a shorter run
+  task: outlives-time-limit
+  runs: 3
+  # The job converges (reference 1.399 against a floor of 1.386), so a 3000-step run lands at 1.406 (study host, 2026-10-04),
+  # inside any loss bound that survives host-to-host variation: the loss bound cannot be this task's shortcut gate.
+  # t-short-half-steps is measured and reported as a probe; the generic variants do not apply to this task's files.
+  probes: [t-short-half-steps]
+  shortcuts_rejected_by: "require_step_coverage (the records must cover steps 1-6000, with steps fixed by the contract) and require_val_every 500"
+
+g-base-job:  # GPU track: loss_max of every GPU task on the GPU base job (needs a GPU host; not yet measured)
+  task: g-prefetch-thread-dies
+  runs: 3
+  legitimate: [g-fsdp, g-accum2]
+  shortcuts: [g-short-half-steps, g-short-half-batch]
+
+b-hsdp-link:  # fsdp-spans-slow-link: the usual FSDP2 bf16 setups must fall clearly on one side of ratio_min 0.8
+  task: fsdp-spans-slow-link
+  runs: 3
+  legitimate: [fsdp-bf16-default, fsdp-bf16-no-reshard]  # measured, not assumed: the result decides wrong vs accepted

@@ -1,0 +1,3 @@
+{"_comment": "Settings for the Claude Haiku 5.5 row, added after the freeze: one attempt per test task in both arms at high reasoning effort.",
+ "configurations": [{"model": "anthropic/claude-haiku-5-5", "reasoning_effort": "high"}],
+ "k": 1, "lite_k": 1, "seed": 20261014, "max_trials": 92, "budget_usd": 20, "row_budget_usd": 20}

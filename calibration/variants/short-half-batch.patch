@@ -1,0 +1,12 @@
+diff --git a/jobs/train/launch.sbatch b/jobs/train/launch.sbatch
+index 4b58b3d..ec4e25c 100644
+--- a/jobs/train/launch.sbatch
++++ b/jobs/train/launch.sbatch
+@@ -1,6 +1,6 @@
+ #!/bin/bash
+ #SBATCH --job-name=train
+-#SBATCH --nodes=2
++#SBATCH --nodes=1
+ #SBATCH --ntasks-per-node=1
+ #SBATCH --cpus-per-task=2
+ #SBATCH --time=00:08:00

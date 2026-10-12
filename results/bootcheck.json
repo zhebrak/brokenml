@@ -1,0 +1,2369 @@
+{
+ "activation-oom": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "for n in c1 c2; do ssh -o BatchMode=yes $n cat /sys/fs/cgroup/memory.events; done",
+    "expect": "oom_kill [1-9]",
+    "ok": true,
+    "excerpt": "low 0\nhigh 0\nmax 82\noom 3\noom_kill 1\noom_group_kill 0\nlow 0\nhigh 0\nmax 112\noom 5\noom_kill 1\noom_group_kill 0\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 117,
+  "task_digest": "sha256:47086c7d318544643ae0adcae1c9a1e449295c203280afb60868afdc23089d54",
+  "probes_hash": "1102a4242935cc0a",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T10:34:34Z"
+  }
+ },
+ "bad-token-ids": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "python3 -c \"from safetensors.torch import load_file; print(int(load_file('/shared/data/corpus.safetensors')['train'].max()))\"",
+    "expect": "\\b32\\b",
+    "ok": true,
+    "excerpt": "32\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 120,
+  "task_digest": "sha256:202bab572f20678701c2a0303a1b3489a4be9d22186fa525c1672b3bee7160ab",
+  "probes_hash": "2c0945bdd7050359",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T10:36:47Z"
+  }
+ },
+ "checkpoint-every-step": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ls /shared/ckpt/train | grep -c step_",
+    "expect": "^([2-9]|[1-9][0-9]+)$",
+    "ok": true,
+    "excerpt": "3\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING"
+  },
+  "detail": "",
+  "seconds": 286,
+  "task_digest": "sha256:7eca2b454a2db620e5d14bb99a76c12a4b2f742a1685520d405ff4ade890f832",
+  "probes_hash": "15bbdf47a0398053",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T10:41:47Z"
+  }
+ },
+ "ckpt-space-held-open": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -c 'skipped:' /shared/logs/*.out",
+    "expect": "[1-9]",
+    "ok": true,
+    "excerpt": "12\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "COMPLETED",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 181,
+  "task_digest": "sha256:b973c99aa595586bc0b8985358af1033996063a0666699178bc3d00dc0f93516",
+  "probes_hash": "a2ba30487c6f63c4",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T10:45:03Z"
+  }
+ },
+ "consolidated-copy-oom": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "for n in c1 c2; do ssh -o BatchMode=yes $n cat /sys/fs/cgroup/memory.events; done",
+    "expect": "oom_kill [1-9]",
+    "ok": true,
+    "excerpt": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nlow 0\nhigh 0\nmax 101\noom 3\noom_kill 2\noom_group_kill 0\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 244,
+  "task_digest": "sha256:ae912108faa07b7cdcb8f4946e22a859a19c53ed349e3d539f2ccd1634fed7b3",
+  "probes_hash": "1102a4242935cc0a",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T10:49:22Z"
+  }
+ },
+ "ddp-replication-oom": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "for n in c1 c2; do ssh -o BatchMode=yes $n cat /sys/fs/cgroup/memory.events; done",
+    "expect": "oom_kill [1-9]",
+    "ok": true,
+    "excerpt": "low 0\nhigh 0\nmax 289\noom 15\noom_kill 1\noom_group_kill 0\nlow 0\nhigh 0\nmax 178\noom 8\noom_kill 1\noom_group_kill 0\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 123,
+  "task_digest": "sha256:ceb169506704c02a72cf43bdcb98e8ffd6c3c3205f8c4d282f92cf639e593cae",
+  "probes_hash": "1102a4242935cc0a",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T10:51:39Z"
+  }
+ },
+ "degraded-node": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ssh -o BatchMode=yes c2 cat /sys/fs/cgroup/cpu.max",
+    "expect": "^40000 100000",
+    "ok": true,
+    "excerpt": "40000 100000\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING"
+  },
+  "detail": "",
+  "seconds": 345,
+  "task_digest": "sha256:2a071e1c230923177b04f26ee45073e12ab88ca7e3d501821e87065111b164e4",
+  "probes_hash": "084e2425101560dc",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T10:57:38Z"
+  }
+ },
+ "engine-ctx-kv-window": {
+  "ok": true,
+  "agent_env_ok": "1/1",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -c 137 /shared/logs/engine.log",
+    "expect": "^[1-9]",
+    "ok": true,
+    "excerpt": "1\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "observed": true,
+   "ready": true,
+   "restarts": 0,
+   "requests": 64,
+   "completed": 16,
+   "errors": [
+    "request 19: RemoteDisconnected: Remote end closed connection without response",
+    "request 16: RemoteDisconnected: Remote end closed connection without response",
+    "request 18: RemoteDisconnected: Remote end closed connection without response",
+    "request 23: URLError: <urlopen error [Errno 111] Connection refused>",
+    "request 17: RemoteDisconnected: Remote end closed connection without response"
+   ],
+   "n_errors": 48,
+   "wall_s": 1.79,
+   "tokens_per_s": 35.8,
+   "ttft_p95_s": 1.201,
+   "ttft_median_s": 1.198
+  },
+  "detail": "",
+  "seconds": 20,
+  "task_digest": "sha256:c185cba5aebbc772f89678e375b4e7d5d6ac63f5a5372d8fc77120564e32dc01",
+  "probes_hash": "a9e47eefbd1a0f28",
+  "stamp": {
+   "git_sha": "12782158e62f",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "subgroup-skip-deadlock",
+    "uneven-val-gather",
+    "engine-ctx-kv-window"
+   ],
+   "utc": "2026-10-05T23:53:12Z"
+  }
+ },
+ "engine-no-continuous-batching": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -c 'no-cont-batching' /shared/logs/engine.log",
+    "expect": "^[1-9]",
+    "ok": true,
+    "excerpt": "1\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "observed": true,
+   "ready": true,
+   "restarts": 0,
+   "requests": 64,
+   "completed": 64,
+   "errors": [],
+   "n_errors": 0,
+   "wall_s": 23.72,
+   "tokens_per_s": 178.8,
+   "ttft_p95_s": 5.833,
+   "ttft_median_s": 2.871
+  },
+  "detail": "",
+  "seconds": 123,
+  "task_digest": "sha256:4c24c26c4554d42e93d606537f6563e1038830d1837633d0a97aee6ff61de04c",
+  "probes_hash": "cfec7dd45e0bc68b",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:01:06Z"
+  }
+ },
+ "engine-single-slot": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "curl -s http://engine:8080/slots | python3 -c \"import sys, json; print(len(json.load(sys.stdin)))\"",
+    "expect": "^1$",
+    "ok": true,
+    "excerpt": "1\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "observed": true,
+   "ready": true,
+   "restarts": 0,
+   "requests": 64,
+   "completed": 64,
+   "errors": [],
+   "n_errors": 0,
+   "wall_s": 27.11,
+   "tokens_per_s": 156.4,
+   "ttft_p95_s": 7.376,
+   "ttft_median_s": 6.476
+  },
+  "detail": "",
+  "seconds": 133,
+  "task_digest": "sha256:b4cc02601ed0a42979f682b3dcf04e50b49891293e2da403083e041ced050b9f",
+  "probes_hash": "7a729a5097fead83",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:03:32Z"
+  }
+ },
+ "engine-startup-timeout": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "cat /shared/engine/restarts",
+    "expect": "^[1-9]",
+    "ok": true,
+    "excerpt": "7\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "observed": true,
+   "ready": false,
+   "restarts": 7
+  },
+  "detail": "",
+  "seconds": 496,
+  "task_digest": "sha256:cf867af39fa96160ec779a030e6ac7b139685b12bcd900e4e778d948e71f765b",
+  "probes_hash": "a5528deaaa63a683",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:12:01Z"
+  }
+ },
+ "engine-thread-oversubscription": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -o 'starting llama-server.*--threads [0-9]*' /shared/logs/engine.log | tail -n 1",
+    "expect": "--threads 16",
+    "ok": true,
+    "excerpt": "starting llama-server -m /models/model.gguf --host 0.0.0.0 --port 8080 --metrics --slots --parallel 16 --threads 16\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "observed": true,
+   "ready": true,
+   "restarts": 0,
+   "requests": 64,
+   "completed": 64,
+   "errors": [],
+   "n_errors": 0,
+   "wall_s": 82.86,
+   "tokens_per_s": 51.2,
+   "ttft_p95_s": 4.046,
+   "ttft_median_s": 1.904
+  },
+  "detail": "",
+  "seconds": 310,
+  "task_digest": "sha256:ed8a3b1e3c282140943d6207fdcbb1d8ca0b89c6aec4f99df19ad596286b9438",
+  "probes_hash": "b4d13f0dc62084b0",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:17:23Z"
+  }
+ },
+ "eval-without-no-grad": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "for n in c1 c2; do ssh -o BatchMode=yes $n cat /sys/fs/cgroup/memory.events; done",
+    "expect": "oom_kill [1-9]",
+    "ok": true,
+    "excerpt": "low 0\nhigh 0\nmax 112\noom 4\noom_kill 1\noom_group_kill 0\nlow 0\nhigh 0\nmax 162\noom 7\noom_kill 1\noom_group_kill 0\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 148,
+  "task_digest": "sha256:78d2cda6a925680e47d69289791afc8a2e18b41be4f55232f591f1a09950715c",
+  "probes_hash": "1102a4242935cc0a",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:20:06Z"
+  }
+ },
+ "failed-dependency": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ssh -o BatchMode=yes c1 ls /var/tmp/scratch/",
+    "expect": "corpus\\.safetensors",
+    "ok": true,
+    "excerpt": "corpus.safetensors\n"
+   },
+   {
+    "run": "ssh -o BatchMode=yes c2 test -f /var/tmp/scratch/corpus.safetensors && echo PRESENT || echo MISSING",
+    "expect": "^MISSING",
+    "ok": true,
+    "excerpt": "MISSING\n"
+   }
+  ],
+  "probes_ok": "2/2",
+  "symptom": {
+   "job_ids": [
+    "2",
+    "3"
+   ],
+   "observed": true,
+   "state": "FAILED",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 124,
+  "task_digest": "sha256:8619c28eb418f28e78e26d3908a30134d536ac8027d35e0df787201b23a1ae9a",
+  "probes_hash": "0d150849a5ec4069",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:22:25Z"
+  }
+ },
+ "fsdp-fine-wrapping": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ssh -o BatchMode=yes c1 tc qdisc show dev eth0",
+    "expect": "netem",
+    "ok": true,
+    "excerpt": "qdisc netem 811b: root refcnt 17 limit 1000 delay 5ms rate 1Gbit seed 4288528794101660462\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING"
+  },
+  "detail": "",
+  "seconds": 289,
+  "task_digest": "sha256:b68faef5fb29f13f5a568d8a2a199b5558bd9c30dbc1c63174473d51e84c08a6",
+  "probes_hash": "bd28079816dc48b3",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:27:29Z"
+  }
+ },
+ "fsdp-spans-slow-link": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ssh -o BatchMode=yes c1 tc qdisc show dev eth0",
+    "expect": "netem",
+    "ok": true,
+    "excerpt": "qdisc netem 8124: root refcnt 17 limit 1000 delay 5ms rate 1Gbit seed 10416515284843758884\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING"
+  },
+  "detail": "",
+  "seconds": 384,
+  "task_digest": "sha256:644d921354a383a4aafedf0ae22b8e51231875321d256a5b8fadc8afd0829e96",
+  "probes_hash": "bd28079816dc48b3",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:34:07Z"
+  }
+ },
+ "gres-from-gpu-template": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -rl 'Invalid generic resource' /shared/logs /shared/evidence 2>/dev/null | head -n 2",
+    "expect": "/shared/",
+    "ok": true,
+    "excerpt": "/shared/evidence/submit.txt\n/shared/evidence/report.md\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [],
+   "observed": true,
+   "state": "REJECTED"
+  },
+  "detail": "",
+  "seconds": 81,
+  "task_digest": "sha256:7ef4763a12f4d861d0ebe35453bb9afc27a37d591642ba8cd8f23734e77b22f0",
+  "probes_hash": "8e1127e6ac979780",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:35:41Z"
+  }
+ },
+ "hash-ordered-buckets": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ssh -o BatchMode=yes c2 cat /etc/platform/job.env",
+    "expect": "PYTHONHASHSEED",
+    "ok": true,
+    "excerpt": "# Site job environment (platform team), applied to every job task before /ops/cluster/nodes/<node>.env.\nLC_ALL=C.UTF-8\nPYTHONHASHSEED=0\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 117,
+  "task_digest": "sha256:7126f5678bc2bf66c488622843cd7f25d2a23b2cbf1d57935ee0a68a9329f180",
+  "probes_hash": "c7203879050f73bc",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:37:53Z"
+  }
+ },
+ "latest-half-written": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ls -a /shared/ckpt-store/runs/train/$(cat /shared/ckpt-store/runs/train/latest) | grep -c '^\\.metadata$'",
+    "expect": "^0",
+    "ok": true,
+    "excerpt": "0\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED"
+  },
+  "detail": "",
+  "seconds": 150,
+  "task_digest": "sha256:00392eeef2e5384092b758f13e31942c9a85b96433f0c92ef3cb5021cb91b2ff",
+  "probes_hash": "059bb1dc9c72a72f",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:41:19Z"
+  }
+ },
+ "lr-decay-horizon": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ocb score | grep -Eo 'loss [0-9.]+' | awk '{exit !($2 > 1.545)}' && echo MISS",
+    "expect": "MISS",
+    "ok": true,
+    "excerpt": "MISS\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "COMPLETED"
+  },
+  "detail": "",
+  "seconds": 184,
+  "task_digest": "sha256:b49931bbdca0ad930da4a1697b3dc043f1507c303cec2120de9138f5df669195",
+  "probes_hash": "6cbd33d34b644d8f",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:44:37Z"
+  }
+ },
+ "mem-request-unsatisfiable": {
+  "ok": true,
+  "agent_env_ok": "1/1",
+  "verifier_env_ok": true,
+  "why": "",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED_BEFORE_START",
+   "reason": "BadConstraints",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 26,
+  "task_digest": "sha256:04eccd974fe32e124e245b026d1116867ac3439e38ee9d6cb7623799a0b5c5fb",
+  "stamp": {
+   "git_sha": "1f9a530abce1",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:406e8febce9f1c26c65303fd1e5f9eb6515d7b998572d018212424d744405ff9",
+    "bench/harness:dev": "sha256:462a9423f7a735e3b85884db4f49672f12595d371f9596766bf01a1a546797ea",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:fbb14bb487a521846b65a46f8a8289365ef1300a1f592e7defe9f3008d3e42ef"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "uneven-val-gather",
+    "renamed-parameter",
+    "degraded-node",
+    "failed-dependency",
+    "eval-without-no-grad",
+    "ckpt-space-held-open",
+    "lr-decay-horizon",
+    "no-sync-off-by-one",
+    "hash-ordered-buckets",
+    "activation-oom",
+    "pg-timeout-below-checkpoint",
+    "tiny-ddp-buckets",
+    "mem-request-unsatisfiable",
+    "--repeat",
+    "1"
+   ],
+   "utc": "2026-10-04T08:37:53Z"
+  }
+ },
+ "monitor-step-blocks": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -rl 'step creation temporarily disabled' /shared/logs/ | head -n 1",
+    "expect": "/shared/logs/",
+    "ok": true,
+    "excerpt": "/shared/logs/train-1.out\n"
+   },
+   {
+    "run": "squeue -h -o %T",
+    "expect": "RUNNING",
+    "ok": true,
+    "excerpt": "RUNNING\n"
+   }
+  ],
+  "probes_ok": "2/2",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING",
+   "stalled_s": 40,
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 281,
+  "task_digest": "sha256:acfdcb6fff7701542a21603a467a3d8df3a920bafac639a9e35b4128af7bc5eb",
+  "probes_hash": "9b034b8b243032b5",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:49:33Z"
+  }
+ },
+ "no-sync-off-by-one": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ocb score | grep -Eo 'loss [0-9.]+' | awk '{exit !($2 > 1.545)}' && echo MISS",
+    "expect": "MISS",
+    "ok": true,
+    "excerpt": "MISS\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "COMPLETED"
+  },
+  "detail": "",
+  "seconds": 187,
+  "task_digest": "sha256:0da9e90693cc50eaeee5baacaa0118b7f92cbefbf4cb1182deb23a0eed720ffe",
+  "probes_hash": "6cbd33d34b644d8f",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T11:52:54Z"
+  }
+ },
+ "node-thread-oversubscription": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ssh -o BatchMode=yes c1 cat /etc/platform/job.env",
+    "expect": "OMP_NUM_THREADS=16",
+    "ok": true,
+    "excerpt": "# Site job environment (platform team), applied to every job task before /ops/cluster/nodes/<node>.env.\nLC_ALL=C.UTF-8\nOMP_NUM_THREADS=16\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING"
+  },
+  "detail": "",
+  "seconds": 470,
+  "task_digest": "sha256:64e38648f9f503e9cbfc63fb767726b8002debf548daaf018935214fcf4d731b",
+  "probes_hash": "44b44a285c742201",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T12:00:58Z"
+  }
+ },
+ "objstore-slowdown-backoff": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -rl '503\\|backoff\\|retry\\|Retry' /shared/logs/ | head -n 2",
+    "expect": "/shared/logs/",
+    "ok": true,
+    "excerpt": "/shared/logs/train-1.out\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 108,
+  "task_digest": "sha256:bb24db98072e2d583f8a0a2d398acf89561414e260ee4d18ee0c5bb95a0f8ebe",
+  "probes_hash": "3e5b4cfc55fc76b0",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T12:03:00Z"
+  }
+ },
+ "outlives-time-limit": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -rl 'DUE TO TIME LIMIT' /shared/logs/ | head -n 2",
+    "expect": "/shared/logs/",
+    "ok": true,
+    "excerpt": "/shared/logs/train-1.out\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "TIMEOUT",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 685,
+  "task_digest": "sha256:d80e08553f0c0d664a2a34c2a2f2fe4d02bf3643c20d3223d7641507576655cd",
+  "probes_hash": "f3fa9f21cee5dd6b",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T12:14:40Z"
+  }
+ },
+ "pg-timeout-below-checkpoint": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -rl 'imed out' /shared/logs/ | head -n 2",
+    "expect": "/shared/logs/",
+    "ok": true,
+    "excerpt": "/shared/logs/train-1.out\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 192,
+  "task_digest": "sha256:13ea98a4d24f510157f21bdc1c33b8a5f96a6dd129f2fe9d87c66e57768dbe0a",
+  "probes_hash": "53f6d6f8d43ccace",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T12:18:06Z"
+  }
+ },
+ "port-squatter-rdzv": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ssh -o BatchMode=yes c1 ss -ltn",
+    "expect": ":29500",
+    "ok": true,
+    "excerpt": " 4096         0.0.0.0:6818       0.0.0.0:*   \nLISTEN 0      128          0.0.0.0:22         0.0.0.0:*   \nLISTEN 0      128          0.0.0.0:29500      0.0.0.0:*   \nLISTEN 0      4096         0.0.0.0:45329      0.0.0.0:*   \nLISTEN 0      4096      127.0.0.11:42183      0.0.0.0:*   \nLISTEN 0      4096         0.0.0.0:42157      0.0.0.0:*   \nLISTEN 0      128             [::]:22            [::]:*   \n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING",
+   "stalled_s": 91
+  },
+  "detail": "",
+  "seconds": 370,
+  "task_digest": "sha256:d8e5acc25e8ba12e6dbf4714266e9a6dca0529b993979a2bcc316f6dec66089f",
+  "probes_hash": "3b484bc19d1933df",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T12:24:31Z"
+  }
+ },
+ "prefetch-thread-dies": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -rl '__next__\\|queue' /shared/evidence/dumps/ | head -n 2",
+    "expect": "dumps/",
+    "ok": true,
+    "excerpt": "/shared/evidence/dumps/1-1791203272/fr-c2-rank3.json\n/shared/evidence/dumps/1-1791203272/stack-c1-142.txt\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING",
+   "stalled_s": 31
+  },
+  "detail": "",
+  "seconds": 220,
+  "task_digest": "sha256:dc5ce40b8144f245c22a87e1fcfb4b4d075a93162efc1a9da8c9f9a86d81ad61",
+  "probes_hash": "f285182db3f250bf",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T12:28:25Z"
+  }
+ },
+ "rank0-eval-desync": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -rl 'ismatch' /shared/logs/ | head -n 2",
+    "expect": "/shared/logs/",
+    "ok": true,
+    "excerpt": "/shared/logs/train-1.out\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 127,
+  "task_digest": "sha256:2fb625b2e1ebdcfdbd770c4d8a6c8ac26b6f28bc67979ab6f806f9ee3f0c8494",
+  "probes_hash": "679f61788a210484",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T12:30:46Z"
+  }
+ },
+ "rank0-only-checkpoint": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -rl \"Timed out\\|timed out\\|doesn't match\\|ismatch\" /shared/logs/ | head -n 2",
+    "expect": "/shared/logs/",
+    "ok": true,
+    "excerpt": "/shared/logs/train-1.out\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED"
+  },
+  "detail": "",
+  "seconds": 487,
+  "task_digest": "sha256:e794730a5d959b696e61903a6d45a9fda21dc8ec3606432cb612a778d633455c",
+  "probes_hash": "245d0c4dbe5debef",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T12:39:08Z"
+  }
+ },
+ "rdzv-timeout-below-prolog": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -rl 'imed out\\|RendezvousTimeout' /shared/logs/ | head -n 2",
+    "expect": "/shared/logs/",
+    "ok": true,
+    "excerpt": "/shared/logs/train-1.out\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED"
+  },
+  "detail": "",
+  "seconds": 539,
+  "task_digest": "sha256:faaf8a462fd2ec1221e133251958df9a8f52b36f03f4796ff6cb8051eefb24e8",
+  "probes_hash": "c33e7888c7900760",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T12:48:22Z"
+  }
+ },
+ "realmemory-drain": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "sinfo -h -o '%t %E'",
+    "expect": "drain",
+    "ok": true,
+    "excerpt": "drain healthcheck: Low RealMemory (reported:1500 < 100.00% of configured:4000)\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "PENDING",
+   "reason": "Nodes_required_for_job_are_DOWN,_DRAINED_or_reserved_for_jobs_in_higher_priority_partitions"
+  },
+  "detail": "",
+  "seconds": 145,
+  "task_digest": "sha256:fc90e4a5542a263c63e685ad13db85c1525e61fe3dd710d2d6d47a6528e1ddca",
+  "probes_hash": "b8291c878007af58",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T12:51:02Z"
+  }
+ },
+ "redundant-param-broadcast": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -rl \"broadcast\" /shared/evidence/dumps/ | head -n 3",
+    "expect": "dumps/",
+    "ok": true,
+    "excerpt": "/shared/evidence/dumps/1-1791204927/fr-c2-rank3.json\n/shared/evidence/dumps/1-1791204927/stack-c2-117.txt\n/shared/evidence/dumps/1-1791204927/stacks.md\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING"
+  },
+  "detail": "",
+  "seconds": 285,
+  "task_digest": "sha256:d828691435998987ff9f9eda8034183bf1b6c74dba34baa2e80edef3b1c0896e",
+  "probes_hash": "d84f25049487897b",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T12:56:01Z"
+  }
+ },
+ "renamed-parameter": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "python3 -c \"import pickle; md = pickle.load(open('/shared/ckpt-store/runs/train/step_800/.metadata', 'rb')); print([k for k in sorted(md.state_dict_metadata) if 'layers' in k][:2])\"",
+    "expect": "model\\.layers\\.",
+    "ok": true,
+    "excerpt": "['model.layers.0.fc.bias', 'model.layers.0.fc.weight']\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "COMPLETED"
+  },
+  "detail": "",
+  "seconds": 190,
+  "task_digest": "sha256:7bcfdcbf8333972bb88f05fd40f54c05064cd05cdb8ef1340303fbcf9cf34f6f",
+  "probes_hash": "94db0310f56b7061",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T13:00:09Z"
+  }
+ },
+ "same-shard": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "python3 -c \"from safetensors.torch import load_file; print(load_file('/shared/data/corpus.safetensors')['shards'].tolist())\"",
+    "expect": "\\[\\[0, 4096\\], \\[0, 4096\\], \\[0, 4096\\], \\[0, 4096\\]\\]",
+    "ok": true,
+    "excerpt": "[[0, 4096], [0, 4096], [0, 4096], [0, 4096]]\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "COMPLETED"
+  },
+  "detail": "",
+  "seconds": 180,
+  "task_digest": "sha256:debeab188d8863000b0b7393d9be6704cf3737efb71168201a00ae57cef10759",
+  "probes_hash": "f7e74b49dc53f730",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T13:03:23Z"
+  }
+ },
+ "scratch-is-tmpfs": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ssh -o BatchMode=yes c1 df -hT /scratch",
+    "expect": "tmpfs",
+    "ok": true,
+    "excerpt": "Filesystem     Type   Size  Used Avail Use% Mounted on\ntmpfs          tmpfs  4.0G  932M  3.1G  23% /scratch\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED"
+  },
+  "detail": "",
+  "seconds": 143,
+  "task_digest": "sha256:f6bee9b0c395b6c473da24618b7c4d3cee17dc5cad4a94accdb3b89e1f03da03",
+  "probes_hash": "a893b173802b219e",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T13:06:02Z"
+  }
+ },
+ "stale-hosts-entry": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ssh -o BatchMode=yes c2 getent ahostsv4 c1 | head -n 1",
+    "expect": "\\.250 ",
+    "ok": true,
+    "excerpt": "172.19.0.250    STREAM c1\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING",
+   "stalled_s": 62
+  },
+  "detail": "",
+  "seconds": 285,
+  "task_digest": "sha256:ff91d68b2952e297a0dc3e17697ce88a278a88c37ab4216d943c28ccd58edbfc",
+  "probes_hash": "3a7e4a832b5545b5",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T13:11:02Z"
+  }
+ },
+ "stats-thread-lingers": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "squeue -h -o %T",
+    "expect": "RUNNING",
+    "ok": true,
+    "excerpt": "RUNNING\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING"
+  },
+  "detail": "",
+  "seconds": 282,
+  "task_digest": "sha256:647764b4a791599bac2b72122a0536988d8a4342263d1c37e0ffb4b39d52bf58",
+  "probes_hash": "726a89089267f594",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T13:15:58Z"
+  }
+ },
+ "subgroup-skip-deadlock": {
+  "ok": true,
+  "agent_env_ok": "1/1",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "grep -rl 'barrier\\|all_reduce\\|new_group' /shared/evidence/dumps/ | head -n 2",
+    "expect": "dumps/",
+    "ok": true,
+    "excerpt": "/shared/evidence/dumps/1-1791244266/fr-c2-rank3.json\n/shared/evidence/dumps/1-1791244266/stack-c2-111.txt\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING",
+   "stalled_s": 31
+  },
+  "detail": "",
+  "seconds": 73,
+  "task_digest": "sha256:e3e9e27930a973ecc3d52e8732806b454f6c65f4bb97580641ff7be597d1f587",
+  "probes_hash": "1f68fea90a5aec18",
+  "stamp": {
+   "git_sha": "5abe84a08cef",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "subgroup-skip-deadlock",
+    "uneven-val-gather",
+    "engine-ctx-kv-window"
+   ],
+   "utc": "2026-10-05T23:51:41Z"
+  }
+ },
+ "tiny-ddp-buckets": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ssh -o BatchMode=yes c1 tc qdisc show dev eth0",
+    "expect": "netem",
+    "ok": true,
+    "excerpt": "qdisc netem 8133: root refcnt 17 limit 1000 delay 5ms rate 1Gbit seed 434404895004490431\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING"
+  },
+  "detail": "",
+  "seconds": 287,
+  "task_digest": "sha256:86ea9df03f52f3f762e0321b8efd21640d029568ee8a40aaa334dfcfb7a07fdb",
+  "probes_hash": "bd28079816dc48b3",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T13:24:51Z"
+  }
+ },
+ "tokenizer-remap-shard": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ocb score | grep -Eo 'loss [0-9.]+' | awk '{exit !($2 > 1.545)}' && echo MISS",
+    "expect": "MISS",
+    "ok": true,
+    "excerpt": "MISS\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "COMPLETED"
+  },
+  "detail": "",
+  "seconds": 183,
+  "task_digest": "sha256:3fc1e9d9e072326a192acc3f3ee63f87e21e0fb8093ca0b75fe109c88520a29a",
+  "probes_hash": "6cbd33d34b644d8f",
+  "stamp": {
+   "git_sha": "ff10838c7c75",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T13:28:09Z"
+  }
+ },
+ "uneven-val-gather": {
+  "ok": true,
+  "agent_env_ok": "1/1",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "python3 -c \"from safetensors.torch import load_file; print(load_file('/shared/data/corpus.safetensors')['val'].shape)\"",
+    "expect": "510",
+    "ok": true,
+    "excerpt": "torch.Size([510, 65])\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED",
+   "log_match": true
+  },
+  "detail": "",
+  "seconds": 45,
+  "task_digest": "sha256:88e897eab78bf9d27a50d3e9f3e983c87ad5a772d7e5419f5a2f87b33f8b9a91",
+  "probes_hash": "6a4c9effb7e0ac0c",
+  "stamp": {
+   "git_sha": "5abe84a08cef",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "subgroup-skip-deadlock",
+    "uneven-val-gather",
+    "engine-ctx-kv-window"
+   ],
+   "utc": "2026-10-05T23:52:40Z"
+  }
+ },
+ "unshifted-labels": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ocb score | grep -Eo 'loss [0-9.]+' | awk '{exit !($2 > 1.545)}' && echo MISS",
+    "expect": "MISS",
+    "ok": true,
+    "excerpt": "MISS\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "COMPLETED"
+  },
+  "detail": "",
+  "seconds": 187,
+  "task_digest": "sha256:ab31528fa811a297c7d95fe159a201d67720f1f4447108fcedc592bc0e9245f6",
+  "probes_hash": "6cbd33d34b644d8f",
+  "stamp": {
+   "git_sha": "81199e7862f4",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T13:33:59Z"
+  }
+ },
+ "wait-on-heartbeat": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "squeue -h -o %T",
+    "expect": "RUNNING",
+    "ok": true,
+    "excerpt": "PENDING\nRUNNING\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "2"
+   ],
+   "observed": true,
+   "state": "RUNNING"
+  },
+  "detail": "",
+  "seconds": 276,
+  "task_digest": "sha256:5b5127369106af67414499d406011c564d0aa35cbeee0cb11ac8b84b499d23f6",
+  "probes_hash": "726a89089267f594",
+  "stamp": {
+   "git_sha": "81199e7862f4",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T13:38:49Z"
+  }
+ },
+ "wrong-nic-one-node": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "ssh -o BatchMode=yes c1 ip -4 -o addr show dev eth0",
+    "expect": "10\\.20\\.0\\.",
+    "ok": true,
+    "excerpt": "3: eth0    inet 10.20.0.11/24 scope global eth0\\       valid_lft forever preferred_lft forever\n"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "RUNNING",
+   "stalled_s": 30
+  },
+  "detail": "",
+  "seconds": 197,
+  "task_digest": "sha256:4c1b775be7a2b5095c938cb136fe0a493df60e5d623fe077dd246b502a6112ef",
+  "probes_hash": "c7505e53f0e5ac46",
+  "stamp": {
+   "git_sha": "a0948fca76bd",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T13:42:20Z"
+  }
+ },
+ "wrong-run-checkpoint": {
+  "ok": true,
+  "agent_env_ok": "1/1",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "cat /shared/ckpt-store/runs/train/latest",
+    "expect": "train-wide/step_800",
+    "ok": true,
+    "excerpt": "../train-wide/step_800"
+   }
+  ],
+  "probes_ok": "1/1",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED"
+  },
+  "detail": "",
+  "seconds": 150,
+  "task_digest": "sha256:7d9fad269fe2d35adaa2c20f6fd4936ed9484ed90323cdc3648db335251fe6c0",
+  "stamp": {
+   "git_sha": "7855af428b61",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:bcc903cfb4b1c4ccfb0354b68fbae74d800c745b710070d6ebfb5144cd0e2541",
+    "bench/harness:dev": "sha256:2de3c798b2e03c6e755ac0e1867c819ab79ed3050875d59ce56e6dda73d531e9",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:55193c2ebf512ce62a38151d1d6eb1bdc052d92b44e1e38f2abcf74fd1e6429f"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test"
+   ],
+   "utc": "2026-10-05T07:46:14Z"
+  }
+ },
+ "wrong-run-renamed-keys": {
+  "ok": true,
+  "agent_env_ok": "3/3",
+  "verifier_env_ok": true,
+  "why": "",
+  "probes": [
+   {
+    "run": "cat /shared/ckpt-store/runs/train/latest",
+    "expect": "train-wide/step_800",
+    "ok": true,
+    "excerpt": "../train-wide/step_800"
+   },
+   {
+    "run": "python3 -c \"import pickle; md = pickle.load(open('/shared/ckpt-store/runs/train/step_800/.metadata', 'rb')); print([k for k in sorted(md.state_dict_metadata) if 'layers' in k][:2])\"",
+    "expect": "model\\.layers\\.",
+    "ok": true,
+    "excerpt": "['model.layers.0.fc.bias', 'model.layers.0.fc.weight']\n"
+   }
+  ],
+  "probes_ok": "2/2",
+  "symptom": {
+   "job_ids": [
+    "1"
+   ],
+   "observed": true,
+   "state": "FAILED"
+  },
+  "detail": "",
+  "seconds": 235,
+  "task_digest": "sha256:578587056d59cd6a7f4e315ff72b5893f5cc97304dc23eae78d2aee327d45dd8",
+  "probes_hash": "3a6dd7fcd32a9016",
+  "stamp": {
+   "git_sha": "a0948fca76bd",
+   "git_dirty": true,
+   "images": {
+    "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+    "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+    "bench/runtime-cuda:dev": "",
+    "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+   },
+   "harbor": "0.23.0",
+   "host": "dev-host",
+   "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+   "argv": [
+    "bench",
+    "bootcheck",
+    "--split",
+    "test",
+    "--repeat",
+    "3"
+   ],
+   "utc": "2026-10-05T13:48:21Z"
+  }
+ }
+}

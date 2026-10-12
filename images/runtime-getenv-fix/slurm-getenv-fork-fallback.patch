@@ -1,0 +1,27 @@
+--- a/src/common/env.c	2026-10-08 07:05:32.082830519 +0000
++++ b/src/common/env.c	2026-10-08 07:05:32.099829901 +0000
+@@ -2219,8 +2219,22 @@
+ 			_child_fn(&child_args);
+ 	} else {
+ 		if ((child = _clone_env_child(&child_args)) == -1) {
+-			fatal("clone: %m");
+-			return NULL;
++			/*
++			 * A container without CAP_SYS_ADMIN cannot create pid
++			 * or mnt namespaces (EPERM) although the sysctls read
++			 * by _ns_disabled() say they are enabled: fall back to
++			 * fork as when they are disabled, instead of exiting.
++			 */
++			warning("%s: clone into pid/mnt namespaces failed: %m; falling back to fork",
++				__func__);
++			child_args.perform_mount = false;
++			child = fork();
++			if (child == -1) {
++				fatal("fork: %m");
++				return NULL;
++			}
++			if (child == 0)
++				_child_fn(&child_args);
+ 		}
+ 	}
+ #endif

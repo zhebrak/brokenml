@@ -1,0 +1,4 @@
+{"_comment": "Settings for the live-logs arm's Claude Haiku 5.5 row: every test task in the logs variant, one attempt.",
+ "variants": ["logs"],
+ "configurations": [{"model": "anthropic/claude-haiku-5-5", "reasoning_effort": "high"}],
+ "k": 1, "lite_k": 1, "seed": 20261015, "max_trials": 46, "budget_usd": 10, "row_budget_usd": 10}

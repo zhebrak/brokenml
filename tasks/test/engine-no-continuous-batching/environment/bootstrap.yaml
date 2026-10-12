@@ -1,0 +1,10 @@
+substrate: serving
+spec: The inference service `engine` should serve the standard load (64 requests from
+  16 concurrent clients) at no less than three quarters of the platform's reference
+  throughput (about 250 generated tokens/s on this hardware) with a p95 time to first
+  token of at most 3.0 s, without errors.
+symptom:
+  kind: serving
+ready_timeout_s: 150.0
+spec_tokens_per_s: 200.0
+spec_ttft_p95_s: 3.0

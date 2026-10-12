@@ -1,0 +1,199 @@
+{
+ "task": "activation-oom",
+ "mode": "release",
+ "oracle": 10,
+ "nop": 3,
+ "pass": true,
+ "inputs": {
+  "task_digest": "sha256:47086c7d318544643ae0adcae1c9a1e449295c203280afb60868afdc23089d54",
+  "grader_digest": "sha256:af2f9b8bab61b8a0a40b8b97080c48f8183a75c559649d1fa40c0b518b7096b9",
+  "wrong_fixes": "6f8ab48775ee6a15",
+  "images": {
+   "bench/harness:dev": "sha256:0efc30d4550f6c1d452dadccae45b0cba478abde66a96a211d83b734debe7f6f",
+   "bench/runtime:dev": "sha256:2dbb48ff58459a6259e1cddd936dc2d6d3d35765bf51b8d9c06f48ef521a8477"
+  }
+ },
+ "stamp": {
+  "git_sha": "5184f7233d8d",
+  "git_dirty": true,
+  "images": {
+   "bench/runtime:dev": "sha256:2dbb48ff58459a6259e1cddd936dc2d6d3d35765bf51b8d9c06f48ef521a8477",
+   "bench/harness:dev": "sha256:0efc30d4550f6c1d452dadccae45b0cba478abde66a96a211d83b734debe7f6f",
+   "bench/runtime-cuda:dev": "",
+   "bench/serve:dev": "sha256:adbc02fa167de69d0f6bd89e0446d79524536e64a1ba1fc0109980ad06a31ac9"
+  },
+  "harbor": "0.23.0",
+  "host": "study-host",
+  "cpu": "AMD EPYC 9R14",
+  "argv": [
+   "bench",
+   "qa",
+   "activation-oom",
+   "--release",
+   "--regrade"
+  ],
+  "utc": "2026-10-06T17:38:13Z"
+ },
+ "checks": [
+  {
+   "check": "canary in task files",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "[bundle] every image pinned to the digests in images/images.toml",
+   "ok": false,
+   "detail": "bench/harness:dev, bench/runtime:dev"
+  },
+  {
+   "check": "every image is one of images/images.toml",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "no tests or solution in the agent image",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "no network fetches in test.sh",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "named volumes only (no host binds)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "only /ops crosses to the verifier (artifacts)",
+   "ok": true,
+   "detail": "/ops"
+  },
+  {
+   "check": "workstation image copies nothing task-specific",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "workstation image is the runtime image",
+   "ok": true,
+   "detail": "bench/runtime:dev"
+  },
+  {
+   "check": "harness image only for provision / objstore",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "no privileged containers",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "agent cluster on an internal network (no egress)",
+   "ok": true,
+   "detail": "networks: {'cluster': {'internal': True}}"
+  },
+  {
+   "check": "harness sidecars run only their service (no shell)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "loss threshold calibrated",
+   "ok": true,
+   "detail": "loss_max 3.44 in [3.4012, 3.5799] (legit 3.3440-3.3583 n=3, shortcuts >= 3.6228 n=3); must fail o-activation-zero-head >= 3.4657; probe o-activation-quarter-batch 3.3511-3.3684 (not rejected by loss_max); probe o-activation-steps-25 3.3273-3.3393 (not rejected by loss_max)"
+  },
+  {
+   "check": "[release] calibration measured on the current images, task and variants",
+   "ok": true,
+   "detail": "o-activation: images ok, task ok, variants ok; 2026-10-06T16:31:46Z \u00b7 commit 5184f7233d8d+dirty \u00b7 runtime:dev 2dbb48ff5845, harness:dev 0efc30d4550f, runtime-cuda:dev ?, serve:dev adbc02fa167d \u00b7 AMD EPYC 9R14 (study-host)"
+  },
+  {
+   "check": "oracle 10/10",
+   "ok": true,
+   "detail": "{\"reward\": 1.0, \"runtime_version\": \"8631a20f3ea56bdc\", \"harness_version\": \"f09386b64d9d9184\", \"runtime_build\": \"c7497b3f4d07157a\", \"harness_build\": \"4a65e6b70d5221cf\", \"failure\": \"none\", \"infra_error\": 0.0, \"complete\": 1.0, \"substrate\": \"slurm\", \"policy_ok\": 1.0, \"teacher_seed\": 2651985263.0, \"heldo"
+  },
+  {
+   "check": "nop 3/3 score 0",
+   "ok": true,
+   "detail": "{\"reward\": 0.0, \"runtime_version\": \"8631a20f3ea56bdc\", \"harness_version\": \"f09386b64d9d9184\", \"runtime_build\": \"c7497b3f4d07157a\", \"harness_build\": \"4a65e6b70d5221cf\", \"failure\": \"agent\", \"infra_error\": 0.0, \"complete\": 1.0, \"substrate\": \"slurm\", \"policy_ok\": 1.0, \"teacher_seed\": 733743940.0, \"heldo"
+  },
+  {
+   "check": "symptom observed at bootstrap",
+   "ok": true,
+   "detail": "{\"job_ids\": [\"1\"], \"observed\": true, \"state\": \"FAILED\", \"log_match\": true}; {\"job_ids\": [\"1\"], \"observed\": true, \"state\": \"FAILED\", \"log_match\": true}; {\"job_ids\": [\"1\"], \"observed\": true, \"state\": \"FAILED\", \"log_match\": true}"
+  },
+  {
+   "check": "wrong fix 'fewer-ranks-per-node' scores 0",
+   "ok": true,
+   "detail": "{\"reward\": 0.0, \"runtime_version\": \"8631a20f3ea56bdc\", \"harness_version\": \"f09386b64d9d9184\", \"runtime_build\": \"c7497b3f4d07157a\", \"harness_build\": \"4a65e6b70d5221cf\", \"failure\": \"agent\", \"infra_error\": 0.0, \"complete\": 1.0, \"substrate\": \"slurm\", \"policy_ok\": 0.0}"
+  },
+  {
+   "check": "wrong fix 'fsdp-same-batch' scores 0",
+   "ok": true,
+   "detail": "{\"reward\": 0.0, \"runtime_version\": \"8631a20f3ea56bdc\", \"harness_version\": \"f09386b64d9d9184\", \"runtime_build\": \"c7497b3f4d07157a\", \"harness_build\": \"4a65e6b70d5221cf\", \"failure\": \"agent\", \"infra_error\": 0.0, \"complete\": 1.0, \"substrate\": \"slurm\", \"policy_ok\": 1.0, \"teacher_seed\": 3310673422.0, \"held"
+  },
+  {
+   "check": "wrong fix 'lr-zero' scores 0",
+   "ok": true,
+   "detail": "{\"reward\": 0.0, \"runtime_version\": \"8631a20f3ea56bdc\", \"harness_version\": \"f09386b64d9d9184\", \"runtime_build\": \"c7497b3f4d07157a\", \"harness_build\": \"4a65e6b70d5221cf\", \"failure\": \"agent\", \"infra_error\": 0.0, \"complete\": 1.0, \"substrate\": \"slurm\", \"policy_ok\": 0.0}"
+  },
+  {
+   "check": "wrong fix 'no-step' scores 0",
+   "ok": true,
+   "detail": "{\"reward\": 0.0, \"runtime_version\": \"8631a20f3ea56bdc\", \"harness_version\": \"f09386b64d9d9184\", \"runtime_build\": \"c7497b3f4d07157a\", \"harness_build\": \"4a65e6b70d5221cf\", \"failure\": \"agent\", \"infra_error\": 0.0, \"complete\": 1.0, \"substrate\": \"slurm\", \"policy_ok\": 0.0}"
+  }
+ ],
+ "oracle_history": [
+  {
+   "passed": 10,
+   "runs": 10,
+   "stamp": {
+    "git_sha": "5184f7233d8d",
+    "git_dirty": true,
+    "images": {
+     "bench/runtime:dev": "sha256:2dbb48ff58459a6259e1cddd936dc2d6d3d35765bf51b8d9c06f48ef521a8477",
+     "bench/harness:dev": "sha256:0efc30d4550f6c1d452dadccae45b0cba478abde66a96a211d83b734debe7f6f",
+     "bench/runtime-cuda:dev": "",
+     "bench/serve:dev": "sha256:adbc02fa167de69d0f6bd89e0446d79524536e64a1ba1fc0109980ad06a31ac9"
+    },
+    "harbor": "0.23.0",
+    "host": "study-host",
+    "cpu": "AMD EPYC 9R14",
+    "argv": [
+     "bench",
+     "qa",
+     "activation-oom",
+     "--release",
+     "-n",
+     "3"
+    ],
+    "utc": "2026-10-06T16:49:45Z"
+   }
+  }
+ ],
+ "regraded_from": {
+  "git_sha": "5184f7233d8d",
+  "git_dirty": true,
+  "images": {
+   "bench/runtime:dev": "sha256:2dbb48ff58459a6259e1cddd936dc2d6d3d35765bf51b8d9c06f48ef521a8477",
+   "bench/harness:dev": "sha256:0efc30d4550f6c1d452dadccae45b0cba478abde66a96a211d83b734debe7f6f",
+   "bench/runtime-cuda:dev": "",
+   "bench/serve:dev": "sha256:adbc02fa167de69d0f6bd89e0446d79524536e64a1ba1fc0109980ad06a31ac9"
+  },
+  "harbor": "0.23.0",
+  "host": "study-host",
+  "cpu": "AMD EPYC 9R14",
+  "argv": [
+   "bench",
+   "qa",
+   "activation-oom",
+   "--release",
+   "-n",
+   "3"
+  ],
+  "utc": "2026-10-06T16:49:44Z"
+ }
+}

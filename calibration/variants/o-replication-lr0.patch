@@ -1,0 +1,13 @@
+diff --git a/jobs/train/train.yaml b/jobs/train/train.yaml
+index f0985b0..3392f29 100644
+--- a/jobs/train/train.yaml
++++ b/jobs/train/train.yaml
+@@ -4,7 +4,7 @@ seed: 0
+ steps: 20
+ micro_batch: 4
+ grad_accum: 1
+-lr: 0.0003
++lr: 0.0
+ warmup_steps: 5
+ decay_steps: null        # cosine horizon in steps; null: the whole run
+ weight_decay: 0.0

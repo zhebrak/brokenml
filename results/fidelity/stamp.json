@@ -1,0 +1,8 @@
+{
+ "note": "Written after the fact from the commit history and docs/fidelity.md; the runs predate bench.provenance.",
+ "scenarios": {"record": "fidelity.json", "commit": "4cb16ee", "utc": "2026-10-01T12:33:00Z"},
+ "jobs": {"record": "jobs.jsonl", "commit": "8b59941", "utc": "2026-10-01T12:48:00Z", "superseded": true},
+ "host": "RunPod 2x H100 80GB SXM (NVLink)",
+ "software": {"torch": "2.14.1+cu130", "nccl": "2.30.7", "NCCL_NVLS_ENABLE": "0", "process_group_timeout_s": 30},
+ "gloo_host": "local box (AMD Zen 4, 16 threads), torch 2.14.1+cpu"
+}

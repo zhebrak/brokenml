@@ -1,0 +1,3 @@
+{"_comment": "Settings for the GPT-6.1 Sol row on the OpenAI API at high reasoning effort, reported separately from the pre-registered comparisons.",
+ "configurations": [{"model": "openai/gpt-6.1-sol", "reasoning_effort": "high"}],
+ "k": 1, "lite_k": 1, "seed": 20261007, "max_trials": 92, "budget_usd": 100, "row_budget_usd": 75}

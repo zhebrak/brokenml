@@ -1,0 +1,2 @@
+# the collator now shifts the other way: the logits at t score the token at t (the input itself)
+held-out loss

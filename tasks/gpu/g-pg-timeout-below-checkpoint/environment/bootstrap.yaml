@@ -1,0 +1,13 @@
+substrate: gpu
+min_nodes: 1
+spec: The training job `train` (`/ops/jobs/train/`) should train for 500 steps with
+  2 ranks on node g1's 2 GPUs, report validation loss every 100 steps, finish in about
+  a minute, and export a model whose held-out loss is at most 1.545.
+symptom:
+  kind: failed
+  timeout_s: 400.0
+  log_match: Watchdog caught collective operation timeout
+corpus:
+  train: 16384
+  val: 512
+  length: 65

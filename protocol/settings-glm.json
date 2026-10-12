@@ -1,0 +1,3 @@
+{"_comment": "Settings for the GLM-5.3-flash row on its provider's own endpoint: every test task in both arms at high reasoning effort.",
+ "configurations": [{"model": "openrouter/z-ai/glm-5.3-flash", "provider": "z-ai/fp8", "reasoning_effort": "high"}],
+ "k": 1, "lite_k": 1, "seed": 20261009, "max_trials": 92, "budget_usd": 30, "row_budget_usd": 25}

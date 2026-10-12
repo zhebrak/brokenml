@@ -1,0 +1,11 @@
+min_nodes: 0
+spec: The training job `train` (`/ops/jobs/train/`) should start promptly, train for
+  500 steps on 2 nodes x 2 ranks, report validation loss every 100 steps, finish in
+  about a minute, and export a model whose held-out loss is at most 1.545.
+symptom:
+  kind: pending
+  timeout_s: 180.0
+corpus:
+  train: 16384
+  val: 512
+  length: 65

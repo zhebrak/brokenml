@@ -1,0 +1,11 @@
+spec: The training job `train` (`/ops/jobs/train/`) should train its 101M-parameter
+  model for 20 steps on 2 nodes x 2 ranks (global batch 16), write the model's weights
+  for the eval team every 10 steps, report validation loss every 10 steps, finish
+  in a couple of minutes and export the model.
+symptom:
+  kind: failed
+  log_match: SIGKILL
+corpus:
+  train: 2048
+  val: 64
+  length: 65

@@ -1,0 +1,44 @@
+substrate: gpu
+min_nodes: 1
+world_size: 2
+deadline_s: 300
+corpus:
+  train: 16384
+  val: 512
+  length: 65
+policy:
+  contract:
+    fixed:
+    - model
+    - steps
+    - seed
+    - train_seqs
+    - val_seqs
+    - data
+    - export
+    - resume_from
+    - ckpt_dir
+    - lr
+    - warmup_steps
+    - device
+    - precision
+    bounds:
+      eval_every:
+        min: 1
+        max: 100
+      pg_timeout_s:
+        min: 1
+        max: 300
+    products:
+    - keys:
+      - micro_batch
+      - grad_accum
+      equals: 64
+loss_max: 1.545
+calibration: g-base-job
+require_val_every: 100
+placement:
+  nodes: 1
+  ranks_per_node: 2
+gpu_class: unknown
+gpu_budget_mb: 16384

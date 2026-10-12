@@ -1,0 +1,37 @@
+# Data-based remarks per task (each statement computed from trials.csv / the run directories; see stats11.py and the other scripts).
+N = {}
+N['tokenizer-remap-shard'] = ("All 25 failures are jobs that completed with a held-out loss over the bound (24 of them between 1.72 and 1.77; one Nemotron run at 2.88). "
+ "Of the 12 failing runs that wrote an `ANALYSIS.md`, 8 put the shortfall down to the learning-rate schedule or other hyperparameters and one named the data. "
+ "Both passes are Sol's (live cluster and live logs), and both identified two mixed populations in the training data.")
+N['fsdp-spans-slow-link'] = ("Of the 21 failures, 11 are throughput misses (ratio 0.41 to 0.65 against a minimum of 0.8) and 8 are crashes, 6 of them after switching to `parallel: ddp`, which does not fit in node memory. "
+ "Of the 6 passes, 3 built a 2D mesh (Sol and Sonnet in the logs arm, Luna with the live cluster). The other 3 did not: Sol and Sonnet with the live cluster combined bf16 gathers with `reshard_after_forward=False` and ran about 19-20% faster than the HSDP reference (ratios 1.19 and 1.20), and MiniMax with the live cluster used bf16 gathers alone and passed at 0.825 against the 0.8 minimum. "
+ "The scripted wrong fixes `bf16-communication` and `no-reshard` fail on their own in the sweep; these runs show that the throughput gate can be passed without the reference's mesh.")
+N['node-thread-oversubscription'] = ("The logs arm shows `ocb nodes` with c1 throttled but not the value of `OMP_NUM_THREADS`. "
+ "In the 11 failing live-cluster and logs runs, 8 edited `launch.sbatch`, 4 changed the CPU count in `slurm.conf` (their analyses compare the 32 hardware CPUs slurmd reports with the 2 Slurm declares) and 3 changed `dist.py`; none set the variable in a node env file. "
+ "5 of the 6 live-cluster and logs passes set `OMP_NUM_THREADS=1` in `cluster/nodes/c1.env`; Luna's live-cluster pass changed only `launch.sbatch`.")
+N['port-squatter-rdzv'] = ("In the logs arm the evidence includes the bootstrap stacks (every rank in `_create_tcp_store`) but not the node's listening sockets, and 1 of 9 runs solved it (Sonnet). "
+ "Files-only agents had no symptom to start from: 3 of the 9 changed nothing, and 3 edited `slurm.conf`.")
+N['wrong-nic-one-node'] = ("Of the 18 live-cluster and logs runs, 9 failed, and 6 of those edited only `launch.sbatch`: most of their analyses name the pinned `eth0` correctly but apply a single interface name (or none) to both nodes, which the scripted wrong fixes `eth1-everywhere` and `unset-ifname` cover. "
+ "7 of the 9 passes set the variable per node in `cluster/nodes/*.env`.")
+N['stale-hosts-entry'] = "Live cluster 7 of 9, logs 2 of 8: reading name resolution on each node (`getent hosts` over ssh) is the decisive observation, and the logs arm has no node shell."
+N['degraded-node'] = ("All 14 failures are throughput or placement misses; none crashed. The logs arm solved it 6 of 9 times (the passing analyses cite c2's throttled cgroup counters), and none of the 9 files-only runs did: 4 changed nothing in `/ops` and 2 edited `slurm.conf`.")
+N['latest-half-written'] = ("14 of the 16 passes changed `checkpointing.py` (the resume code) and 4 changed `resume_from` in `train.yaml`, which is the reference's fix; the grader checks the outcome, so both pass. None of the 9 files-only runs solved it: nothing in `/ops` shows which checkpoint is incomplete.")
+N['scratch-is-tmpfs'] = "14 of the 17 passes changed `data.py` and 6 changed the node environment (the reference's route); some did both."
+N['realmemory-drain'] = "All 7 failures (6 files-only, 1 logs) left the cluster unusable: the nodes stay drained, and none of the 7 changed `RealMemory`."
+N['eval-without-no-grad'] = "All 13 failures crashed again in the verifier's run, and 9 of them edited `train.yaml` rather than the evaluation code."
+N['subgroup-skip-deadlock'] = "12 of the 13 failures ended with the job crashing at the process-group timeout. All 14 passes edited `monitor.py` (none used the node env alternatives)."
+N['outlives-time-limit'] = ("Five of the six trials regraded on the patched Slurm runtime (slurmd's `--get-user-env` path exits when it cannot create namespaces in an unprivileged container, which an agent's `sbatch --export=ALL,...` triggers; SchedMD/slurm#235) are this task's: "
+ "four now pass (GLM files only, Luna logs, Sol and Sonnet live) and one still fails (GLM logs). The 12 failures are spread over six classes (Slurm time limit 5, policy 2, processes left running 2, no job accepted 1, no exported model 1, wrong loss 1).")
+N['failed-dependency'] = "One of the six trials regraded on the patched Slurm runtime is this task's (Sol, files only), which passes."
+N['engine-startup-timeout'] = "All 8 files-only failures left `STARTUP_TIMEOUT_S=20` unchanged (6 of them edited other lines of `engine.env`, 2 changed nothing): without the restart loop in front of them, the number does not look wrong. The one files-only pass (Sonnet) set it to 60."
+N['engine-no-continuous-batching'] = ("All 3 failures are Nemotron's: each set `CONT_BATCHING=1` correctly and wrote `engine.env` with a line that is not `KEY=VALUE`, so the policy check rejected the file. "
+ "The stray line is the tail of the file's 91-character header comment: Terminus 2's 80-column terminal wrapped it on screen and the agent copied it back as two lines. The live engine ignores such a line, so the agent's own check passed (`findings.md`, section 5; `known-issues.md`, the terminal-wrap issue).")
+N['engine-single-slot'] = ("The 4 failures: Nemotron (twice) and Kimi set `PARALLEL` to 8, 2 and 12 and missed the latency or throughput limit, and Qwen's correct `PARALLEL=16` came with an unparseable `engine.env`: "
+ "the file's 91-character header comment, wrapped by the 80-column terminal and written back as two lines (`findings.md`, section 5).")
+N['engine-thread-oversubscription'] = ("Nemotron's files-only failure set the thread count correctly and lost to the same terminal-wrapped header comment in `engine.env` as the other engine tasks (`findings.md`, section 5); the other failure missed the throughput limit.")
+N['consolidated-copy-oom'] = ("One of the failures, Nemotron's live-cluster run, is a `train.yaml` that no longer parses: the 91-character comment on `eval_export_every` came back as two lines after the 80-column terminal wrapped it, leaving a bare `safetensors` line (`findings.md`, section 5).")
+N['activation-oom'] = "2 of the 10 failures are policy breaks by Nemotron (a backup copy of `train.yaml` left in `jobs/train/`)."
+N['ddp-replication-oom'] = "3 of the 7 failures are policy breaks by Nemotron (a `.backup` or `.bak` copy of `train.yaml` left in `jobs/train/`)."
+N['ckpt-space-held-open'] = "All 16 passes changed `checkpointing.py`. The two files-only passes (Sol and Sonnet) found the retained shard mappings from the code alone; the 11 failures are 7 files-only runs, 2 with the live cluster and 2 with logs, mostly on the checkpoint cadence."
+N['fsdp-fine-wrapping'] = ("One of the logs-condition passes is counted as a fail after review: Kimi's run deleted the FSDP branch of `parallel.wrap` and kept `parallel: fsdp` in the config, so the job ran plain DDP and met the speed bound without sharding (`results/study/zeroed.yaml`; `anti-cheating.md` has the review). "
+ "Of the 8 other failures, 7 ended at the Slurm time limit because the job was still too slow (4 of those 7 agents changed nothing in `/ops`) and one crashed.")

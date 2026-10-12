@@ -1,0 +1,44 @@
+services:
+  main:
+    volumes:
+    - ops:/ops
+    - shared:/shared
+    networks:
+    - cluster
+  engine:
+    image: bench/serve:dev
+    pull_policy: never
+    hostname: engine
+    volumes:
+    - ops:/ops:ro
+    - shared:/shared
+    cpus: 2
+    mem_limit: 1500m
+    memswap_limit: 1500m
+    healthcheck:
+      disable: true
+    environment:
+      OCB_MODEL_FETCH_S: '45'
+    networks:
+    - cluster
+  provision:
+    build:
+      context: .
+      dockerfile: Dockerfile.provision
+    hostname: provision
+    command:
+    - provision
+    volumes:
+    - ops:/ops
+    - shared:/shared
+    environment:
+      OCB_EXPECT_HARNESS: f09386b64d9d9184
+      OCB_EXPECT_RUNTIME: 8631a20f3ea56bdc
+    networks:
+    - cluster
+volumes:
+  ops: {}
+  shared: {}
+networks:
+  cluster:
+    internal: true

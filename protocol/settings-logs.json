@@ -1,0 +1,43 @@
+{
+ "_comment": "Settings for the live-logs arm: every test task in the logs variant, one attempt per row.",
+ "variants": [
+  "logs"
+ ],
+ "configurations": [
+  {
+   "model": "openrouter/qwen/qwen3.8-27b",
+   "reasoning_effort": "high"
+  },
+  {
+   "model": "openrouter/deepseek/deepseek-v4.1-flash",
+   "reasoning_effort": "high"
+  },
+  {
+   "model": "openrouter/minimax/minimax-m3",
+   "reasoning_effort": "high"
+  },
+  {
+   "model": "anthropic/claude-sonnet-5-5",
+   "reasoning_effort": "high"
+  },
+  {
+   "model": "openrouter/nvidia/nemotron-3-super-120b-a12b",
+   "reasoning_effort": "high"
+  },
+  {
+   "model": "openrouter/moonshotai/kimi-k2.7-code",
+   "reasoning_effort": "high"
+  },
+  {
+   "model": "openrouter/z-ai/glm-5.3-flash",
+   "provider": "z-ai/fp8",
+   "reasoning_effort": "high"
+  }
+ ],
+ "k": 1,
+ "lite_k": 1,
+ "seed": 20261010,
+ "max_trials": 322,
+ "budget_usd": 70,
+ "row_budget_usd": 25
+}

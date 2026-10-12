@@ -1,0 +1,10 @@
+spec: The training job `train` (`/ops/jobs/train/`) should train for 500 steps on
+  2 nodes x 2 ranks at its usual speed (the reference configuration completes in about
+  3 minutes on this cluster), report validation loss every 100 steps, and export a
+  model whose held-out loss is at most 1.545.
+symptom:
+  kind: running
+corpus:
+  train: 16384
+  val: 512
+  length: 65

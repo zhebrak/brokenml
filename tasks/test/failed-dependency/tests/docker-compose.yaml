@@ -1,0 +1,109 @@
+services:
+  main:
+    volumes:
+    - ops:/ops
+    - shared:/shared
+    - keys:/run/cluster-keys:ro
+    - ckpt:/shared/ckpt
+    networks:
+    - cluster
+    depends_on:
+      keys: &id001
+        condition: service_completed_successfully
+  slurmctld:
+    image: bench/runtime:dev
+    pull_policy: never
+    hostname: slurmctld
+    command:
+    - slurmctld
+    volumes:
+    - shared:/shared
+    - keys:/run/cluster-keys:ro
+    cpus: 0.5
+    mem_limit: 512m
+    networks:
+    - cluster
+    depends_on:
+      keys: *id001
+  c1:
+    image: bench/runtime:dev
+    pull_policy: never
+    hostname: c1
+    command:
+    - slurmd
+    volumes:
+    - ops:/ops:ro
+    - shared:/shared
+    - keys:/run/cluster-keys:ro
+    - ckpt:/shared/ckpt
+    cpus: 2
+    mem_limit: 1500m
+    memswap_limit: 1500m
+    pids_limit: 512
+    cap_add:
+    - SYS_PTRACE
+    networks:
+    - cluster
+    depends_on:
+      keys: *id001
+    environment:
+      OCB_SITE_JOB_ENV: SCRATCH_DIR=/var/tmp/scratch\n
+      OCB_EXPECT_RUNTIME: 8631a20f3ea56bdc
+  c2:
+    image: bench/runtime:dev
+    pull_policy: never
+    hostname: c2
+    command:
+    - slurmd
+    volumes:
+    - ops:/ops:ro
+    - shared:/shared
+    - keys:/run/cluster-keys:ro
+    - ckpt:/shared/ckpt
+    cpus: 2
+    mem_limit: 1500m
+    memswap_limit: 1500m
+    pids_limit: 512
+    cap_add:
+    - SYS_PTRACE
+    networks:
+    - cluster
+    depends_on:
+      keys: *id001
+    environment:
+      OCB_SITE_JOB_ENV: SCRATCH_DIR=/scratch\n
+      OCB_EXPECT_RUNTIME: 8631a20f3ea56bdc
+  objstore:
+    image: bench/harness:dev
+    pull_policy: never
+    hostname: objstore
+    command:
+    - objstore
+    volumes:
+    - shared:/shared:ro
+    cpus: 0.5
+    mem_limit: 256m
+    networks:
+    - cluster
+  keys:
+    image: bench/runtime:dev
+    pull_policy: never
+    entrypoint:
+    - /usr/local/libexec/ocb-keys
+    volumes:
+    - keys:/run/cluster-keys
+    network_mode: none
+    restart: 'no'
+volumes:
+  ops: {}
+  shared: {}
+  keys: {}
+  ckpt:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=512m
+networks:
+  cluster:
+    internal: true

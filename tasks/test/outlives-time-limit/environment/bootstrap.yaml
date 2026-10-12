@@ -1,0 +1,13 @@
+spec: The training job `train` (`/ops/jobs/train/`) must train all 6000 steps on 2
+  nodes x 2 ranks, report validation loss every 500 steps, and export a model whose
+  held-out loss is at most 1.42. Allocations on this cluster last at most 3 minutes
+  (cluster policy, not changeable), so the job may run as several Slurm jobs; every
+  job it creates must end COMPLETED.
+symptom:
+  kind: failed
+  timeout_s: 360.0
+  log_match: DUE TO TIME LIMIT
+corpus:
+  train: 131072
+  val: 512
+  length: 65

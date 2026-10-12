@@ -1,0 +1,2 @@
+# every rank reads a different quarter of the same 4096-row range: 1024 unique sequences each, 4096 in all (a quarter of the data)
+held-out loss

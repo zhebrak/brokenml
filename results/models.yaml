@@ -1,0 +1,18 @@
+# Curated by the maintainers: model release dates for the leaderboard's contamination flag and the dataset version's
+# publication date (`published`). bench analyze prints
+# each row's model release date against the publication date and flags a model released after it ("Provenance of
+# rows"). A slug matches a configuration when it appears in the configuration's model string. Dates (2026-10-06):
+# the day OpenRouter first listed each model (its catalogue's `created` field), a verifiable proxy for the public
+# release; correct any that the vendor dates differently.
+published: 2026-10-12
+models:
+  qwen/qwen3.8-27b: {released: 2026-08-14}          # tuning
+  openai/gpt-oss-120b: {released: 2025-08-05}       # tuning
+  claude-sonnet-5-5: {released: 2026-09-28}         # tuning
+  claude-haiku-4-5: {released: 2025-10-15}          # tuning, labels and judge, not scored
+  nemotron-3-super: {released: 2026-03-11}          # held-out
+  glm-5.3-flash: {released: 2026-08-26}             # held-out
+  minimax-m3: {released: 2026-05-31}                # held-out
+  kimi-k2.7-code: {released: 2026-06-12}            # held-out
+  deepseek-v4.1-flash: {released: 2026-09-10}       # held-out
+  gpt-6-luna: {released: 2026-09-22}                # held-out

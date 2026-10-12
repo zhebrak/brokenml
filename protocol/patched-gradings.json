@@ -1,0 +1,71 @@
+{
+ "deviation": "ag",
+ "trials": {
+  "0c9d7e83-454a-43b7-b4a3-fbf0f83bcac6": {
+   "base_version": "8631a20f3ea56bdc",
+   "image": "bench/runtime:getenvfix1",
+   "job": "scored-eee1c6bb1735-00069-logs-gpt-6-luna-20261008-043220",
+   "node_build": "30d359c32bf224af",
+   "original_digest": "sha256:192e078bba226b44520d46c1ebcc57e747ef2c2ee2e5a83d88c5ecfca0bbf116",
+   "patched_digest": "sha256:433245719281270cb45cfd53c41099b3616d9c5ae5fea59770f025e412b6ca07",
+   "runtime_version": "13589f05b723d886",
+   "task": "outlives-time-limit",
+   "trial": "t-b7f48c206f__snoxWFz"
+  },
+  "15362b2d-4097-462d-b970-3e2bf465f2b4": {
+   "base_version": "8631a20f3ea56bdc",
+   "image": "bench/runtime:getenvfix1",
+   "job": "scored-b6c21f612a23-00408-standard-claude-sonnet-5-5-20261007-131442",
+   "node_build": "30d359c32bf224af",
+   "original_digest": "sha256:d80e08553f0c0d664a2a34c2a2f2fe4d02bf3643c20d3223d7641507576655cd",
+   "patched_digest": "sha256:a5bd70a6699b73b434bb7fe641a801042bed70e9435aacca35093fa3b7cbe261",
+   "runtime_version": "13589f05b723d886",
+   "task": "outlives-time-limit",
+   "trial": "t-e8d0a3c8b6__56CtrZZ"
+  },
+  "7965ccf9-4546-4a34-8ca9-f3555d864624": {
+   "base_version": "8631a20f3ea56bdc",
+   "image": "bench/runtime:getenvfix1",
+   "job": "scored-7c3bd9311b64-00012-ablation-gpt-6.1-sol-20261007-042119",
+   "node_build": "30d359c32bf224af",
+   "original_digest": "sha256:5462a599f4dfa4cf8ada91756328ac433198b7a70966a9820998fe72e13aac22",
+   "patched_digest": "sha256:b8dcc563b62cef5f3da167dc6f392b25af31ce3cab2bbed8f1966a4fb44b25fe",
+   "runtime_version": "13589f05b723d886",
+   "task": "failed-dependency",
+   "trial": "t-5ebcb9c343__C7eb94P"
+  },
+  "8b9e0737-a35c-4c7e-a8d2-1c44721d1c68": {
+   "base_version": "8631a20f3ea56bdc",
+   "image": "bench/runtime:getenvfix1",
+   "job": "scored-bb7c4e9eb519-00073-ablation-glm-5.3-flash-20261008-123307",
+   "node_build": "30d359c32bf224af",
+   "original_digest": "sha256:d2d2f48b86fb7091a587d76f29e41d964ae68ba4137ba2e922be04caefa8dfbc",
+   "patched_digest": "sha256:a3c9634dbe69931aa9ea622c236cffbcbb42076fac02588a87d46a59dbc576c1",
+   "runtime_version": "13589f05b723d886",
+   "task": "outlives-time-limit",
+   "trial": "t-d3d213c430__xwVrrik"
+  },
+  "b418f978-1141-46b4-ac20-38a971d9737e": {
+   "base_version": "8631a20f3ea56bdc",
+   "image": "bench/runtime:getenvfix1",
+   "job": "scored-5c1f4a764b58-00228-logs-glm-5.3-flash-20261008-140239",
+   "node_build": "30d359c32bf224af",
+   "original_digest": "sha256:192e078bba226b44520d46c1ebcc57e747ef2c2ee2e5a83d88c5ecfca0bbf116",
+   "patched_digest": "sha256:433245719281270cb45cfd53c41099b3616d9c5ae5fea59770f025e412b6ca07",
+   "runtime_version": "13589f05b723d886",
+   "task": "outlives-time-limit",
+   "trial": "t-c990b464b8__kbykWun"
+  },
+  "c05308b3-1ea0-4a76-99ce-9dae849b6328": {
+   "base_version": "8631a20f3ea56bdc",
+   "image": "bench/runtime:getenvfix1",
+   "job": "scored-7c3bd9311b64-00035-standard-gpt-6.1-sol-20261007-064523",
+   "node_build": "30d359c32bf224af",
+   "original_digest": "sha256:d80e08553f0c0d664a2a34c2a2f2fe4d02bf3643c20d3223d7641507576655cd",
+   "patched_digest": "sha256:a5bd70a6699b73b434bb7fe641a801042bed70e9435aacca35093fa3b7cbe261",
+   "runtime_version": "13589f05b723d886",
+   "task": "outlives-time-limit",
+   "trial": "t-11b663fa81__aftpurh"
+  }
+ }
+}

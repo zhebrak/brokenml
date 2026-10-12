@@ -1,0 +1,71 @@
+{
+ "note": "Frozen studies whose rows may be paired although their manifests differ (bench.analyze.named_pairs). Study manifests: the main study, and the rows moved or added under deviations z (GLM-5.3-flash on Z.AI), w (GPT-6 Luna on the OpenAI API) and v (GPT-6.1 Sol), each on the same tasks, images, harness and rules. Live-logs manifests (deviation aa) pair with each study manifest. The Haiku manifests (deviation ah, cut) are not listed. Written 2026-10-08 for the final analysis; see deviation al.",
+ "manifests": {
+  "scored-manifest-v0.1-glm.json": "bb7c4e9eb51982cf427ff4b3f6b1e06d88cf680765ebcbf17e7b49b215f9c1a0",
+  "scored-manifest-v0.1-haiku.json": "f86560818c888554b5563a705f9ec86d4aac3b9ffe00fbcb2ed24b95304a9ef3",
+  "scored-manifest-v0.1-logs-haiku.json": "45ab8d753cccb7b47fccfc5460684bc51bee649ed59591b14ba0438e695c3927",
+  "scored-manifest-v0.1-logs-openai.json": "eee1c6bb1735da36d9cdb2ebbed64d5a282987c431ebf02c015c54d703a9335b",
+  "scored-manifest-v0.1-logs.json": "5c1f4a764b5805c11f039956b915cfd5100a82827dea388000e2b37ba7f3747c",
+  "scored-manifest-v0.1-luna.json": "125014e3c18759f4acd4891fc67c91933af9266a2f8a64e8dc55209a6968ba0f",
+  "scored-manifest-v0.1-sol.json": "7c3bd9311b64657979bb3368e0efc3f4a94a65e5becf59be66d0c8d84bd63eaa",
+  "scored-manifest-v0.1.json": "b6c21f612a23ca232e5d57ecccd6fbe656d8184a5f486b7842c85eafb3bf37be"
+ },
+ "pairs": [
+  [
+   "b6c21f612a23ca232e5d57ecccd6fbe656d8184a5f486b7842c85eafb3bf37be",
+   "bb7c4e9eb51982cf427ff4b3f6b1e06d88cf680765ebcbf17e7b49b215f9c1a0"
+  ],
+  [
+   "b6c21f612a23ca232e5d57ecccd6fbe656d8184a5f486b7842c85eafb3bf37be",
+   "125014e3c18759f4acd4891fc67c91933af9266a2f8a64e8dc55209a6968ba0f"
+  ],
+  [
+   "b6c21f612a23ca232e5d57ecccd6fbe656d8184a5f486b7842c85eafb3bf37be",
+   "7c3bd9311b64657979bb3368e0efc3f4a94a65e5becf59be66d0c8d84bd63eaa"
+  ],
+  [
+   "bb7c4e9eb51982cf427ff4b3f6b1e06d88cf680765ebcbf17e7b49b215f9c1a0",
+   "125014e3c18759f4acd4891fc67c91933af9266a2f8a64e8dc55209a6968ba0f"
+  ],
+  [
+   "bb7c4e9eb51982cf427ff4b3f6b1e06d88cf680765ebcbf17e7b49b215f9c1a0",
+   "7c3bd9311b64657979bb3368e0efc3f4a94a65e5becf59be66d0c8d84bd63eaa"
+  ],
+  [
+   "125014e3c18759f4acd4891fc67c91933af9266a2f8a64e8dc55209a6968ba0f",
+   "7c3bd9311b64657979bb3368e0efc3f4a94a65e5becf59be66d0c8d84bd63eaa"
+  ],
+  [
+   "5c1f4a764b5805c11f039956b915cfd5100a82827dea388000e2b37ba7f3747c",
+   "b6c21f612a23ca232e5d57ecccd6fbe656d8184a5f486b7842c85eafb3bf37be"
+  ],
+  [
+   "5c1f4a764b5805c11f039956b915cfd5100a82827dea388000e2b37ba7f3747c",
+   "bb7c4e9eb51982cf427ff4b3f6b1e06d88cf680765ebcbf17e7b49b215f9c1a0"
+  ],
+  [
+   "5c1f4a764b5805c11f039956b915cfd5100a82827dea388000e2b37ba7f3747c",
+   "125014e3c18759f4acd4891fc67c91933af9266a2f8a64e8dc55209a6968ba0f"
+  ],
+  [
+   "5c1f4a764b5805c11f039956b915cfd5100a82827dea388000e2b37ba7f3747c",
+   "7c3bd9311b64657979bb3368e0efc3f4a94a65e5becf59be66d0c8d84bd63eaa"
+  ],
+  [
+   "eee1c6bb1735da36d9cdb2ebbed64d5a282987c431ebf02c015c54d703a9335b",
+   "b6c21f612a23ca232e5d57ecccd6fbe656d8184a5f486b7842c85eafb3bf37be"
+  ],
+  [
+   "eee1c6bb1735da36d9cdb2ebbed64d5a282987c431ebf02c015c54d703a9335b",
+   "bb7c4e9eb51982cf427ff4b3f6b1e06d88cf680765ebcbf17e7b49b215f9c1a0"
+  ],
+  [
+   "eee1c6bb1735da36d9cdb2ebbed64d5a282987c431ebf02c015c54d703a9335b",
+   "125014e3c18759f4acd4891fc67c91933af9266a2f8a64e8dc55209a6968ba0f"
+  ],
+  [
+   "eee1c6bb1735da36d9cdb2ebbed64d5a282987c431ebf02c015c54d703a9335b",
+   "7c3bd9311b64657979bb3368e0efc3f4a94a65e5becf59be66d0c8d84bd63eaa"
+  ]
+ ]
+}

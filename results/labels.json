@@ -1,0 +1,897 @@
+{
+ "activation-oom": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:0065b07fd0a177a4e6a7aa399c0c5f789f5ac1ed10b02dcfba2a5b803d43a61f"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "bad-token-ids": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:7e11acd4411411646258fba9133be73418144aa9acdef23aa180adeb4614f81d"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "checkpoint-every-step": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:051f941c7ddca5f072958ad3befd7614452ce80d8c25db0c20ffd628d3676df2"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "ckpt-space-held-open": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:ae74def7b86795606d9b50aca0e25c3414a7d91dd6ecc341afd5c8e0bb848512"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "consolidated-copy-oom": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:ec737ffc85265c81f7aa12da70553d072a57d7dd1bbf4179352cc7c7e3b33629"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "ddp-replication-oom": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:8d4bfd501c75b24207152a309e33615523f929705bd2a7c57c0bbe1448177197"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "degraded-node": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:1f20be07590c1aa31ddf79a15db115f48b65fe2d6027870bc84f8fb534d78274"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "engine-ctx-kv-window": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:39802a6f35105d0ef49b53368254358b11f455346bfb7d102ed0e6ddc8e06e8d"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "engine-no-continuous-batching": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:00d24557017306ba5cafc9aa121526b8a95007d48b0a509a9cc5a4b3244e76b2"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "engine-single-slot": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:06533a429c18a6e79c836fe49138225dbdee2b071cfcdca7c85a42450c186de9"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "engine-startup-timeout": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:a51052a61be2b77eb22fa31806219168368bd3c84bc09d99a34acf0cb3b64df3"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "engine-thread-oversubscription": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:44afdd225d1e34505f3b7455919cf487fa348a66f6c24bc05359ed6b4c8ff3af"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "eval-without-no-grad": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:f7bec422bff28294852299b773e9f82ccd475f31b370578344425120f0179b4d"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "failed-dependency": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:5462a599f4dfa4cf8ada91756328ac433198b7a70966a9820998fe72e13aac22"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "fsdp-fine-wrapping": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:2d4d1d18e546818794182b70c7107af9273c43d9096cc11393653ee7c3198630"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "fsdp-spans-slow-link": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:7e21005e9653e478361123bbe232c1b395be57c1c1ad89966b99eae0906997f3"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "gres-from-gpu-template": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:76753766e1ce4d0edf2f7165d3cd33caaaf1ce806fca8fb610711e828f351064"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "hash-ordered-buckets": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:eaa1bb73dd18d5a89e15e4d15149e64dd34c17c71e5e7fd1d9521273952a24ba"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "latest-half-written": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:bb1e5940f6e912d11403a1ed51df786714ccc5cdd528b90ff59047f4b6f56f60"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "lr-decay-horizon": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:925dd97e3610e474693ba5eaab0a9e1bdd11127d7d7125f2648b8f32dfcee84f"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "monitor-step-blocks": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:33bcd30e85677e0115531cac0bdd8ad21b7efbf9110d4891da5502a4b78732c2"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "no-sync-off-by-one": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:e65f238aafc2aed3a4933b32184b22e2bba6acf070e1b444689ec2c974745c50"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "node-thread-oversubscription": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:e548256c6c968dc22905ea2eb2081b55ba15108c3b95d2b43abfe79d5c8ab670"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "objstore-slowdown-backoff": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:985a0a79b8b50b60afaf8f4c36994e248869457d377fa29bdd3bf80acbee3c1f"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "outlives-time-limit": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:d2d2f48b86fb7091a587d76f29e41d964ae68ba4137ba2e922be04caefa8dfbc"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "pg-timeout-below-checkpoint": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:c3d6da5c0c3783bdd48bc9957e688859b3a68e3ca6ab2cf27c24558e9c3a0b97"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "port-squatter-rdzv": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:f509366f7df8ebe8ef629babcd7109ea9a265f29e1203f2d74a684ae2bd7d15b"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "prefetch-thread-dies": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:c108f3dfcf1e2f7c0c32b15f6c66b25b3d0c8df52eea3e29eb1fc18c8f07ad66"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "rank0-eval-desync": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:c44244889a2f9c70e0e409e0f40d11011df10ccc598fd74c7ff412ea8ab215dc"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "rank0-only-checkpoint": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:e017002aebdf674deec4f9c243a6e48744d3788b0078f6cd64b21e1b7d7d4cc5"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "rdzv-timeout-below-prolog": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:14eb6ef155f87047490b4038fa2a4b69b2bda672c61dfd68269a6ea7eabf6ace"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "realmemory-drain": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:a77be4687964e94c8676fb91d857c89cbb7c96932504c15f3e02a0cd9ff6a644"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "redundant-param-broadcast": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:aea75e5ad8779c934bb850610d699b6279c9379b06ecd96f4bb93b6ccdea6caf"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "renamed-parameter": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:8a634c23b2f47f9381941290fd034497965cd28141abb361777232fc78a8d271"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "same-shard": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:5eaf48c281f2d50c921c3a7b4198cf1393e19c0edda4e5dba6fcc8bf51f5f58f"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "scratch-is-tmpfs": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:68dd125627b648c69ad7a9e9050c6cd2a3e13b77dc12f6d53a44a873bf4b2b12"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "stale-hosts-entry": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:96116ce0f7f992908c1d5a1b57f0bc18fd1099530b9fd8a511862eee2b3ca764"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "stats-thread-lingers": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:a1b17fdd051b58b5e8dc5f8fd05ce2da2c6aa09c729e71d615e053b3787ce596"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "subgroup-skip-deadlock": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:2600df06d9c00316886c2bc9abc40d408d8c90ceeec6fe1bf3118b0a32fd18aa"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "tiny-ddp-buckets": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:926997e14b3eeea45ddaf875af14b6e5a1fa79c398530acae2a099767d6c678e"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "tokenizer-remap-shard": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:005fd17dc34ecb07e37249ff3c5105f04114c4eecedf5b221cda79a2cb0d18c0"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "uneven-val-gather": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:8cd7a576b882c6c76e28000c47d24a4c48731f1f458e1928b3c81c37c07c1d23"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "unshifted-labels": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:b31ed90f40c54677bb97d646537bff2337dd387d0be76ffd7eee9a234bd0fa59"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "wait-on-heartbeat": {
+  "evidence": {
+   "value": "static",
+   "ops_only_success": 1.0,
+   "ci95": [
+    0.207,
+    1.0
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:512d9c87698a90d70093f54d63b9e8aa32b4314a0afd931f5262176d10263ac9"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "wrong-nic-one-node": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:dafa133f9e7eb19eba491972358586888c1c07f18faf1df5000f324e4f2cffe7"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "wrong-run-renamed-keys": {
+  "evidence": {
+   "value": "runtime",
+   "ops_only_success": 0.0,
+   "ci95": [
+    0.0,
+    0.793
+   ],
+   "trials": 1,
+   "provisional": true,
+   "configs": [
+    "terminus-2:openrouter/qwen/qwen3.8-27b @parasail/fp8 {reasoning_effort=high} [ops-only]"
+   ],
+   "digests": [
+    "sha256:7da72df78c4113025c07eb5df24731c47fa9c0bb65eed9c3087e72d5af2e37fe"
+   ],
+   "static_at": 0.3333333333333333
+  }
+ },
+ "_stamp": {
+  "git_sha": "dd55c2d9763b",
+  "git_dirty": true,
+  "images": {
+   "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+   "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+   "bench/runtime-cuda:dev": "",
+   "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+  },
+  "harbor": "0.23.0",
+  "host": "dev-host",
+  "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+  "argv": [
+   "bench",
+   "labels",
+   "runs/jobs",
+   "--prefix",
+   "labels-qwen-"
+  ],
+  "utc": "2026-10-07T06:28:21Z"
+ }
+}

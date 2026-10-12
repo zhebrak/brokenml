@@ -1,0 +1,7 @@
+substrate: serving
+policy:
+  contract:
+    file: serving/engine.env
+throughput:
+  ratio_min: 0.75
+ttft_p95_max_s: 3.0

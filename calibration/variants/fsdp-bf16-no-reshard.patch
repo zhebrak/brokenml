@@ -1,0 +1,32 @@
+diff --git a/jobs/train/train.yaml b/jobs/train/train.yaml
+index 98f54a1..28f6a5a 100644
+--- a/jobs/train/train.yaml
++++ b/jobs/train/train.yaml
+@@ -8,7 +8,7 @@ lr: 0.0003
+ warmup_steps: 5
+ decay_steps: null        # cosine horizon in steps; null: the whole run
+ weight_decay: 0.0
+-parallel: hsdp           # ddp | fsdp | hsdp | manual: shard within a node, replicate across the racks
++parallel: fsdp           # ddp | fsdp | hsdp | manual: shard within a node, replicate across the racks
+ bucket_cap_mb: 25
+ pg_timeout_s: 120
+ train_seqs: 2048
+diff --git a/src/trainer/parallel.py b/src/trainer/parallel.py
+index fa89a78..546cb5b 100644
+--- a/src/trainer/parallel.py
++++ b/src/trainer/parallel.py
+@@ -14,9 +14,12 @@ def wrap(model: torch.nn.Module, cfg: dict) -> torch.nn.Module:
+     if cfg["parallel"] == "fsdp":
+         from torch.distributed.fsdp import fully_shard
+ 
++        from torch.distributed.fsdp import MixedPrecisionPolicy
++
++        mp = MixedPrecisionPolicy(param_dtype=torch.bfloat16)  # FSDP2's usual bf16 policy: reduces in bf16 too
+         for block in model.blocks:  # one FSDP unit per transformer block, plus the root
+-            fully_shard(block)
+-        return fully_shard(model)
++            fully_shard(block, mp_policy=mp, reshard_after_forward=False)
++        return fully_shard(model, mp_policy=mp)
+     if cfg["parallel"] == "hsdp":  # shard within a node (fast), replicate across nodes (slow link): HSDP
+         import os
+ 

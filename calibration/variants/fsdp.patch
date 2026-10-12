@@ -1,0 +1,13 @@
+diff --git a/jobs/train/train.yaml b/jobs/train/train.yaml
+index c0f4335..2bec884 100644
+--- a/jobs/train/train.yaml
++++ b/jobs/train/train.yaml
+@@ -8,7 +8,7 @@ lr: 0.003
+ warmup_steps: 50
+ decay_steps: null        # cosine horizon in steps; null: the whole run
+ weight_decay: 0.0
+-parallel: ddp            # ddp | fsdp | manual
++parallel: fsdp           # ddp | fsdp | manual
+ bucket_cap_mb: 25
+ pg_timeout_s: 120
+ train_seqs: 16384

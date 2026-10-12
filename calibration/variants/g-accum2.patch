@@ -1,0 +1,15 @@
+diff --git a/jobs/train/train.yaml b/jobs/train/train.yaml
+index dce401b..1012eda 100644
+--- a/jobs/train/train.yaml
++++ b/jobs/train/train.yaml
+@@ -2,8 +2,8 @@
+ model: {vocab: 32, ctx: 64, d_model: 512, n_layer: 8, n_head: 8}
+ seed: 0
+ steps: 500
+-micro_batch: 64
+-grad_accum: 1
++micro_batch: 32
++grad_accum: 2
+ lr: 0.003
+ warmup_steps: 50
+ decay_steps: null        # cosine horizon in steps; null: the whole run

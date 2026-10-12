@@ -1,0 +1,2 @@
+# model.eval() does not stop autograd recording: the validation graph still holds all 32 sequences, the node is OOM-killed
+job completed before deadline: a job did not complete

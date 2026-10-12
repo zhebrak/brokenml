@@ -1,0 +1,322 @@
+<title>BrokenML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: an operations board. Summary strip, then the task board by principle, then evidence sections stacked. */
+:root {
+  --bg: #f3f5f8; --panel: #ffffff; --ink: #18222f; --muted: #5d6b7c; --line: #dde3ea; --accent: #2b59c3;
+  --ok: #23804f; --ok-bg: #e3f3ea; --bad: #b8372d; --bad-bg: #fbe7e5; --warn: #9a6400; --warn-bg: #fbf0d9;
+  --none: #8a96a3; --none-bg: #eef1f4; --chip: #f7f9fb;
+  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #11161d; --panel: #18202a; --ink: #e4e9ef; --muted: #98a5b4; --line: #2a3542; --accent: #7fa2ff;
+  --ok: #5cc98d; --ok-bg: #173325; --bad: #f08a80; --bad-bg: #3a1e1c; --warn: #e8b660; --warn-bg: #352a14;
+  --none: #7d8895; --none-bg: #222b36; --chip: #1d2631; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #11161d; --panel: #18202a; --ink: #e4e9ef; --muted: #98a5b4; --line: #2a3542; --accent: #7fa2ff;
+  --ok: #5cc98d; --ok-bg: #173325; --bad: #f08a80; --bad-bg: #3a1e1c; --warn: #e8b660; --warn-bg: #352a14;
+  --none: #7d8895; --none-bg: #222b36; --chip: #1d2631; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 14px/1.5 var(--f-body); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 24px 64px; display: grid; gap: 28px; }
+h1, h2 { font-family: var(--f-display); font-weight: 600; text-wrap: balance; margin: 0; }
+h1 { font-size: 28px; letter-spacing: .2px; }
+h2 { font-size: 19px; }
+.sub { color: var(--muted); max-width: 72ch; }
+header { display: grid; gap: 6px; }
+.meta { font: 12px var(--f-mono); color: var(--muted); }
+section { display: grid; gap: 12px; min-width: 0; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+.sec-head p { margin: 0; color: var(--muted); font-size: 13px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; display: grid; gap: 2px; }
+.stat b { font: 600 26px var(--f-display); font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: 12px; }
+.stat .bar { height: 6px; border-radius: 3px; background: var(--none-bg); overflow: hidden; display: flex; margin-top: 6px; }
+.bar i { display: block; height: 100%; }
+.board { display: grid; gap: 8px; }
+.cat { display: grid; grid-template-columns: 190px 1fr; gap: 10px; align-items: start; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+.cat-name { display: grid; gap: 2px; }
+.cat-name strong { font: 600 15px var(--f-display); text-transform: capitalize; }
+.cat-name small { color: var(--muted); font-size: 12px; line-height: 1.35; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
+.chip { font: 12px var(--f-mono); border: 1px solid var(--line); background: var(--chip); color: var(--ink); border-radius: 6px;
+  padding: 4px 8px 4px 7px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.chip:hover, .chip:focus-visible { border-color: var(--accent); outline: none; }
+.chip.dev { border-style: dashed; color: var(--muted); }
+.dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: var(--none); }
+.s-separates .dot { background: var(--ok); }
+.s-fails .dot { background: var(--bad); }
+.s-separates-stale .dot { background: transparent; border: 2px solid var(--ok); }
+.s-fails-stale .dot { background: transparent; border: 2px solid var(--bad); }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.tag { font: 11px var(--f-mono); padding: 1px 6px; border-radius: 4px; background: var(--none-bg); color: var(--muted); white-space: nowrap; }
+.tag.repro { background: var(--warn-bg); color: var(--warn); }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; min-width: 0; }
+.detail { display: grid; gap: 8px; }
+.detail h3 { margin: 0; font: 600 17px var(--f-display); }
+.detail dl { display: grid; grid-template-columns: 130px 1fr; gap: 4px 12px; margin: 0; }
+.detail dt { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; padding-top: 2px; }
+.detail dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.detail a { color: var(--accent); }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 11px var(--f-body); text-transform: uppercase; letter-spacing: .6px; color: var(--muted); background: var(--chip); position: sticky; top: 0; }
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; font-family: var(--f-mono); font-size: 12px; white-space: nowrap; }
+td.mono { font-family: var(--f-mono); font-size: 12px; }
+.pill { display: inline-block; font: 500 11px var(--f-mono); padding: 2px 7px; border-radius: 10px; white-space: nowrap; }
+.p-ok { background: var(--ok-bg); color: var(--ok); } .p-bad { background: var(--bad-bg); color: var(--bad); }
+.p-warn { background: var(--warn-bg); color: var(--warn); } .p-none { background: var(--none-bg); color: var(--muted); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.filters button { font: 12px var(--f-body); padding: 5px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; }
+.filters button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--chip); }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 12px; }
+svg text { fill: var(--muted); font: 11px var(--f-mono); }
+svg .ink { fill: var(--ink); }
+.empty { color: var(--muted); font-size: 13px; padding: 12px; }
+.status { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 12px; }
+.status h3 { margin: 0 0 8px; font: 600 15px var(--f-display); }
+.slist { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.slist li { display: grid; grid-template-columns: 74px 1fr; gap: 10px; align-items: baseline; min-width: 0; }
+.slist .pill { text-align: center; }
+.p-you { background: var(--chip); color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+@media (max-width: 640px) { .cat { grid-template-columns: 1fr; } .detail dl { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: no-preference) { .chip { transition: border-color .12s; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>BrokenML</h1>
+    <div class="sub">Broken distributed training and serving jobs on a CPU Slurm cluster. An agent passes when a fresh cluster re-runs its fixed job and the job completes, meets its loss bound and, where throughput is the fault, its speed.</div>
+    <div class="meta" id="meta"></div>
+  </header>
+
+  <section aria-labelledby="h-sum">
+    <h2 id="h-sum" hidden>Summary</h2>
+    <div class="stats" id="stats"></div>
+  </section>
+
+  <section aria-labelledby="h-status">
+    <div class="sec-head"><h2 id="h-status">Where things stand</h2><p id="status-updated"></p></div>
+    <div class="status" id="status"></div>
+  </section>
+
+  <section aria-labelledby="h-board">
+    <div class="sec-head"><h2 id="h-board">Tasks by principle</h2><p>Each chip is one task; its dot is the latest separation check (reference fix passes, broken job and scripted wrong fixes fail). Click a task for details.</p></div>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--ok)"></i>separates</span>
+      <span><i class="dot" style="border:2px solid var(--ok)"></i>separated before the task's last change</span>
+      <span><i class="dot" style="background:var(--bad)"></i>does not separate</span>
+      <span><i class="dot" style="background:var(--none)"></i>not run yet</span>
+      <span><span class="chip dev" style="cursor:default">dashed</span> dev split</span>
+    </div>
+    <div class="board" id="board"></div>
+    <div class="panel detail" id="detail" hidden></div>
+  </section>
+
+  <section aria-labelledby="h-agents">
+    <div class="sec-head"><h2 id="h-agents">Agent trials</h2><p>Terminus 2 trials, one per task. Reward is binary; an error (an API limit, an environment that did not start) never reached grading. Ops-only trials get a copy of /ops and no cluster.</p></div>
+    <div id="agents"></div>
+  </section>
+
+  <section aria-labelledby="h-tasks">
+    <div class="sec-head"><h2 id="h-tasks">All tasks</h2></div>
+    <div class="filters" id="filters"></div>
+    <div class="tablewrap"><table id="tasktable"></table></div>
+  </section>
+
+  <section aria-labelledby="h-cal">
+    <div class="sec-head"><h2 id="h-cal">Calibration</h2><p>Thresholds come from runs of legitimate variations; a bound must clear both sides by 3x the legitimate spread.</p></div>
+    <div class="grid2">
+      <div class="panel"><strong>Held-out loss, base job (500 steps, 4 ranks)</strong><div id="losschart"></div></div>
+      <div class="panel"><strong>Slowdown of throughput faults vs reference</strong><div id="perfchart"></div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-fid">
+    <div class="sec-head"><h2 id="h-fid">CPU/Gloo vs GPU/NCCL</h2><p>Each mechanism as a 2-rank program on Gloo (CPU) and NCCL (2x H100, NVLink), process-group timeout 30 s.</p></div>
+    <div class="tablewrap"><table id="fidtable"></table></div>
+    <div id="gpujobs"></div>
+  </section>
+</div>
+
+<script>
+const D = /*DATA*/null;
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const CATS = {
+  collectives: "Same collectives, same order, same shapes on every rank",
+  performance: "A synchronous step runs at the slowest rank; small messages are latency-bound",
+  memory: "Weights, gradients, optimizer state and activations per rank",
+  state: "Checkpoints must be complete, committed and loadable",
+  liveness: "Timeouts must exceed the longest legitimate stall",
+  scheduling: "A job starts only if its request can be met, and ends when all it owns exits",
+  serving: "Batching raises throughput until a resource or the latency limit binds",
+  correctness: "Data parallelism must equal large-batch SGD",
+};
+const statusOf = (t) => t.sep.status;
+const test = D.tasks.filter((t) => t.split === "test");
+
+$("meta").textContent = `Generated ${D.generated} from the repo · ${test.length} test tasks + ${D.tasks.length - test.length} dev · runs on the development host; GPU fidelity on a rented 2x H100 pod`;
+
+// Status
+(function () {
+  const S = D.status || {};
+  if (!Object.keys(S).length) {  // no results/status.json: render the page without the status block
+    $("status").closest("section").style.display = "none";
+    return;
+  }
+  $("status-updated").textContent = S.updated ? `Updated ${S.updated}` : "";
+  const li = (cls, label, items) => (items || []).map((x) => `<li><span class="pill ${cls}">${label}</span><span>${esc(x)}</span></li>`).join("");
+  $("status").innerHTML = `<div class="panel"><h3>Progress</h3><ul class="slist">${li("p-ok", "done", S.done)}${li("p-warn", "running", S.running)}${li("p-none", "next", S.next)}</ul></div>
+    <div class="panel"><h3>Waiting on you</h3><ul class="slist">${li("p-you", "decide", S.decisions)}</ul></div>`;
+})();
+
+// Summary
+const nSep = test.filter((t) => statusOf(t) === "separates").length;
+const nStale = test.filter((t) => statusOf(t) === "separates-stale").length;
+const nFail = test.filter((t) => statusOf(t).startsWith("fails")).length;
+const nRepro = test.filter((t) => t.provenance === "issue-repro").length;
+const graded = D.agents.filter((a) => a.reward === 0 || a.reward === 1);
+const passed = graded.filter((a) => a.reward === 1).length;
+const cost = D.agents.reduce((s, a) => s + (a.cost || 0), 0);
+const withMargins = test.filter((t) => t.margins);
+const nMargins = withMargins.filter((t) => t.margins === "PASS").length;
+const pct = (n, d) => (d ? (100 * n) / d : 0);
+$("stats").innerHTML = [
+  ["Test tasks", test.length, `${Object.keys(CATS).length} principles · ${new Set(test.map((t) => t.family)).size} fault families`],
+  ["Verified to separate", `${nSep}<small style="font-size:14px;color:var(--muted)">/${test.length}</small>`, `${nStale} need a re-run after changes · ${nFail} failing`,
+    [[pct(nSep, test.length), "var(--ok)"], [pct(nStale, test.length), "var(--warn)"], [pct(nFail, test.length), "var(--bad)"]]],
+  ["Memory margins", `${nMargins}<small style="font-size:14px;color:var(--muted)">/${withMargins.length}</small>`, "memory-bound tasks pass at limit/1.15 and fail at limit x1.15"],
+  ["Reproduce a public issue", `${nRepro}<small style="font-size:14px;color:var(--muted)">/${test.length}</small>`, "the rest derive from failure studies"],
+  ["Agent trials passed", graded.length ? `${passed}/${graded.length}` : "–", graded.length ? `graded trials across all runs · $${cost.toFixed(2)} recorded` : "trials running"],
+  ["GPU fidelity", `${D.fidelity.length / 2 | 0} mechanisms`, "Gloo vs NCCL on 2x H100"],
+].map(([label, val, note, bar]) => `<div class="stat"><span>${label}</span><b>${val}</b><span>${note}</span>${bar ? `<div class="bar">${bar.map(([w, c]) => `<i style="width:${w}%;background:${c}"></i>`).join("")}</div>` : ""}</div>`).join("");
+
+// Board
+$("board").innerHTML = Object.entries(CATS).map(([cat, principle]) => {
+  const ts = D.tasks.filter((t) => t.category === cat).sort((a, b) => (a.split > b.split) - (a.split < b.split) || a.id.localeCompare(b.id));
+  const nTest = ts.filter((t) => t.split === "test").length;
+  return `<div class="cat"><div class="cat-name"><strong>${cat} <span class="tag">${nTest}</span></strong><small>${principle}</small></div>
+    <div class="chips">${ts.map((t) => `<button class="chip s-${statusOf(t)} ${t.split === "dev" ? "dev" : ""}" data-id="${t.id}" title="${esc(t.title)}"><i class="dot"></i>${t.id}${t.provenance === "issue-repro" ? ' <span class="tag repro">issue</span>' : ""}</button>`).join("")}</div></div>`;
+}).join("");
+
+const fmtRun = (r) => r ? Object.entries(r).filter(([k]) => ["reward", "loss", "tput_ratio", "elapsed_s"].includes(k)).map(([k, v]) => `${k}=${v}`).join(" ") : "–";
+function showDetail(id) {
+  const t = D.tasks.find((x) => x.id === id);
+  const s = t.sep;
+  const agentRuns = D.agents.filter((a) => a.task === id);
+  $("detail").hidden = false;
+  $("detail").innerHTML = `<h3>${esc(t.id)} <span class="tag">${t.split}</span></h3><div>${esc(t.title)}</div>
+    <dl><dt>Principle</dt><dd>${esc(t.principle)}</dd><dt>Mechanism</dt><dd>${esc(t.mechanism)}</dd>
+    <dt>Labels</dt><dd><span class="tag">${t.category}</span> <span class="tag">family ${t.family}</span> <span class="tag">${t.difficulty}</span> <span class="tag">${t.fault}</span> <span class="tag">evidence: ${t.evidence}</span> <span class="tag ${t.provenance === "issue-repro" ? "repro" : ""}">${t.provenance}</span></dd>
+    <dt>Graded on</dt><dd>${t.gates.join(" · ")}</dd>
+    <dt>Ops-only</dt><dd>${t.measured && t.measured.value ? `<span class="pill ${t.measured.value === "static" ? "p-warn" : "p-ok"}">${t.measured.value}</span> solved from /ops alone in ${Math.round(t.measured.ops_only_success * t.measured.trials)} of ${t.measured.trials} graded trial(s)` : "not measured yet"}</dd>
+    ${t.margins ? `<dt>Memory margins</dt><dd><span class="pill ${t.margins === "PASS" ? "p-ok" : "p-bad"}">${t.margins.toLowerCase()}</span> reference passes at limit/1.15, broken job is OOM-killed at limit x1.15</dd>` : ""}
+    <dt>Separation</dt><dd>${s.status === "untested" ? "not run yet" : `<span class="pill ${s.status.startsWith("separates") ? (s.status.endsWith("stale") ? "p-warn" : "p-ok") : "p-bad"}">${s.status.replace("-stale", " (stale)")}</span> ${esc(s.when)} · reference: ${fmtRun(s.ref)} · broken: ${fmtRun(s.broken)}${Object.keys(s.wrong || {}).length ? " · wrong fixes: " + Object.entries(s.wrong).map(([k, v]) => `${k}=${v}`).join(", ") : ""}${Object.keys(s.accepted || {}).length ? " · accepted fixes: " + Object.entries(s.accepted).map(([k, v]) => `${k}=${v}`).join(", ") : ""}${s.problems?.length ? `<br><span style="color:var(--bad)">${esc(s.problems.join("; "))}</span>` : ""}<br><span class="meta">${esc(s.source)}</span>`}</dd>
+    <dt>Agent trials</dt><dd>${agentRuns.length ? agentRuns.map((a) => `${esc(a.run)}: ${a.reward === 0 || a.reward === 1 ? "reward " + a.reward : esc(a.error || "error")}${a.cost != null ? ` ($${a.cost.toFixed(2)})` : ""}`).join("<br>") : "none yet"}</dd>
+    <dt>Provenance</dt><dd>${t.links.map((u) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\//, ""))}</a>`).join("<br>")}</dd></dl>`;
+  $("detail").scrollIntoView({ block: "nearest" });
+}
+document.addEventListener("click", (e) => { const c = e.target.closest("[data-id]"); if (c) showDetail(c.dataset.id); });
+
+// Agents
+const ag = D.agents;
+const runs = {};
+ag.forEach((a) => { const r = (runs[a.run] ||= { n: 0, graded: 0, passed: 0, errors: 0, cost: 0 }); r.n++; r.cost += a.cost || 0;
+  if (a.reward === 0 || a.reward === 1) { r.graded++; r.passed += a.reward === 1 ? 1 : 0; } else r.errors++; });
+const runTable = `<div class="tablewrap"><table><tr><th>Run</th><th>Trials</th><th>Passed / graded</th><th>Errors</th><th>Cost recorded</th><th>Per graded trial</th></tr>${Object.entries(runs).map(([k, r]) => `<tr><td>${esc(k)}</td><td class="num">${r.n}</td><td class="num">${r.passed}/${r.graded}${r.graded ? ` (${Math.round(100 * r.passed / r.graded)}%)` : ""}</td><td class="num">${r.errors}</td><td class="num">$${r.cost.toFixed(2)}</td><td class="num">${r.graded ? "$" + (r.cost / r.graded).toFixed(2) : "–"}</td></tr>`).join("")}</table></div>`;
+const AN = D.analysis || {};
+const share = (x) => (x == null ? "–" : Math.round(100 * x) + "%");
+const mtok = (x) => (x ? (x / 1e6).toFixed(2) + "M" : "–");
+const cfgTable = Object.keys(AN.configs || {}).length ? `<div class="tablewrap" style="margin-top:10px"><table><tr><th>Configuration (bench analyze)</th><th>Tasks</th><th>pass@1</th><th>$ per solve</th><th>Tokens per solve</th><th>Uncached per solve</th><th>Edited before runtime evidence</th></tr>${Object.entries(AN.configs).map(([c, s]) => `<tr><td class="mono">${esc(c)}${s.complete ? "" : " (incomplete)"}</td><td class="num">${s.tasks}</td><td class="num">${share(s["pass@1"])}</td><td class="num">${s.cost_per_solve != null ? "$" + s.cost_per_solve.toFixed(2) : "–"}</td><td class="num">${mtok(s.tokens_per_solve)}</td><td class="num">${mtok(s.uncached_tokens_per_solve)}</td><td class="num">${share(s.edit_first_passing)}</td></tr>`).join("")}</table></div>` : "";
+const DF = AN.difficulty && AN.difficulty.tasks ? AN.difficulty : null;
+const diffTable = DF ? `<p style="margin:14px 0 6px">Empirical difficulty: pass rate over held-out configurations that attempted at least half of the split, in Terminal-Bench buckets (easy at 67% or more, hard below 33%). Rank correlation with the author's label: ${DF.spearman_author_vs_failure ?? "–"} (n = ${DF.n}).</p><div class="tablewrap"><table><tr><th>Task</th><th>Author's label</th><th>Pass rate</th><th>Empirical</th><th>Configurations</th><th>Edited before evidence</th></tr>${Object.entries(DF.tasks).sort((a, b) => a[1].pass_rate - b[1].pass_rate || a[0].localeCompare(b[0])).map(([t, v]) => `<tr><td class="mono"><button class="chip" data-id="${esc(t)}">${esc(t)}</button></td><td>${esc(v.author)}</td><td class="num">${share(v.pass_rate)}</td><td>${esc(v.bucket)}</td><td class="num">${v.configs}</td><td class="num">${share(v.edit_first_passing)}</td></tr>`).join("")}</table></div>` : "";
+$("agents").innerHTML = ag.length ? runTable + cfgTable + diffTable + `<div class="tablewrap" style="margin-top:10px"><table><tr><th>Task</th><th>Category</th><th>Run</th><th>Result</th><th>Failed checks</th><th>Cost</th><th>Tokens in / out</th></tr>${ag.map((a) => {
+  const t = D.tasks.find((x) => x.id === a.task) || {};
+  const res = a.reward === "running" ? '<span class="pill p-none">running</span>' : a.reward === 1 || a.reward === 1.0 ? '<span class="pill p-ok">pass</span>' : a.reward === 0 || a.reward === 0.0 ? '<span class="pill p-bad">fail</span>' : `<span class="pill p-warn">${esc(a.error || "error")}</span>`;
+  return `<tr><td class="mono"><button class="chip" data-id="${esc(a.task)}">${esc(a.task)}</button></td><td>${esc(t.category || "")}</td><td>${esc(a.run)}</td><td>${res}</td><td class="mono">${esc((a.failed_checks || []).join(", "))}</td><td class="num">${a.cost != null ? "$" + a.cost.toFixed(2) : "–"}</td><td class="num">${a.tokens_in != null ? `${(a.tokens_in / 1000).toFixed(0)}k / ${(a.tokens_out / 1000).toFixed(1)}k` : "–"}</td></tr>`;
+}).join("")}</table></div>` : '<div class="empty">No agent trials yet.</div>';
+
+// Task table with filters
+let filter = "all";
+const FILTERS = [["all", "All"], ["test", "Test split"], ["separates", "Separates"], ["attention", "Needs attention"], ["issue-repro", "Issue repro"], ["runtime", "Runtime evidence"]];
+function renderFilters() {
+  $("filters").innerHTML = FILTERS.map(([k, label]) => `<button type="button" data-filter="${k}" aria-pressed="${filter === k}">${label}</button>`).join("");
+}
+function renderTable() {
+  const rows = D.tasks.filter((t) => filter === "all" || (filter === "test" && t.split === "test") || (filter === "separates" && statusOf(t) === "separates")
+    || (filter === "attention" && statusOf(t) !== "separates") || (filter === "issue-repro" && t.provenance === "issue-repro") || (filter === "runtime" && t.evidence === "runtime"));
+  const pill = (s) => s === "separates" ? '<span class="pill p-ok">separates</span>' : s === "separates-stale" ? '<span class="pill p-warn">re-run</span>' : s.startsWith("fails") ? '<span class="pill p-bad">fails</span>' : '<span class="pill p-none">not run</span>';
+  $("tasktable").innerHTML = `<tr><th>Task</th><th>Category</th><th>Fam.</th><th>Difficulty</th><th>Fault</th><th>Evidence (author)</th><th>Ops-only</th><th>Graded on</th><th>Separation</th><th>Reference</th><th>Broken</th></tr>` +
+    rows.map((t) => `<tr><td class="mono"><button class="chip ${t.split === "dev" ? "dev" : ""}" data-id="${t.id}">${t.id}</button></td><td>${t.category}</td><td>${t.family}</td><td>${t.difficulty}</td><td>${t.fault}</td><td>${t.evidence}</td><td>${t.measured && t.measured.value ? t.measured.value : "–"}</td><td>${t.gates.join(", ")}</td><td>${pill(statusOf(t))}</td><td class="num">${t.sep.ref ? fmtRun(t.sep.ref) : "–"}</td><td class="num">${t.sep.broken ? fmtRun(t.sep.broken) : "–"}</td></tr>`).join("");
+}
+$("filters").addEventListener("click", (e) => { const b = e.target.closest("[data-filter]"); if (!b) return; filter = b.dataset.filter; renderFilters(); renderTable(); });
+renderFilters(); renderTable();
+
+// Loss chart: dots per variant on one axis, with the bound
+(function () {
+  const res = (D.base.results) || {};
+  const groups = Object.entries(res).map(([k, runs]) => [k, runs.map((r) => r.loss).filter((x) => x != null)]).filter(([, v]) => v.length);
+  if (!groups.length) { $("losschart").innerHTML = '<div class="empty">No calibration file.</div>'; return; }
+  const lo = 1.48, hi = 1.64, W = 520, rowH = 26, top = 18, left = 120, right = 20, H = top + groups.length * rowH + 34;
+  const x = (v) => left + ((Math.min(v, hi) - lo) / (hi - lo)) * (W - left - right);
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Held-out loss by variant">`;
+  for (let v = 1.48; v <= 1.6401; v += 0.04) s += `<line x1="${x(v)}" x2="${x(v)}" y1="${top - 6}" y2="${H - 28}" stroke="var(--line)"/><text x="${x(v)}" y="${H - 12}" text-anchor="middle">${v.toFixed(2)}</text>`;
+  s += `<line x1="${x(1.545)}" x2="${x(1.545)}" y1="${top - 10}" y2="${H - 28}" stroke="var(--accent)" stroke-width="2"/><text x="${x(1.545) + 4}" y="${top - 8}" style="fill:var(--accent)">loss_max 1.545</text>`;
+  groups.forEach(([k, vals], i) => {
+    const y = top + i * rowH + 10, short = k.startsWith("short:");
+    s += `<text x="${left - 8}" y="${y + 4}" text-anchor="end" class="ink">${k.replace("short:", "shortcut: ")}</text>`;
+    vals.forEach((v) => { s += `<circle cx="${x(v)}" cy="${y}" r="4.5" fill="${short ? "var(--bad)" : "var(--ok)"}" fill-opacity=".75"/>`; if (v > hi) s += `<text x="${x(hi) - 2}" y="${y - 7}" text-anchor="end">${v.toFixed(2)} →</text>`; });
+  });
+  $("losschart").innerHTML = s + "</svg>";
+})();
+
+// Perf chart: slowdown factor per variant
+(function () {
+  const res = (D.perf.results) || {};
+  const ref = (res.reference || []).map((r) => r.elapsed_s);
+  if (!ref.length) { $("perfchart").innerHTML = '<div class="empty">No perf calibration.</div>'; return; }
+  const refMed = ref.sort((a, b) => a - b)[ref.length >> 1];
+  const names = { "perf-s1-omp16": "node OMP threads 16", "perf-s5-ckpt1": "checkpoint every step", "perf-ckpt200": "checkpoint every 200", "perf-b1-bucket": "tiny DDP buckets (loopback)", "perf-b2-bcast": "per-step broadcast (loopback)", "perf-fsdp-block": "FSDP per block", "perf-b4-fsdp-linear": "FSDP per linear (loopback)" };
+  const rows = Object.entries(res).filter(([k]) => k !== "reference").map(([k, runs]) => [names[k] || k, Math.max(...runs.map((r) => r.elapsed_s)) / refMed, runs.some((r) => !r.completed)]);
+  const W = 520, rowH = 24, top = 10, left = 190, right = 40, H = top + rows.length * rowH + 34, maxF = 7;
+  const x = (f) => left + (Math.min(f, maxF) / maxF) * (W - left - right);
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Slowdown factors">`;
+  [1, 2, 4, 6].forEach((f) => { s += `<line x1="${x(f)}" x2="${x(f)}" y1="${top - 4}" y2="${H - 28}" stroke="var(--line)"/><text x="${x(f)}" y="${H - 12}" text-anchor="middle">${f}x</text>`; });
+  s += `<line x1="${x(1.5)}" x2="${x(1.5)}" y1="${top - 4}" y2="${H - 28}" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/><text x="${x(1.5) + 4}" y="${H - 30}" style="fill:var(--accent)">gate 1.5x</text>`;
+  rows.forEach(([n, f, dnf], i) => {
+    const y = top + i * rowH;
+    s += `<text x="${left - 8}" y="${y + 13}" text-anchor="end" class="ink">${n}</text><rect x="${left}" y="${y + 3}" width="${Math.max(2, x(f) - left)}" height="14" rx="3" fill="${f >= 1.5 ? "var(--ok)" : "var(--none)"}" fill-opacity=".8"/><text x="${x(f) + 6}" y="${y + 14}">${dnf ? "> " : ""}${f.toFixed(2)}x${dnf ? " (deadline)" : ""}</text>`;
+  });
+  $("perfchart").innerHTML = s + `</svg><div class="meta">Reference ${refMed.toFixed(0)} s on the A100 box. Loopback rows are why the communication tasks now run over an emulated 5 ms / 1 Gbit link.</div>`;
+})();
+
+// Fidelity
+(function () {
+  const by = {};
+  D.fidelity.forEach((r) => { (by[r.scenario] ||= {})[r.backend] = r; });
+  const tasks = { rank0_only_collective: "rank0-eval-desync, rank0-only-checkpoint", cross_group_deadlock: "subgroup-skip-deadlock (warm subgroup)", cross_group_deadlock_cold: "subgroup-skip-deadlock (cold subgroup, as the task)", healthy_control: "control", rank_stuck_outside: "prefetch-thread-dies", uneven_all_gather: "uneven-val-gather", timeout_below_stall: "pg-timeout-below-checkpoint", replication_oom: "ddp-replication-oom" };
+  const sig = (r, backend) => {
+    if (!r) return "–";
+    const e = r.first_error || r.error || "";
+    if (backend === "gloo" && r.scenario === "replication_oom") return '<span class="pill p-none">n/a on the pod</span> benchmark: cgroup SIGKILL, no traceback';
+    const completed = r.status ? r.status === "completed" : r.exit === 0;  // JSONL rows carry a status and an exit list
+    if (completed) return `<span class="pill ${r.outputs_valid === false ? "p-bad" : "p-warn"}">${r.outputs_valid === false ? "silent, corrupt outputs" : "silent"}</span> completes in ${(r.elapsed_s || 0).toFixed(0)} s, no error${r.corrupt_elements ? ` · ${r.corrupt_elements} corrupt elements` : ""}`;
+    if (r.status === "hung") return `<span class="pill p-none">hung to the limit</span> ${(r.elapsed_s || 0).toFixed(0)} s${r.fr_dumps ? ` · ${r.fr_dumps} Flight Recorder dumps` : ""}`;
+    let kind = e.includes("doesn't match expected size") ? "size-mismatch abort" : e.includes("Timed out waiting") ? "timeout naming the peer" : e.includes("Watchdog") ? "watchdog timeout" : e.includes("OutOfMemoryError") ? "CUDA OOM exception" : "error";
+    return `<span class="pill ${kind === "watchdog timeout" || kind.includes("timeout") ? "p-none" : "p-bad"}">${kind}</span> ${(r.elapsed_s == null ? "–" : r.elapsed_s.toFixed(0))} s${r.fr_dumps ? ` · ${r.fr_dumps} Flight Recorder dumps` : ""}`;
+  };
+  const rows = Object.entries(by);
+  $("fidtable").innerHTML = rows.length ? `<tr><th>Mechanism</th><th>Benchmark tasks</th><th>Gloo (CPU)</th><th>NCCL (GPU)</th></tr>` + rows.map(([k, b]) => `<tr><td>${k.replace(/_/g, " ")}</td><td class="mono">${tasks[k] || ""}</td><td>${sig(b.gloo, "gloo")}</td><td>${sig(b.nccl, "nccl")}</td></tr>`).join("") : '<tr><td class="empty">No fidelity runs yet.</td></tr>';
+  const g = D.gpu_jobs;
+  $("gpujobs").innerHTML = g.length ? `<div class="sec-head" style="margin-top:8px"><strong>Full jobs on NCCL</strong><p>The benchmark's own train.py, ported at run time; world size and backend are in each run's manifest.</p></div><div class="tablewrap"><table><tr><th>Task</th><th>Variant</th><th>Outcome</th><th>Steps</th><th>Step time</th><th>Held-out loss</th><th>First error</th></tr>${g.map((r) => `<tr><td class="mono">${esc(r.task)}</td><td>${r.variant}</td><td><span class="pill ${r.status === "completed" ? "p-ok" : r.status === "hung" ? "p-warn" : "p-bad"}">${r.status}</span> ${(r.elapsed_s == null ? "–" : r.elapsed_s.toFixed(0))} s</td><td class="num">${r.steps ?? "–"}</td><td class="num">${r.median_step_s != null ? (1000 * r.median_step_s).toFixed(1) + " ms" : "–"}</td><td class="num">${r.loss ?? "–"}</td><td class="mono" style="max-width:420px">${esc((r.first_errors || [])[0] || r.error || "")}</td></tr>`).join("")}</table></div>` : "";
+})();
+</script>

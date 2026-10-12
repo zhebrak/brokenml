@@ -1,0 +1,3 @@
+{"_comment": "Settings for the GPT-6 Luna row on the OpenAI API: every test task in both arms at high reasoning effort.",
+ "configurations": [{"model": "openai/gpt-6-luna", "reasoning_effort": "high"}],
+ "k": 1, "lite_k": 1, "seed": 20261008, "max_trials": 92, "budget_usd": 25, "row_budget_usd": 20}

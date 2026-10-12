@@ -1,0 +1,2 @@
+# the first allocation is still killed at the 3-minute limit (TIMEOUT) and the continuation only picks up from a checkpoint: that job does not end COMPLETED
+job completed before deadline: a job did not complete

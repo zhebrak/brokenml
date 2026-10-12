@@ -1,0 +1,362 @@
+{
+ "activation-oom": {
+  "version": "0.79.0",
+  "env": "d639ff2e11325de1",
+  "tests": "170c9ba73ee40b3b",
+  "meta": "f5851b5785cd6f1a"
+ },
+ "bad-token-ids": {
+  "version": "0.76.0",
+  "env": "5867c563d2463a48",
+  "tests": "c8e202f6bb202f15",
+  "meta": "fa8c33ae4350a0db"
+ },
+ "checkpoint-every-step": {
+  "version": "0.76.0",
+  "env": "af393e1293b941ce",
+  "tests": "a59bc503836d9043",
+  "meta": "75f64bc21cdac225"
+ },
+ "ckpt-space-held-open": {
+  "version": "0.73.0",
+  "env": "73e3f1138ab4d419",
+  "tests": "64ad9f052760f882",
+  "meta": "0a068a56e5a879fa"
+ },
+ "consolidated-copy-oom": {
+  "version": "0.71.0",
+  "env": "ab78fdde96c3cdc7",
+  "tests": "a146034512164eb7",
+  "meta": "7ff355dd875fdeee"
+ },
+ "ddp-replication-oom": {
+  "version": "0.79.0",
+  "env": "d291580c9b0c6566",
+  "tests": "7a6a2e2bd03c076f",
+  "meta": "5a9bcfb618ede352"
+ },
+ "degraded-node": {
+  "version": "0.76.0",
+  "env": "02f19b0dda4df707",
+  "tests": "48b90352e0dc8694",
+  "meta": "1d0c2caba9591572"
+ },
+ "dev-pending": {
+  "version": "0.76.0",
+  "env": "2c08245f142cd3be",
+  "tests": "8a7a7ca11a3f1103",
+  "meta": "8420bab9c54dad01"
+ },
+ "dev-serving-batch": {
+  "version": "0.71.0",
+  "env": "6cea6e4383628871",
+  "tests": "94f6bd09d7531fd8",
+  "meta": "1dfe01313c586556"
+ },
+ "dev-teacher-path": {
+  "version": "0.76.0",
+  "env": "03322cb853f03cf5",
+  "tests": "11a951140cb63e6d",
+  "meta": "9c3e1474d965df3b"
+ },
+ "engine-ctx-kv-window": {
+  "version": "0.70.1",
+  "env": "6ddd22ad8b38e38a",
+  "tests": "eab784302267b1bd",
+  "meta": "38150dec5a59cef6"
+ },
+ "engine-no-continuous-batching": {
+  "version": "0.75.0",
+  "env": "e52d8f135d723c12",
+  "tests": "9b6e29f96e1a2fab",
+  "meta": "57a4c76d8c758074"
+ },
+ "engine-single-slot": {
+  "version": "0.75.0",
+  "env": "615da581757a8037",
+  "tests": "c9c5ab8c18b0f6db",
+  "meta": "90bc677e625b0aa5"
+ },
+ "engine-startup-timeout": {
+  "version": "0.75.0",
+  "env": "4bbc0eb2ba72f0df",
+  "tests": "a30895db1c8e2287",
+  "meta": "9a8df87c54f9b049"
+ },
+ "engine-thread-oversubscription": {
+  "version": "0.75.0",
+  "env": "78c18d80f86a3981",
+  "tests": "f0c2ddbc638ea66d",
+  "meta": "d1bd6046d756bb63"
+ },
+ "eval-without-no-grad": {
+  "version": "0.78.0",
+  "env": "485dae28ee9fcfd8",
+  "tests": "a0712add7dc41678",
+  "meta": "1df4686858a320c3"
+ },
+ "failed-dependency": {
+  "version": "0.77.0",
+  "env": "ccecb63126af0e67",
+  "tests": "c87d4d08e89593ea",
+  "meta": "f85e8592185aa702"
+ },
+ "fsdp-fine-wrapping": {
+  "version": "0.76.0",
+  "env": "c2a9908252bbc046",
+  "tests": "675faf50040d7bec",
+  "meta": "3702d3112a406a4f"
+ },
+ "fsdp-spans-slow-link": {
+  "version": "0.66.0",
+  "env": "aa56a0b111b46eae",
+  "tests": "b7740c8bac7a68fa",
+  "meta": "38a91fc588ab0afc"
+ },
+ "g-bad-token-ids": {
+  "version": "0.66.0",
+  "env": "1da88f55fad1f639",
+  "tests": "3ff7b16acceb16ea",
+  "meta": "8c2c596b723beb27"
+ },
+ "g-nccl-conf-p2p-off": {
+  "version": "0.66.0",
+  "env": "39b7cc1f298d8e27",
+  "tests": "7247d1e231281043",
+  "meta": "180196dced68b990"
+ },
+ "g-pg-timeout-below-checkpoint": {
+  "version": "0.68.0",
+  "env": "1f3a3f0808a90d95",
+  "tests": "e3478dc70ebb98a5",
+  "meta": "a097dc8933a7ad2e"
+ },
+ "g-prefetch-thread-dies": {
+  "version": "0.66.0",
+  "env": "f5716180f0903e4e",
+  "tests": "f75722b299b52311",
+  "meta": "3b5d6bcba131a7cc"
+ },
+ "g-rank0-eval-desync": {
+  "version": "0.66.0",
+  "env": "1bd70164daf7d6e8",
+  "tests": "eb159e04862e55b4",
+  "meta": "ae034fe716489a4b"
+ },
+ "g-rank0-only-checkpoint": {
+  "version": "0.66.0",
+  "env": "a58d19913fd1fe6a",
+  "tests": "fca35293677ef13b",
+  "meta": "b6ea8f6fe7990cf5"
+ },
+ "g-tf32-override": {
+  "version": "0.66.0",
+  "env": "cc0ada6bc68885ed",
+  "tests": "46e5754ae4e1c808",
+  "meta": "0e5130aaba81f599"
+ },
+ "gres-from-gpu-template": {
+  "version": "0.76.0",
+  "env": "7467cab154ca701c",
+  "tests": "6b79a3d3a8746fc9",
+  "meta": "2afa7f94f8a2305b"
+ },
+ "hash-ordered-buckets": {
+  "version": "0.78.0",
+  "env": "bfebfe8731e6b80b",
+  "tests": "dff8210d54477a97",
+  "meta": "0b0d0da02b517722"
+ },
+ "latest-half-written": {
+  "version": "0.77.0",
+  "env": "3378bf813733dd99",
+  "tests": "18bf355292b59668",
+  "meta": "90106950988a7be7"
+ },
+ "lr-decay-horizon": {
+  "version": "0.78.0",
+  "env": "4fc029f802e20892",
+  "tests": "600d1b7f420046c7",
+  "meta": "27d2efc014f1f42f"
+ },
+ "maintenance-window-pending": {
+  "version": "0.70.0",
+  "env": "bc3ffe61f6962d33",
+  "tests": "bd70318afce4e88e",
+  "meta": "6179d7badadaabeb"
+ },
+ "mem-request-unsatisfiable": {
+  "version": "0.74.0",
+  "env": "6ab1bf4193aa3668",
+  "tests": "0ba4b15245c50ef1",
+  "meta": "7dbda6e3a2453c29"
+ },
+ "monitor-step-blocks": {
+  "version": "0.78.0",
+  "env": "133b0ac6451d9660",
+  "tests": "7d3d4cece78d4a5e",
+  "meta": "c6d6bbe8a681f6fe"
+ },
+ "no-sync-off-by-one": {
+  "version": "0.78.0",
+  "env": "7621253320623340",
+  "tests": "d3ea574f1f7d9ae2",
+  "meta": "531c258428eed909"
+ },
+ "node-thread-oversubscription": {
+  "version": "0.78.0",
+  "env": "ee59506638def1ba",
+  "tests": "22d837f01c947a61",
+  "meta": "ff9d0aa17771bf43"
+ },
+ "objstore-slowdown-backoff": {
+  "version": "0.71.0",
+  "env": "0a95d66f1e4bbe81",
+  "tests": "e5f6533dd38a96a9",
+  "meta": "3191fdd305e5bb36"
+ },
+ "outlives-time-limit": {
+  "version": "0.77.0",
+  "env": "0107ff4f95ff1963",
+  "tests": "2950f36bc07d4322",
+  "meta": "c654b14a85ae4127"
+ },
+ "pg-timeout-below-checkpoint": {
+  "version": "0.78.0",
+  "env": "54f90bd606aeeab5",
+  "tests": "13c2b7cb5ef567a1",
+  "meta": "c6cdaa1ffaea7465"
+ },
+ "port-squatter-rdzv": {
+  "version": "0.71.0",
+  "env": "e2c25dc048aa77e3",
+  "tests": "c250a5dd3e7bce3b",
+  "meta": "98ba1b937ad644b8"
+ },
+ "prefetch-thread-dies": {
+  "version": "0.76.0",
+  "env": "a78f8db941e2eb06",
+  "tests": "6bc12a254a318af4",
+  "meta": "4e3a99dfe5101ce5"
+ },
+ "rank0-eval-desync": {
+  "version": "0.76.0",
+  "env": "9e0897740ec91bc8",
+  "tests": "e8629f99e00cd3b7",
+  "meta": "917132eef68a5ca4"
+ },
+ "rank0-only-checkpoint": {
+  "version": "0.76.0",
+  "env": "1b4b392f2bea20d9",
+  "tests": "243028bb1579bb3e",
+  "meta": "2149d22ae603db43"
+ },
+ "ranks-packed-one-node": {
+  "version": "0.76.0",
+  "env": "913f2d8010745bf7",
+  "tests": "de7e76bac082882b",
+  "meta": "cfa68423bca71c3d"
+ },
+ "rdzv-timeout-below-prolog": {
+  "version": "0.76.0",
+  "env": "c7b52249dd534385",
+  "tests": "ff7957ee7fdf2a89",
+  "meta": "961ef918e6d5acab"
+ },
+ "realmemory-drain": {
+  "version": "0.76.0",
+  "env": "e08cbab49ecc02c0",
+  "tests": "2cb1c9e6e709777b",
+  "meta": "bfc8217cc5030ed6"
+ },
+ "redundant-param-broadcast": {
+  "version": "0.77.0",
+  "env": "2f548c4adac35b7b",
+  "tests": "641e922c2c2900a5",
+  "meta": "ed57d0eec3ea9666"
+ },
+ "renamed-parameter": {
+  "version": "0.78.0",
+  "env": "561116dafeecec5e",
+  "tests": "f63fb1c475b58d55",
+  "meta": "2d6365be290b0ce4"
+ },
+ "same-shard": {
+  "version": "0.77.0",
+  "env": "a7fc2c1a0908c46a",
+  "tests": "e143673922620846",
+  "meta": "842233b352d13cb6"
+ },
+ "scratch-is-tmpfs": {
+  "version": "0.68.0",
+  "env": "7db3364f2017ce20",
+  "tests": "755de616378d3403",
+  "meta": "f5410f064f1c37ac"
+ },
+ "stale-hosts-entry": {
+  "version": "0.60.1",
+  "env": "74195db84756ac4c",
+  "tests": "add823caad8131b0",
+  "meta": "2e49d33b4a06942f"
+ },
+ "stats-thread-lingers": {
+  "version": "0.77.0",
+  "env": "732282210040fc0c",
+  "tests": "8f905e40deea1925",
+  "meta": "d711f0f4afabc192"
+ },
+ "subgroup-skip-deadlock": {
+  "version": "0.79.1",
+  "env": "865a124b739c9cd6",
+  "tests": "fdd333cdb764c014",
+  "meta": "ae06b55f37f3af7c"
+ },
+ "tiny-ddp-buckets": {
+  "version": "0.78.0",
+  "env": "3b4ca4290862a314",
+  "tests": "9a6fd2bd723ca422",
+  "meta": "046de6289a984f07"
+ },
+ "tokenizer-remap-shard": {
+  "version": "0.72.0",
+  "env": "91443d7091eb4c18",
+  "tests": "28b749dcca126d5e",
+  "meta": "3c9779fbb139fe13"
+ },
+ "uneven-val-gather": {
+  "version": "0.76.1",
+  "env": "16a4dced687abf4c",
+  "tests": "755c6dc842de187f",
+  "meta": "669df04448fb7201"
+ },
+ "unshifted-labels": {
+  "version": "0.78.0",
+  "env": "2f1396c53165afc7",
+  "tests": "3b9a0b9efdad9299",
+  "meta": "957d95b95e481845"
+ },
+ "wait-on-heartbeat": {
+  "version": "0.76.0",
+  "env": "1b9b4d7fc2891c21",
+  "tests": "99d8940f3932c67e",
+  "meta": "b8fccc055e337b3e"
+ },
+ "wrong-nic-one-node": {
+  "version": "0.72.0",
+  "env": "2c59d22618219bf9",
+  "tests": "689b012b7f257ce3",
+  "meta": "85941e8fd16a9c58"
+ },
+ "wrong-run-checkpoint": {
+  "version": "0.77.0",
+  "env": "e65552c5973e7461",
+  "tests": "2f7182e96aae79c3",
+  "meta": "9ac6f5095ee2547f"
+ },
+ "wrong-run-renamed-keys": {
+  "version": "0.77.0",
+  "env": "1c70c29e27b6200e",
+  "tests": "92db6530ea1a68bb",
+  "meta": "19c418b44d109290"
+ }
+}

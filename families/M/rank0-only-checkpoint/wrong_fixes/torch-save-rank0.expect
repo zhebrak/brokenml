@@ -1,0 +1,3 @@
+# contract control: a rank-0 torch.save with no collective is the standard DDP fix for the hang; it fails only the
+# contract's rule that checkpoints are committed by ocb.ckpt.save (and replicated), not the mechanism
+checkpoints written

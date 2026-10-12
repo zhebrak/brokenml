@@ -1,0 +1,2 @@
+# the data order comes from batches()'s own generator (seed + epoch), not the global RNG: all ranks still draw the same micro-batches (effective batch 16)
+held-out loss

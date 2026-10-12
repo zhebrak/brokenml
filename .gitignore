@@ -1,0 +1,27 @@
+# Secrets: provider keys live in .env (copy .env.example); never commit one
+.env
+.env.*
+!.env.example
+
+# Python and tool caches
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Outputs of bench and Harbor runs (render --variant writes build/tasks-<variant>)
+/jobs/
+runs/
+build/
+*.pid
+
+# bench protocol run state next to a frozen manifest (the manifest itself is committed)
+protocol/*.progress.json
+protocol/*.lock
+results/**/*.lock
+
+# Local state
+gpu/host.yaml
+/private/
+.claude/

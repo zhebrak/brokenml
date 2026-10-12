@@ -1,0 +1,84 @@
+[project]
+name = "brokenml"  # the benchmark's name; the Python modules stay bench (host tooling), harness, ocb
+version = "0.1.0"
+description = "Agent benchmark: diagnose and repair broken distributed ML jobs (Harbor format)."
+license = "Apache-2.0"
+requires-python = ">=3.12"
+dependencies = [
+    "pyyaml==6.0.3",
+    "pydantic==2.13.5",
+    "python-dotenv==1.2.4",
+]
+
+[project.scripts]
+bench = "bench.cli:main"
+brokenml = "bench.cli:main"
+
+[dependency-groups]
+dev = ["pytest==8.4.1", "pytest-cov==7.0.0", "ruff==0.16.9", "pyright==1.1.414", "shellcheck-py==0.11.0.1"]
+# Host-side tests of the platform and harness code that need torch (pytest -m torch); versions match images/runtime.
+torch = ["torch==2.14.1", "numpy==2.5.3", "safetensors==0.8.0"]
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+# Three trust zones (docs/architecture.md): ocb = platform (agent-reachable), harness = provisioning and grading
+# (harness image only), bench = authoring and QA (host only). tests/test_boundaries.py enforces the import rules.
+packages = ["src/ocb", "src/harness", "src/bench"]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not torch and not docker' --strict-markers --strict-config"
+markers = [
+    "torch: needs torch (uv sync --group torch; run with -m torch)",
+    "docker: needs Docker and built images",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+src = ["src", "tests"]
+# families/ and tasks/ hold agent-facing task content (some of it deliberately broken); templates/ is linted below
+# but never auto-formatted, because its text is what agents read.
+extend-exclude = ["families", "tasks", "runs", "build", "calibration", "results"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "SIM", "RUF", "PLW1510", "BLE", "S110"]
+ignore = [
+    "E731",    # small lambdas for formatting helpers read fine
+    "SIM108",  # ternaries are not always clearer
+    "RUF001", "RUF002", "RUF003",  # typographic characters in prose (x, -, quotes) are intended
+]
+
+[tool.ruff.lint.per-file-ignores]
+"templates/**" = ["B", "SIM", "UP", "RUF", "BLE", "S110", "I", "E501"]  # the platform's own code, as agents find it
+"tests/**" = ["S110", "BLE"]
+"src/bench/leak_audit.py" = ["E501"]  # the audit probe is an embedded shell script
+"tools/release/post/draw_architecture.py" = ["E501"]  # SVG path strings
+# the report generators write prose: one typed sentence per statement, star imports of the shared tables; not platform code
+"tools/release/report/{build_findings,build_tasks,lib,fstats,prose,notes,notes_dyn,edits,failcls}.py" = ["E501", "E701", "E702", "E741", "E401", "E402", "F403", "F405", "F401", "F541", "F841", "I001", "SIM115", "SIM910", "B007", "B023", "B905", "RUF005", "RUF100", "BLE001", "UP034", "W291"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["ocb", "harness", "bench"]
+
+[tool.ruff.format]
+exclude = ["templates/**", "tools/release/report/{build_findings,build_tasks,lib,fstats,prose,notes,notes_dyn,edits,failcls}.py"]
+
+[tool.pyright]
+include = ["src/harness", "src/ocb/slurm.py", "src/bench"]
+pythonVersion = "3.12"
+typeCheckingMode = "basic"
+reportMissingImports = "warning"  # torch is optional on the host

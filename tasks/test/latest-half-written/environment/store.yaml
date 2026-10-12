@@ -1,0 +1,8 @@
+teacher_seed: 11
+runs:
+- name: train
+  steps: 800
+  ckpt_every: 100
+  schedule_steps: 1000
+  corrupt:
+  - half-written-latest

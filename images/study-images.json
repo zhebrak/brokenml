@@ -1,0 +1,40 @@
+{
+  "study": "0.1.0",
+  "note": "The images the study ran on, as published to GHCR. 'id' is the OCI index digest, what Docker's containerd image store (the default on Docker 29) reports as .Id; it equals the registry digest, so pull by digest: docker pull <ref repository>@<id>. 'config' is the image config digest, what the classic overlay2 image store reports as .Id for the same image. 'source' and 'build' are the source hash and BUILD id recorded in the image (/opt/<pkg>/VERSION and BUILD). 'tag' is the local name the code expects (images/images.toml).",
+  "images": {
+    "runtime": {
+      "tag": "bench/runtime:dev",
+      "ref": "ghcr.io/zhebrak/brokenml-runtime:0.1.0",
+      "id": "sha256:2dbb48ff58459a6259e1cddd936dc2d6d3d35765bf51b8d9c06f48ef521a8477",
+      "config": "sha256:50cb7270dda53b03789c78585d1680ce2d47d30f91735737c0a29225c670a3c8",
+      "source": "8631a20f3ea56bdc",
+      "build": "c7497b3f4d07157a"
+    },
+    "harness": {
+      "tag": "bench/harness:dev",
+      "ref": "ghcr.io/zhebrak/brokenml-harness:0.1.0",
+      "id": "sha256:0efc30d4550f6c1d452dadccae45b0cba478abde66a96a211d83b734debe7f6f",
+      "config": "sha256:30bbf4c3c3a8363eae2be3ed0de6f9b9b02c40d7fed100fc4296da9e2a35e846",
+      "source": "f09386b64d9d9184",
+      "build": "4a65e6b70d5221cf"
+    },
+    "serve": {
+      "tag": "bench/serve:dev",
+      "ref": "ghcr.io/zhebrak/brokenml-serve:0.1.0",
+      "id": "sha256:adbc02fa167de69d0f6bd89e0446d79524536e64a1ba1fc0109980ad06a31ac9",
+      "config": "sha256:92a5bc737231a3e50404c42ae1bff1391953ad33dbfde444bc97d6d9db1e50bd",
+      "source": "2da225ab354f5074",
+      "build": "4eb3aa766bcea7ea"
+    },
+    "runtime-getenvfix": {
+      "tag": "bench/runtime:getenvfix1",
+      "ref": "ghcr.io/zhebrak/brokenml-runtime:0.1.0-getenvfix",
+      "id": "sha256:1ceed41fc48feb67c4ed96f8116676c2617d80d2e80c8913316b20c810db1404",
+      "config": "sha256:a4e9e64d4ae6eb993345c395053837ec73a0bed3d835041d31460e0c6611def4",
+      "source": "13589f05b723d886",
+      "build": "30d359c32bf224af",
+      "base_source": "8631a20f3ea56bdc",
+      "base_note": "The study's re-grades ran on this image. It was built on the development host's runtime build, not the study runtime: same packages (same base source hash), different layers, so a different build id from the study runtime's."
+    }
+  }
+}

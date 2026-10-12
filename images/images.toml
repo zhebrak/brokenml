@@ -1,0 +1,19 @@
+# The images every task references. `make image` builds the tags locally. A release pushes them to a registry and
+# records each digest here; `bench render` then pins every FROM line and compose image to tag@digest, and
+# `bench qa --release` checks that every reference in every task is pinned to exactly these digests.
+
+[runtime]  # what agents can reach: workstation, Slurm controller, nodes (images/runtime)
+tag = "bench/runtime:dev"
+digest = ""
+
+[harness]  # provisioning sidecar, object store, verifier (images/harness, on top of the runtime image)
+tag = "bench/harness:dev"
+digest = ""
+
+[runtime-cuda]  # the GPU node of GPU tasks: the runtime image with CUDA torch (images/runtime, TORCH=cu130)
+tag = "bench/runtime-cuda:dev"
+digest = ""
+
+[serve]  # the inference engine of serving tasks (images/serve)
+tag = "bench/serve:dev"
+digest = ""

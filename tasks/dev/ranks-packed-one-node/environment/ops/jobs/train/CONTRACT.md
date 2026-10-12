@@ -1,0 +1,25 @@
+# Contract: job `train`
+
+Any change to this job must keep these bounds. The job is re-run from scratch on a fresh cluster to check them.
+
+- The model architecture (`model` in `train.yaml`), the number of optimizer steps (`steps`), the data source and the seed are fixed.
+- The training data is prepared by the data team and cannot be changed from `/ops`.
+- The global batch per optimizer step (world size x `micro_batch` x `grad_accum`) is fixed.
+- The job trains on all 4 ranks (2 nodes x 2 ranks).
+- Validation loss is computed and reported periodically (`eval_every`; the cadence is below).
+- The final model must be exported to `/shared/out/model.safetensors` (the existing `ckpt.export_final` call).
+- Cluster-wide settings in `cluster/slurm.conf` (partitions, plugins, programs) are owned by the cluster admins; what may change, if anything, is listed below.
+
+## What the verifier enforces
+
+- `/ops` is read as plain text: no symlinks or binary files; changed files total at most 1 MB.
+- In `jobs/train/train.yaml` these keys must keep their current values: `model`, `steps`, `seed`, `train_seqs`, `val_seqs`, `data`, `export`, `resume_from`, `ckpt_dir`, `lr`, `warmup_steps`.
+- `eval_every` must be at least 1 and at most 10.
+- `pg_timeout_s` must be at least 1 and at most 300.
+- `micro_batch` x `grad_accum` must equal 4 (per-rank batch).
+- In `cluster/slurm.conf` only these settings may change: InactiveLimit, KillWait, MessageTimeout, MinJobAge, NodeName, PrologEpilogTimeout, ReturnToService, SchedulerParameters, SlurmctldTimeout, SlurmdTimeout, UnkillableStepTimeout. Program, plugin and identity settings never may.
+- These files may not change: cluster/cgroup.conf.
+- Every one of the 4 ranks must log its trained steps (the existing per-step `metrics.log(step=..., loss=...)` call, on every rank): a rank with no finite-loss record within the run counts as not trained.
+- Every node stays in service for the whole run: a node that is down or drained while the job runs fails it, whatever put it there (a node the cluster configuration leaves DOWN or DRAIN included).
+- Rank 0 must log validation loss at least every 10 steps (the existing `metrics.log(..., val_loss=...)` call).
+- The job's ranks must run as 2 ranks on each of 2 nodes, observed while it runs: each training process's RANK alongside WORLD_SIZE (as torchrun or env:// initialisation sets them), and exactly 2 CPU-busy processes of the job's account per node, so helper processes must stay light.

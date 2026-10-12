@@ -1,0 +1,18 @@
+# Cite the dataset version you used (docs/leaderboard.md).
+cff-version: 1.2.0
+message: "If you use BrokenML, please cite it as below."
+title: "BrokenML: broken distributed ML jobs for agents to diagnose and repair"
+type: dataset
+version: 0.1.0
+license: Apache-2.0
+repository-code: https://github.com/zhebrak/brokenml
+url: https://zhebrak.io/posts/brokenml/
+authors:
+  - family-names: Zhebrak
+    given-names: Alexander
+keywords:
+  - benchmark
+  - agents
+  - distributed training
+  - Slurm
+  - evaluation

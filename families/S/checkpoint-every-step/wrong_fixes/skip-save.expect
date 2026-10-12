@@ -1,0 +1,2 @@
+# with the scope open, skipping saves passes the policy; the run then commits no checkpoint
+checkpoints written

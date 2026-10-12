@@ -1,0 +1,10 @@
+spec: The training job `train` (`/ops/jobs/train/`) should train its long-context
+  model for 10 steps on 2 nodes x 2 ranks (global batch 128 sequences of 512 tokens),
+  report validation loss every 5 steps, finish in a few minutes and export the model.
+symptom:
+  kind: failed
+  log_match: SIGKILL
+corpus:
+  train: 2048
+  val: 16
+  length: 513

@@ -1,0 +1,16 @@
+spec: The training job `train` (`/ops/jobs/train/`) should start promptly, train for
+  500 steps on 2 nodes x 2 ranks, finish in a couple of minutes, and export a model
+  whose held-out loss is at most 1.545.
+symptom:
+  kind: pending
+  reason: ReqNodeNotAvail
+  timeout_s: 120.0
+corpus:
+  train: 16384
+  val: 512
+  length: 65
+site:
+  reservations:
+  - name: maint_kernel_upgrade
+    start_in_min: 12
+    duration_min: 120

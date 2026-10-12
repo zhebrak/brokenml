@@ -1,0 +1,31 @@
+{
+ "uniform": 3.4657,
+ "rows": [
+  {
+   "seed": 11,
+   "bigram": 3.3149,
+   "unigram": 3.4615
+  },
+  {
+   "seed": 22,
+   "bigram": 3.317,
+   "unigram": 3.4613
+  },
+  {
+   "seed": 33,
+   "bigram": 3.3087,
+   "unigram": 3.4614
+  },
+  {
+   "seed": 44,
+   "bigram": 3.3254,
+   "unigram": 3.4615
+  },
+  {
+   "seed": 55,
+   "bigram": 3.3142,
+   "unigram": 3.461
+  }
+ ],
+ "note": "held-out cross-entropy of a bigram table counted from the corpus, positions 2+; the 10-step gate cannot separate this from legitimate training (o-activation calibration)"
+}

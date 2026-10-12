@@ -1,0 +1,22 @@
+{
+ "_comment": "Settings for the live-logs arm's OpenAI-API rows: every test task in the logs variant, one attempt.",
+ "variants": [
+  "logs"
+ ],
+ "configurations": [
+  {
+   "model": "openai/gpt-6-luna",
+   "reasoning_effort": "high"
+  },
+  {
+   "model": "openai/gpt-6.1-sol",
+   "reasoning_effort": "high"
+  }
+ ],
+ "k": 1,
+ "lite_k": 1,
+ "seed": 20261011,
+ "max_trials": 92,
+ "budget_usd": 20,
+ "row_budget_usd": 25
+}

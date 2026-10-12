@@ -1,0 +1,187 @@
+{
+ "set": "t-time-limit",
+ "task": "outlives-time-limit",
+ "task_digest": "sha256:d80e08553f0c0d664a2a34c2a2f2fe4d02bf3643c20d3223d7641507576655cd",
+ "calibration_digest": "sha256:438b0e69a94818f87a477c32fcf6fdf945026a61206f112f81645a16a43a4c38",
+ "inputs": "21dad8105f78ff47",
+ "stamp": {
+  "git_sha": "5184f7233d8d",
+  "git_dirty": true,
+  "images": {
+   "bench/runtime:dev": "sha256:2dbb48ff58459a6259e1cddd936dc2d6d3d35765bf51b8d9c06f48ef521a8477",
+   "bench/harness:dev": "sha256:0efc30d4550f6c1d452dadccae45b0cba478abde66a96a211d83b734debe7f6f",
+   "bench/runtime-cuda:dev": "",
+   "bench/serve:dev": "sha256:adbc02fa167de69d0f6bd89e0446d79524536e64a1ba1fc0109980ad06a31ac9"
+  },
+  "harbor": "0.23.0",
+  "host": "study-host",
+  "cpu": "AMD EPYC 9R14",
+  "argv": [
+   "bench",
+   "calibrate",
+   "--set",
+   "t-time-limit"
+  ],
+  "utc": "2026-10-06T16:11:44Z"
+ },
+ "kinds": {
+  "reference": "legitimate",
+  "t-short-half-steps": "probe"
+ },
+ "results": {
+  "reference": [
+   {
+    "reward": 1.0,
+    "runtime_version": "8631a20f3ea56bdc",
+    "harness_version": "f09386b64d9d9184",
+    "runtime_build": "c7497b3f4d07157a",
+    "harness_build": "4a65e6b70d5221cf",
+    "failure": "none",
+    "infra_error": 0.0,
+    "complete": 1.0,
+    "substrate": "slurm",
+    "policy_ok": 1.0,
+    "teacher_seed": 1066245183.0,
+    "heldout_seed": 152128063.0,
+    "data_seed": 1977189694.0,
+    "node_build": "c7497b3f4d07157a",
+    "completed": 1.0,
+    "elapsed_s": 340.5,
+    "loss": 1.3997,
+    "failed_checks": [],
+    "failed_messages": {},
+    "wall_s": 375.1
+   },
+   {
+    "reward": 1.0,
+    "runtime_version": "8631a20f3ea56bdc",
+    "harness_version": "f09386b64d9d9184",
+    "runtime_build": "c7497b3f4d07157a",
+    "harness_build": "4a65e6b70d5221cf",
+    "failure": "none",
+    "infra_error": 0.0,
+    "complete": 1.0,
+    "substrate": "slurm",
+    "policy_ok": 1.0,
+    "teacher_seed": 1470683852.0,
+    "heldout_seed": 2129866139.0,
+    "data_seed": 1565201075.0,
+    "node_build": "c7497b3f4d07157a",
+    "completed": 1.0,
+    "elapsed_s": 342.3,
+    "loss": 1.399,
+    "failed_checks": [],
+    "failed_messages": {},
+    "wall_s": 374.1
+   },
+   {
+    "reward": 1.0,
+    "runtime_version": "8631a20f3ea56bdc",
+    "harness_version": "f09386b64d9d9184",
+    "runtime_build": "c7497b3f4d07157a",
+    "harness_build": "4a65e6b70d5221cf",
+    "failure": "none",
+    "infra_error": 0.0,
+    "complete": 1.0,
+    "substrate": "slurm",
+    "policy_ok": 1.0,
+    "teacher_seed": 3343171540.0,
+    "heldout_seed": 224582733.0,
+    "data_seed": 2980527340.0,
+    "node_build": "c7497b3f4d07157a",
+    "completed": 1.0,
+    "elapsed_s": 345.9,
+    "loss": 1.3998,
+    "failed_checks": [],
+    "failed_messages": {},
+    "wall_s": 379.1
+   }
+  ],
+  "t-short-half-steps": [
+   {
+    "reward": 0.0,
+    "runtime_version": "8631a20f3ea56bdc",
+    "harness_version": "f09386b64d9d9184",
+    "runtime_build": "c7497b3f4d07157a",
+    "harness_build": "4a65e6b70d5221cf",
+    "failure": "agent",
+    "infra_error": 0.0,
+    "complete": 1.0,
+    "substrate": "slurm",
+    "policy_ok": 1.0,
+    "teacher_seed": 1506869789.0,
+    "heldout_seed": 508769258.0,
+    "data_seed": 1462474060.0,
+    "node_build": "c7497b3f4d07157a",
+    "completed": 1.0,
+    "elapsed_s": 183.4,
+    "loss": 1.4053,
+    "failed_checks": [
+     "validation logged",
+     "every step trained once the run is stitched together"
+    ],
+    "failed_messages": {
+     "validation logged": "rank 0 has no val_loss in the 500 steps up to [3500, 4000, 4500, 5000, 5500, 6000]",
+     "every step trained once the run is stitched together": "3000 steps never trained (first: [3001, 3002, 3003, 3004, 3005])"
+    },
+    "wall_s": 216.5
+   },
+   {
+    "reward": 0.0,
+    "runtime_version": "8631a20f3ea56bdc",
+    "harness_version": "f09386b64d9d9184",
+    "runtime_build": "c7497b3f4d07157a",
+    "harness_build": "4a65e6b70d5221cf",
+    "failure": "agent",
+    "infra_error": 0.0,
+    "complete": 1.0,
+    "substrate": "slurm",
+    "policy_ok": 1.0,
+    "teacher_seed": 2141757052.0,
+    "heldout_seed": 542684113.0,
+    "data_seed": 1747642569.0,
+    "node_build": "c7497b3f4d07157a",
+    "completed": 1.0,
+    "elapsed_s": 190.5,
+    "loss": 1.4056,
+    "failed_checks": [
+     "validation logged",
+     "every step trained once the run is stitched together"
+    ],
+    "failed_messages": {
+     "validation logged": "rank 0 has no val_loss in the 500 steps up to [3500, 4000, 4500, 5000, 5500, 6000]",
+     "every step trained once the run is stitched together": "3000 steps never trained (first: [3001, 3002, 3003, 3004, 3005])"
+    },
+    "wall_s": 223.6
+   },
+   {
+    "reward": 0.0,
+    "runtime_version": "8631a20f3ea56bdc",
+    "harness_version": "f09386b64d9d9184",
+    "runtime_build": "c7497b3f4d07157a",
+    "harness_build": "4a65e6b70d5221cf",
+    "failure": "agent",
+    "infra_error": 0.0,
+    "complete": 1.0,
+    "substrate": "slurm",
+    "policy_ok": 1.0,
+    "teacher_seed": 1699927299.0,
+    "heldout_seed": 509242926.0,
+    "data_seed": 1881196554.0,
+    "node_build": "c7497b3f4d07157a",
+    "completed": 1.0,
+    "elapsed_s": 191.5,
+    "loss": 1.4063,
+    "failed_checks": [
+     "validation logged",
+     "every step trained once the run is stitched together"
+    ],
+    "failed_messages": {
+     "validation logged": "rank 0 has no val_loss in the 500 steps up to [3500, 4000, 4500, 5000, 5500, 6000]",
+     "every step trained once the run is stitched together": "3000 steps never trained (first: [3001, 3002, 3003, 3004, 3005])"
+    },
+    "wall_s": 224.6
+   }
+  ]
+ }
+}

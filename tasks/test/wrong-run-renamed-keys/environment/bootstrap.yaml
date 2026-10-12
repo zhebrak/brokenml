@@ -1,0 +1,12 @@
+spec: The training job `train` (`/ops/jobs/train/`) must resume the interrupted 1000-step
+  run from its checkpoints in `/shared/ckpt-store` (do not retrain from scratch),
+  train on 2 nodes x 2 ranks, report validation loss every 100 steps, finish in about
+  the time the remaining steps need, and export a model whose held-out loss is at
+  most 1.55.
+store: true
+symptom:
+  kind: failed
+corpus:
+  train: 16384
+  val: 512
+  length: 65

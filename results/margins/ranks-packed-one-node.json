@@ -1,0 +1,58 @@
+{
+ "task": "ranks-packed-one-node",
+ "task_digest": "sha256:29fc0675664431121b00a5adbe394130506c957fb3a94300b31cd94e2aeabb6d",
+ "grader_digest": "sha256:b0fbff6bacf9d1ccb044a2672343c7fcf7823759a29318a0268d8e25af30bb32",
+ "limits_mib": {
+  "c1": 2500,
+  "c2": 2500
+ },
+ "factor": 1.15,
+ "reference_below": {
+  "variant": "reference",
+  "limits_mib": {
+   "c1": 2173,
+   "c2": 2173
+  },
+  "reward": 1.0,
+  "oom_kills": {
+   "c1": 0,
+   "c2": 0
+  },
+  "failed": []
+ },
+ "broken_above": {
+  "variant": "pristine",
+  "limits_mib": {
+   "c1": 2875,
+   "c2": 2875
+  },
+  "reward": 0.0,
+  "oom_kills": {
+   "c1": 2,
+   "c2": 0
+  },
+  "failed": [
+   "[FAIL] job completed before deadline: a job did not complete"
+  ]
+ },
+ "pass": true,
+ "stamp": {
+  "git_sha": "de52cb81fad4",
+  "git_dirty": true,
+  "images": {
+   "bench/runtime:dev": "sha256:c9982c1f28b5",
+   "bench/harness:dev": "sha256:29acec6db031",
+   "bench/runtime-cuda:dev": "",
+   "bench/serve:dev": "sha256:740005ccc263"
+  },
+  "harbor": "0.23.0",
+  "host": "dev-host",
+  "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+  "argv": [
+   "bench",
+   "margins",
+   "ranks-packed-one-node"
+  ],
+  "utc": "2026-10-02T06:12:07Z"
+ }
+}

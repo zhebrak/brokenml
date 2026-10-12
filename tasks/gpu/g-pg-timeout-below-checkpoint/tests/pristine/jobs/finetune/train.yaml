@@ -1,0 +1,17 @@
+# Training config for job `finetune`: continue the latest `train` run at a lower learning rate.
+model: {vocab: 32, ctx: 64, d_model: 512, n_layer: 8, n_head: 8}
+seed: 1
+steps: 700
+micro_batch: 16
+grad_accum: 1
+lr: 0.001
+warmup_steps: 20
+parallel: ddp
+eval_every: 50
+ckpt_every: 100
+ckpt_keep: 3
+ckpt_dir: /shared/ckpt/finetune
+resume_from: /shared/ckpt/train
+export: /shared/out/finetune.safetensors
+device: cuda
+precision: bf16

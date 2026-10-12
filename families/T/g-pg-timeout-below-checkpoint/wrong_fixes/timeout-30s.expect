@@ -1,0 +1,2 @@
+# the checkpoint commit takes ~45 s, longer than the 30 s collective timeout: ranks 1-3 abort in the post-commit barrier
+job completed before deadline: a job did not complete

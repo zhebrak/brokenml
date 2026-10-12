@@ -1,0 +1,2 @@
+# the padding is NaN and torch.median propagates it: every logged val_loss is NaN, so no validation counts
+validation logged

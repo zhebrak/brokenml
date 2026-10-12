@@ -1,0 +1,12 @@
+spec: The training job `train` (`/ops/jobs/train/`) should train its 101M-parameter
+  model for 20 steps on 2 nodes x 2 ranks (global batch 16) at its usual speed (about
+  3 minutes on this cluster), report validation loss every 10 steps, and export the
+  model.
+symptom:
+  kind: running
+  run_s: 90.0
+  timeout_s: 400.0
+corpus:
+  train: 2048
+  val: 64
+  length: 65

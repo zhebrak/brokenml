@@ -1,0 +1,91 @@
+{
+ "task": "scratch-is-tmpfs",
+ "task_digest": "sha256:f6bee9b0c395b6c473da24618b7c4d3cee17dc5cad4a94accdb3b89e1f03da03",
+ "grader_digest": "sha256:f6d4bc4ae07c1844abd054624a9b2eadac33cee3a208df3a5dc513f629148f86",
+ "limits_mib": {
+  "c1": 1500,
+  "c2": 1500
+ },
+ "factor": 1.15,
+ "reference_below": {
+  "variant": "reference",
+  "limits_mib": {
+   "c1": 1304,
+   "c2": 1304
+  },
+  "reward": 1.0,
+  "oom_kills": {
+   "c1": 0,
+   "c2": 0
+  },
+  "infra": false,
+  "kind": "pass",
+  "failed": []
+ },
+ "accepted_below": {
+  "read-from-shared": {
+   "variant": "accepted:read-from-shared",
+   "limits_mib": {
+    "c1": 1304,
+    "c2": 1304
+   },
+   "reward": 1.0,
+   "oom_kills": {
+    "c1": 0,
+    "c2": 0
+   },
+   "infra": false,
+   "kind": "pass",
+   "failed": []
+  }
+ },
+ "broken_above": {
+  "variant": "pristine",
+  "limits_mib": {
+   "c1": 1724,
+   "c2": 1724
+  },
+  "reward": 0.0,
+  "oom_kills": {
+   "c1": 1,
+   "c2": 0
+  },
+  "infra": false,
+  "kind": "agent",
+  "failed": [
+   "[FAIL] job completed before deadline: a job did not complete: FAILED(NonZeroExitCode)"
+  ]
+ },
+ "wrong_above": {},
+ "inputs": {
+  "task_digest": "sha256:f6bee9b0c395b6c473da24618b7c4d3cee17dc5cad4a94accdb3b89e1f03da03",
+  "grader_digest": "sha256:f6d4bc4ae07c1844abd054624a9b2eadac33cee3a208df3a5dc513f629148f86",
+  "wrong_fixes": "53b5c7381fc66129",
+  "images": {
+   "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+   "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133"
+  },
+  "accepted_fixes": "c6f64d6503d2d94b"
+ },
+ "pass": true,
+ "verdict": "PASS",
+ "stamp": {
+  "git_sha": "daedc71e3c1f",
+  "git_dirty": true,
+  "images": {
+   "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+   "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+   "bench/runtime-cuda:dev": "",
+   "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+  },
+  "harbor": "0.23.0",
+  "host": "dev-host",
+  "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+  "argv": [
+   "bench",
+   "margins",
+   "scratch-is-tmpfs"
+  ],
+  "utc": "2026-10-05T22:34:32Z"
+ }
+}

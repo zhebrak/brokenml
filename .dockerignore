@@ -1,0 +1,5 @@
+*
+!images/
+!src/ocb/
+!src/harness/
+**/__pycache__

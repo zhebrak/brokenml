@@ -1,0 +1,13 @@
+diff --git a/src/trainer/loop.py b/src/trainer/loop.py
+index fdb8478..a7ba955 100644
+--- a/src/trainer/loop.py
++++ b/src/trainer/loop.py
+@@ -31,7 +31,7 @@ class Trainer:
+         accum, total = self.cfg["grad_accum"], 0.0
+         for micro in range(accum):
+             with parallel.sync_context(self.model, micro, accum):
+-                loss = next_token_loss(self.model, next(self.stream)) / accum
++                loss = next_token_loss(self.model, next(self.stream)[:1]) / accum
+                 loss.backward()
+             total += loss.item()
+             self.monitor.track(loss.item() * accum)

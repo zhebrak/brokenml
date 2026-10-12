@@ -1,0 +1,181 @@
+{
+ "set": "o-replication",
+ "task": "ddp-replication-oom",
+ "task_digest": "sha256:ceb169506704c02a72cf43bdcb98e8ffd6c3c3205f8c4d282f92cf639e593cae",
+ "calibration_digest": "sha256:c2e470590fe5cd575628c11e06ac08be964d7f36b51ca6f66e9daabef7923e7a",
+ "inputs": "f6374145cd836e3e",
+ "stamp": {
+  "git_sha": "daedc71e3c1f",
+  "git_dirty": true,
+  "images": {
+   "bench/runtime:dev": "sha256:2dbb48ff58459a6259e1cddd936dc2d6d3d35765bf51b8d9c06f48ef521a8477",
+   "bench/harness:dev": "sha256:0efc30d4550f6c1d452dadccae45b0cba478abde66a96a211d83b734debe7f6f",
+   "bench/runtime-cuda:dev": "",
+   "bench/serve:dev": "sha256:adbc02fa167de69d0f6bd89e0446d79524536e64a1ba1fc0109980ad06a31ac9"
+  },
+  "harbor": "0.23.0",
+  "host": "study-host",
+  "cpu": "AMD EPYC 9R14",
+  "argv": [
+   "bench",
+   "calibrate",
+   "--set",
+   "o-replication"
+  ],
+  "utc": "2026-10-05T22:31:10Z"
+ },
+ "kinds": {
+  "reference": "legitimate",
+  "o-replication-lr0": "shortcut"
+ },
+ "results": {
+  "reference": [
+   {
+    "reward": 1.0,
+    "runtime_version": "8631a20f3ea56bdc",
+    "harness_version": "f09386b64d9d9184",
+    "runtime_build": "c7497b3f4d07157a",
+    "harness_build": "4a65e6b70d5221cf",
+    "failure": "none",
+    "infra_error": 0.0,
+    "complete": 1.0,
+    "substrate": "slurm",
+    "policy_ok": 1.0,
+    "teacher_seed": 312851638.0,
+    "heldout_seed": 2365883187.0,
+    "data_seed": 4176870977.0,
+    "node_build": "c7497b3f4d07157a",
+    "completed": 1.0,
+    "elapsed_s": 121.3,
+    "loss": 3.4103,
+    "failed_checks": [],
+    "failed_messages": {},
+    "wall_s": 178.2
+   },
+   {
+    "reward": 1.0,
+    "runtime_version": "8631a20f3ea56bdc",
+    "harness_version": "f09386b64d9d9184",
+    "runtime_build": "c7497b3f4d07157a",
+    "harness_build": "4a65e6b70d5221cf",
+    "failure": "none",
+    "infra_error": 0.0,
+    "complete": 1.0,
+    "substrate": "slurm",
+    "policy_ok": 1.0,
+    "teacher_seed": 3520979386.0,
+    "heldout_seed": 1816484607.0,
+    "data_seed": 544035181.0,
+    "node_build": "c7497b3f4d07157a",
+    "completed": 1.0,
+    "elapsed_s": 119.1,
+    "loss": 3.4068,
+    "failed_checks": [],
+    "failed_messages": {},
+    "wall_s": 172.6
+   },
+   {
+    "reward": 1.0,
+    "runtime_version": "8631a20f3ea56bdc",
+    "harness_version": "f09386b64d9d9184",
+    "runtime_build": "c7497b3f4d07157a",
+    "harness_build": "4a65e6b70d5221cf",
+    "failure": "none",
+    "infra_error": 0.0,
+    "complete": 1.0,
+    "substrate": "slurm",
+    "policy_ok": 1.0,
+    "teacher_seed": 2427475220.0,
+    "heldout_seed": 2683969460.0,
+    "data_seed": 997066107.0,
+    "node_build": "c7497b3f4d07157a",
+    "completed": 1.0,
+    "elapsed_s": 117.5,
+    "loss": 3.4185,
+    "failed_checks": [],
+    "failed_messages": {},
+    "wall_s": 170.5
+   }
+  ],
+  "o-replication-lr0": [
+   {
+    "reward": 0.0,
+    "runtime_version": "8631a20f3ea56bdc",
+    "harness_version": "f09386b64d9d9184",
+    "runtime_build": "c7497b3f4d07157a",
+    "harness_build": "4a65e6b70d5221cf",
+    "failure": "agent",
+    "infra_error": 0.0,
+    "complete": 1.0,
+    "substrate": "slurm",
+    "policy_ok": 1.0,
+    "teacher_seed": 3205860546.0,
+    "heldout_seed": 1116806497.0,
+    "data_seed": 3627492276.0,
+    "node_build": "c7497b3f4d07157a",
+    "completed": 1.0,
+    "elapsed_s": 116.7,
+    "loss": 3.6398,
+    "failed_checks": [
+     "held-out loss"
+    ],
+    "failed_messages": {
+     "held-out loss": "3.6398 (max 3.45, floor 1.386)"
+    },
+    "wall_s": 170.8
+   },
+   {
+    "reward": 0.0,
+    "runtime_version": "8631a20f3ea56bdc",
+    "harness_version": "f09386b64d9d9184",
+    "runtime_build": "c7497b3f4d07157a",
+    "harness_build": "4a65e6b70d5221cf",
+    "failure": "agent",
+    "infra_error": 0.0,
+    "complete": 1.0,
+    "substrate": "slurm",
+    "policy_ok": 1.0,
+    "teacher_seed": 1522998743.0,
+    "heldout_seed": 1637230631.0,
+    "data_seed": 3029335303.0,
+    "node_build": "c7497b3f4d07157a",
+    "completed": 1.0,
+    "elapsed_s": 117.3,
+    "loss": 3.617,
+    "failed_checks": [
+     "held-out loss"
+    ],
+    "failed_messages": {
+     "held-out loss": "3.6170 (max 3.45, floor 1.386)"
+    },
+    "wall_s": 170.8
+   },
+   {
+    "reward": 0.0,
+    "runtime_version": "8631a20f3ea56bdc",
+    "harness_version": "f09386b64d9d9184",
+    "runtime_build": "c7497b3f4d07157a",
+    "harness_build": "4a65e6b70d5221cf",
+    "failure": "agent",
+    "infra_error": 0.0,
+    "complete": 1.0,
+    "substrate": "slurm",
+    "policy_ok": 1.0,
+    "teacher_seed": 374855565.0,
+    "heldout_seed": 130944018.0,
+    "data_seed": 3395718349.0,
+    "node_build": "c7497b3f4d07157a",
+    "completed": 1.0,
+    "elapsed_s": 112.4,
+    "loss": 3.6176,
+    "failed_checks": [
+     "held-out loss"
+    ],
+    "failed_messages": {
+     "held-out loss": "3.6176 (max 3.45, floor 1.386)"
+    },
+    "wall_s": 167.6
+   }
+  ]
+ }
+}

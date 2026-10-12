@@ -1,0 +1,13 @@
+diff --git a/jobs/train/train.yaml b/jobs/train/train.yaml
+index c0f4335..27f3b94 100644
+--- a/jobs/train/train.yaml
++++ b/jobs/train/train.yaml
+@@ -14,7 +14,7 @@ pg_timeout_s: 120
+ train_seqs: 16384
+ val_seqs: 512
+ eval_every: 100
+-ckpt_every: 0            # 0 disables periodic checkpoints
++ckpt_every: 200
+ ckpt_dir: /shared/ckpt/train
+ resume_from: null
+ data: /shared/data/corpus.safetensors

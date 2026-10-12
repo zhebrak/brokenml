@@ -1,0 +1,2 @@
+# the horizon is still half the run: lr sits at its 10% floor for the last 250 steps (local replay of the job: 1.80-1.84 vs 1.545)
+held-out loss

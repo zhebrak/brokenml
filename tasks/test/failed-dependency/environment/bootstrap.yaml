@@ -1,0 +1,15 @@
+spec: The training job `train` (`/ops/jobs/train/`) stages its dataset with a preparation
+  job, then trains for 500 steps on 2 nodes x 2 ranks, reports validation loss every
+  100 steps, finishes in a couple of minutes, and exports a model whose held-out loss
+  is at most 1.545.
+symptom:
+  kind: failed
+  log_match: No such file or directory
+corpus:
+  train: 16384
+  val: 512
+  length: 65
+site:
+  jobs:
+  - name: nightly-eval
+    comment: nightly eval sweep, data team

@@ -1,0 +1,37 @@
+deadline_s: 360
+corpus:
+  train: 2048
+  val: 12
+  length: 513
+policy:
+  contract:
+    fixed:
+    - model
+    - steps
+    - seed
+    - train_seqs
+    - val_seqs
+    - data
+    - export
+    - resume_from
+    - ckpt_dir
+    - lr
+    - warmup_steps
+    bounds:
+      eval_every:
+        min: 1
+        max: 1
+      pg_timeout_s:
+        min: 1
+        max: 300
+    products:
+    - keys:
+      - micro_batch
+      - grad_accum
+      equals: 32
+loss_max: 3.44
+calibration: o-activation
+require_val_every: 1
+placement:
+  nodes: 2
+  ranks_per_node: 2

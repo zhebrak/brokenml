@@ -1,0 +1,2190 @@
+{
+ "stamp": {
+  "git_sha": "6e90548afe46",
+  "git_dirty": false,
+  "images": {
+   "bench/runtime:dev": "sha256:2dbb48ff58459a6259e1cddd936dc2d6d3d35765bf51b8d9c06f48ef521a8477",
+   "bench/harness:dev": "sha256:0efc30d4550f6c1d452dadccae45b0cba478abde66a96a211d83b734debe7f6f",
+   "bench/runtime-cuda:dev": "",
+   "bench/serve:dev": "sha256:adbc02fa167de69d0f6bd89e0446d79524536e64a1ba1fc0109980ad06a31ac9"
+  },
+  "harbor": "0.23.0",
+  "host": "study-host",
+  "cpu": "AMD EPYC 9R14",
+  "argv": [
+   "bench",
+   "release-bundle"
+  ],
+  "utc": "2026-10-06T17:51:41Z"
+ },
+ "image_builds": {
+  "runtime": "c7497b3f4d07157a",
+  "harness": "4a65e6b70d5221cf",
+  "runtime-cuda": "",
+  "serve": "4eb3aa766bcea7ea"
+ },
+ "green": 46,
+ "tasks": {
+  "activation-oom": {
+   "version": "0.79.0",
+   "task_digest": "sha256:47086c7d318544643ae0adcae1c9a1e449295c203280afb60868afdc23089d54",
+   "grader_digest": "sha256:af2f9b8bab61b8a0a40b8b97080c48f8183a75c559649d1fa40c0b518b7096b9",
+   "category": "memory",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3",
+   "margins": "stale",
+   "headroom": "loss 3.362 / max 3.44",
+   "margins_text": "ref inside by loss 0.078 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "fewer-ranks-per-node",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "fsdp-same-batch",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "lr-zero",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "no-step",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "fsdp-same-batch"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "bad-token-ids": {
+   "version": "0.76.0",
+   "task_digest": "sha256:202bab572f20678701c2a0303a1b3489a4be9d22186fa525c1672b3bee7160ab",
+   "grader_digest": "sha256:0329ca67ea6e76501934a3b071f62bdfc3955d814c8f112657611b9552f0d367",
+   "category": "correctness",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.493 / max 1.545",
+   "margins_text": "ref inside by loss 0.052 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "skip-bad-batches",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "skip-bad-batches"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "checkpoint-every-step": {
+   "version": "0.76.0",
+   "task_digest": "sha256:7eca2b454a2db620e5d14bb99a76c12a4b2f742a1685520d405ff4ade890f832",
+   "grader_digest": "sha256:b0bc2c98d946c02dec45192c341f039afb66dd576e4594a9f0d455d358782f78",
+   "category": "performance",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss and throughput margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.503 / max 1.545; tput 1.04 / min 0.67",
+   "margins_text": "ref inside by loss 0.042 nats, closest miss tput 44%",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "every-2-steps",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "skip-save",
+     "checks": [
+      {
+       "check": "checkpoints written",
+       "clause": "a committed checkpoint holding model and optimizer state at least every require_checkpoints_every steps, each file replicated to the object store during the run"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "every-2-steps",
+    "skip-save"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "ckpt-space-held-open": {
+   "version": "0.73.0",
+   "task_digest": "sha256:b973c99aa595586bc0b8985358af1033996063a0666699178bc3d00dc0f93516",
+   "grader_digest": "sha256:20f6181eecfe0d5cdfb5071b245eaf7e5464d22e2edf32fe300d9fd2eeb7e67c",
+   "category": "state",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.504 / max 1.545",
+   "margins_text": "ref inside by loss 0.041 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "gc-after-prune",
+     "checks": [
+      {
+       "check": "checkpoints written",
+       "clause": "a committed checkpoint holding model and optimizer state at least every require_checkpoints_every steps, each file replicated to the object store during the run"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "keep-one",
+     "checks": [
+      {
+       "check": "checkpoints written",
+       "clause": "a committed checkpoint holding model and optimizer state at least every require_checkpoints_every steps, each file replicated to the object store during the run"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "model-only-checkpoints",
+     "checks": [
+      {
+       "check": "checkpoints written",
+       "clause": "a committed checkpoint holding model and optimizer state at least every require_checkpoints_every steps, each file replicated to the object store during the run"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "gc-after-prune",
+    "keep-one",
+    "model-only-checkpoints"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "consolidated-copy-oom": {
+   "version": "0.71.0",
+   "task_digest": "sha256:ae912108faa07b7cdcb8f4946e22a859a19c53ed349e3d539f2ccd1634fed7b3",
+   "grader_digest": "sha256:3c60c1fffa6df531f927227d4f9308a6c466143d80030d1eb48a6bab0f58e38a",
+   "category": "memory",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "stale",
+   "headroom": "loss 3.398 / max 3.45",
+   "margins_text": "ref inside by loss 0.052 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "ddp",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "less-often",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "skip-eval-exports",
+     "checks": [
+      {
+       "check": "eval exports written",
+       "clause": "the eval job writes its exports where its config says"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "ddp",
+    "less-often",
+    "skip-eval-exports"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "ddp-replication-oom": {
+   "version": "0.79.0",
+   "task_digest": "sha256:ceb169506704c02a72cf43bdcb98e8ffd6c3c3205f8c4d282f92cf639e593cae",
+   "grader_digest": "sha256:157742f198d751cee419ac7c0ad88a6ebc520bf3fd6774f8b30f49d992a082df",
+   "category": "memory",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "stale",
+   "headroom": "loss 3.399 / max 3.45",
+   "margins_text": "ref inside by loss 0.051 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "accumulate-under-ddp",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "lr-zero",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "no-step",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "sgd",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "wrapped-state-dict-export",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "accumulate-under-ddp"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "degraded-node": {
+   "version": "0.76.0",
+   "task_digest": "sha256:2a071e1c230923177b04f26ee45073e12ab88ca7e3d501821e87065111b164e4",
+   "grader_digest": "sha256:a50c24c51c8fc90b8a4ed5d4dc90ae228fa727046dda0a52851233a0bd361a3e",
+   "category": "performance",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss and throughput margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.491 / max 1.545; tput 1.09 / min 0.67",
+   "margins_text": "ref inside by loss 0.054 nats, closest miss loss 0.065 nats",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "clone-reference-job",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "drain-c2",
+     "checks": [
+      {
+       "check": "cluster usable under /ops/cluster config",
+       "clause": "the cluster provisioned from /ops/cluster comes up with every node in service"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "fewer-ranks",
+     "checks": [
+      {
+       "check": "all ranks trained",
+       "clause": "every one of the ranks logs its trained steps (a finite loss per step); a rank with no such record counts as not trained"
+      },
+      {
+       "check": "ranks placed as required",
+       "clause": "the job's ranks run as ranks_per_node ranks on the required nodes, observed while it runs"
+      },
+      {
+       "check": "held-out loss",
+       "clause": "the exported model's loss on held-out data from a fresh teacher is at most the task's loss bound"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "mark-c2-down",
+     "checks": [
+      {
+       "check": "ranks placed as required",
+       "clause": "the job's ranks run as ranks_per_node ranks on the required nodes, observed while it runs"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "read-reference-logs",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "reuse-reference-export",
+     "checks": [
+      {
+       "check": "final model exported",
+       "clause": "the export exists where the job config says"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "submit-from-reference",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "clone-reference-job",
+    "drain-c2",
+    "fewer-ranks",
+    "mark-c2-down",
+    "read-reference-logs",
+    "reuse-reference-export",
+    "submit-from-reference"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "engine-ctx-kv-window": {
+   "version": "0.70.1",
+   "task_digest": "sha256:c185cba5aebbc772f89678e375b4e7d5d6ac63f5a5372d8fc77120564e32dc01",
+   "grader_digest": "sha256:6256a395abe1b23c4e80a87944a7b37f1d1a0620cd7c2abb6bc2c877cc402a9a",
+   "category": "serving",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3",
+   "margins": "n/a",
+   "headroom": "tput 1.00 / min 0.75",
+   "margins_text": "ref inside by tput 30%, closest miss ttft 58%",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "fewer-slots-same-context",
+     "checks": [
+      {
+       "check": "all requests served",
+       "clause": "every request of the standard load is answered without error"
+      },
+      {
+       "check": "engine ready",
+       "clause": "the inference service becomes ready within ready_timeout_s"
+      },
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "fewer-slots-smaller-context",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      },
+      {
+       "check": "p95 time to first token",
+       "clause": "p95 time to first token under the standard load is at most the SLO"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "fewer-threads",
+     "checks": [
+      {
+       "check": "all requests served",
+       "clause": "every request of the standard load is answered without error"
+      },
+      {
+       "check": "engine ready",
+       "clause": "the inference service becomes ready within ready_timeout_s"
+      },
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "longer-startup-timeout",
+     "checks": [
+      {
+       "check": "all requests served",
+       "clause": "every request of the standard load is answered without error"
+      },
+      {
+       "check": "engine ready",
+       "clause": "the inference service becomes ready within ready_timeout_s"
+      },
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "fewer-slots-same-context",
+    "fewer-slots-smaller-context",
+    "fewer-threads",
+    "longer-startup-timeout"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "engine-no-continuous-batching": {
+   "version": "0.75.0",
+   "task_digest": "sha256:4c24c26c4554d42e93d606537f6563e1038830d1837633d0a97aee6ff61de04c",
+   "grader_digest": "sha256:645e826780596e568908a2c0c4ff246cbd239f70d2987f8414310e13de14ef6f",
+   "category": "serving",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3",
+   "margins": "n/a",
+   "headroom": "tput 0.99 / min 0.75",
+   "margins_text": "ref inside by tput 32%, closest miss ttft 91%",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "larger-batches",
+     "checks": [
+      {
+       "check": "p95 time to first token",
+       "clause": "p95 time to first token under the standard load is at most the SLO"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "more-threads",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      },
+      {
+       "check": "p95 time to first token",
+       "clause": "p95 time to first token under the standard load is at most the SLO"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "larger-batches",
+    "more-threads"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "engine-single-slot": {
+   "version": "0.75.0",
+   "task_digest": "sha256:b4cc02601ed0a42979f682b3dcf04e50b49891293e2da403083e041ced050b9f",
+   "grader_digest": "sha256:f504596c3eafc9d484c0ed8ded7c40917a87b58ecadff87e74836bc0352582a6",
+   "category": "serving",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3",
+   "margins": "n/a",
+   "headroom": "tput 0.96 / min 0.75",
+   "margins_text": "ref inside by tput 29%, closest miss ttft 138%",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "larger-batches",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      },
+      {
+       "check": "p95 time to first token",
+       "clause": "p95 time to first token under the standard load is at most the SLO"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "more-threads",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      },
+      {
+       "check": "p95 time to first token",
+       "clause": "p95 time to first token under the standard load is at most the SLO"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "larger-batches",
+    "more-threads"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "engine-startup-timeout": {
+   "version": "0.75.0",
+   "task_digest": "sha256:cf867af39fa96160ec779a030e6ac7b139685b12bcd900e4e778d948e71f765b",
+   "grader_digest": "sha256:49b19d37298c7b2f2b08a324d3c2e83e41470c5710c908267a16469f74872439",
+   "category": "liveness",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3",
+   "margins": "n/a",
+   "headroom": "tput 0.99 / min 0.75",
+   "margins_text": "ref inside by tput 31%, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "timeout-40",
+     "checks": [
+      {
+       "check": "engine ready",
+       "clause": "the inference service becomes ready within ready_timeout_s"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "timeout-40"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "engine-thread-oversubscription": {
+   "version": "0.75.0",
+   "task_digest": "sha256:ed8a3b1e3c282140943d6207fdcbb1d8ca0b89c6aec4f99df19ad596286b9438",
+   "grader_digest": "sha256:d87a87ac8947b700e270f0f83a2378436187bcf11900ae61734b1d3261fa404f",
+   "category": "serving",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3",
+   "margins": "n/a",
+   "headroom": "tput 0.99 / min 0.75",
+   "margins_text": "ref inside by tput 33%, closest miss tput 29%",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "fewer-slots",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      },
+      {
+       "check": "p95 time to first token",
+       "clause": "p95 time to first token under the standard load is at most the SLO"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "threads-8",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "fewer-slots",
+    "threads-8"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "eval-without-no-grad": {
+   "version": "0.78.0",
+   "task_digest": "sha256:78d2cda6a925680e47d69289791afc8a2e18b41be4f55232f591f1a09950715c",
+   "grader_digest": "sha256:25d41d68909577d7958b2f72a7d2d040fa280e93c97c4fdffff5fea74aa91a9a",
+   "category": "memory",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3",
+   "margins": "stale",
+   "headroom": "loss 3.344 / max 3.44",
+   "margins_text": "ref inside by loss 0.096 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "eval-less-often",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "eval-mode",
+     "checks": [
+      {
+       "check": "job completed before deadline: a job did not complete",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "val-slice",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "eval-mode",
+    "val-slice"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "failed-dependency": {
+   "version": "0.77.0",
+   "task_digest": "sha256:8619c28eb418f28e78e26d3908a30134d536ac8027d35e0df787201b23a1ae9a",
+   "grader_digest": "sha256:c67566e8e642fb6d15f93049ce8af2f7f795f2fed971035f40e4efe90e6216f9",
+   "category": "scheduling",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.501 / max 1.545",
+   "margins_text": "ref inside by loss 0.044 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "drop-dependency",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "gate-fix-replay",
+     "checks": [
+      {
+       "check": "job completed before deadline: a job did not complete",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "stage-per-node-scratch-dir",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "drop-dependency",
+    "gate-fix-replay",
+    "stage-per-node-scratch-dir"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "fsdp-fine-wrapping": {
+   "version": "0.76.0",
+   "task_digest": "sha256:b68faef5fb29f13f5a568d8a2a199b5558bd9c30dbc1c63174473d51e84c08a6",
+   "grader_digest": "sha256:bdae4816751465330bacf5cad03a2999947ae4d719c8062350703be49490eda1",
+   "category": "performance",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.504 / max 1.545; tput 1.00 / min 0.67",
+   "margins_text": "ref inside by loss 0.041 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "bf16-params",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "bf16-params"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "fsdp-spans-slow-link": {
+   "version": "0.66.0",
+   "task_digest": "sha256:644d921354a383a4aafedf0ae22b8e51231875321d256a5b8fadc8afd0829e96",
+   "grader_digest": "sha256:1afba16f6f0aae16fa73018da6fd26d5c3a97cde941051c47ccdfc7cca0e39be",
+   "category": "performance",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "stale",
+   "headroom": "loss 3.401 / max 3.45; tput 1.00 / min 0.8",
+   "margins_text": "ref inside by loss 0.049 nats, closest miss tput 14%",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "bf16-communication",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "coarse-units",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "ddp",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "no-reshard",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "bf16-communication",
+    "coarse-units",
+    "ddp",
+    "no-reshard"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "gres-from-gpu-template": {
+   "version": "0.76.0",
+   "task_digest": "sha256:7ef4763a12f4d861d0ebe35453bb9afc27a37d591642ba8cd8f23734e77b22f0",
+   "grader_digest": "sha256:7f06eed3e0bac92013318354a8dc3419b71ef8716ce80974ccc411688492dcc0",
+   "category": "scheduling",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.501 / max 1.545",
+   "margins_text": "ref inside by loss 0.044 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "phantom-gpu",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "phantom-gpu"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "hash-ordered-buckets": {
+   "version": "0.78.0",
+   "task_digest": "sha256:7126f5678bc2bf66c488622843cd7f25d2a23b2cbf1d57935ee0a68a9329f180",
+   "grader_digest": "sha256:9ab4f4b2542307287fd7d748d42ebcbbc4f2057b416ba76d16bb963b4378f53c",
+   "category": "collectives",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.498 / max 1.545",
+   "margins_text": "ref inside by loss 0.041 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "catch-sync-error",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "export-hashseed-in-sbatch",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "catch-sync-error",
+    "export-hashseed-in-sbatch"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "latest-half-written": {
+   "version": "0.77.0",
+   "task_digest": "sha256:00392eeef2e5384092b758f13e31942c9a85b96433f0c92ef3cb5021cb91b2ff",
+   "grader_digest": "sha256:30fc5e7dd793fdb91e868a03c3318bd85390988027c02976360875a995478e5c",
+   "category": "state",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; throughput margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.444 / max 1.55; tput 1.04 / min 0.6",
+   "margins_text": "ref inside by loss 0.106 nats, closest miss tput 29%",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "from-scratch",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "from-scratch"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "lr-decay-horizon": {
+   "version": "0.78.0",
+   "task_digest": "sha256:b49931bbdca0ad930da4a1697b3dc043f1507c303cec2120de9138f5df669195",
+   "grader_digest": "sha256:5311b6bf0048157dc48d03eac38e47202abaa9da335cc529555b23f81270cc99",
+   "category": "correctness",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.502 / max 1.545",
+   "margins_text": "ref inside by loss 0.043 nats, closest miss loss 1.135 nats",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "decay-steps-250",
+     "checks": [
+      {
+       "check": "held-out loss",
+       "clause": "the exported model's loss on held-out data from a fresh teacher is at most the task's loss bound"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "gate-fix-replay",
+     "checks": [
+      {
+       "check": "held-out loss",
+       "clause": "the exported model's loss on held-out data from a fresh teacher is at most the task's loss bound"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "decay-steps-250",
+    "gate-fix-replay"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "monitor-step-blocks": {
+   "version": "0.78.0",
+   "task_digest": "sha256:acfdcb6fff7701542a21603a467a3d8df3a920bafac639a9e35b4128af7bc5eb",
+   "grader_digest": "sha256:24a37440e1efdadf8f4706979f6fb892d1c17c0be7a799f22f8f8a5578cf10af",
+   "category": "scheduling",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.492 / max 1.545",
+   "margins_text": "ref inside by loss 0.051 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "kill-without-overlap",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "monitor-one-cpu",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "kill-without-overlap",
+    "monitor-one-cpu"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "no-sync-off-by-one": {
+   "version": "0.78.0",
+   "task_digest": "sha256:0da9e90693cc50eaeee5baacaa0118b7f92cbefbf4cb1182deb23a0eed720ffe",
+   "grader_digest": "sha256:ac195c91d75f859db9d73c9067498058e9834d702dd7a5697ccfa49c64d28f8c",
+   "category": "correctness",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.499 / max 1.545",
+   "margins_text": "ref inside by loss 0.046 nats, closest miss loss 0.252 nats",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "sync-never",
+     "checks": [
+      {
+       "check": "held-out loss",
+       "clause": "the exported model's loss on held-out data from a fresh teacher is at most the task's loss bound"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "sync-never"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "node-thread-oversubscription": {
+   "version": "0.78.0",
+   "task_digest": "sha256:64e38648f9f503e9cbfc63fb767726b8002debf548daaf018935214fcf4d731b",
+   "grader_digest": "sha256:da1cccda24484b86baa59592e41307ac21ec72ac38d89692c7cf094db062751e",
+   "category": "performance",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss and throughput margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.500 / max 1.545; tput 1.03 / min 0.67",
+   "margins_text": "ref inside by loss 0.045 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "export-in-launch",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "export-in-launch"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "objstore-slowdown-backoff": {
+   "version": "0.71.0",
+   "task_digest": "sha256:bb24db98072e2d583f8a0a2d398acf89561414e260ee4d18ee0c5bb95a0f8ebe",
+   "grader_digest": "sha256:e9aa43cfc3cf475bcb975a56e8560e04a122a914c0c8bbbc31675e20185adea2",
+   "category": "liveness",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.501 / max 1.545",
+   "margins_text": "ref inside by loss 0.044 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "fixed-short-pause",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "more-attempts",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "read-shared-data",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "fixed-short-pause",
+    "more-attempts"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "outlives-time-limit": {
+   "version": "0.77.0",
+   "task_digest": "sha256:d80e08553f0c0d664a2a34c2a2f2fe4d02bf3643c20d3223d7641507576655cd",
+   "grader_digest": "sha256:26c88dce1a3c44f4acf296c468ac9d95285c1188f2b549b6d04760573ae85d1b",
+   "category": "liveness",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3",
+   "margins": "n/a",
+   "headroom": "loss 1.399 / max 1.42",
+   "margins_text": "ref inside by loss 0.021 nats, closest miss decisive",
+   "thin": [
+    "reference"
+   ],
+   "controls": [
+    {
+     "wrong_fix": "chain-afterany",
+     "checks": [
+      {
+       "check": "job completed before deadline: a job did not complete",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "fewer-steps",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "chain-afterany"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "pg-timeout-below-checkpoint": {
+   "version": "0.78.0",
+   "task_digest": "sha256:13ea98a4d24f510157f21bdc1c33b8a5f96a6dd129f2fe9d87c66e57768dbe0a",
+   "grader_digest": "sha256:59b62efad47c101363f6ae11c45e6e617fde0efd53846909caaa23c29be2652d",
+   "category": "liveness",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.503 / max 1.545",
+   "margins_text": "ref inside by loss 0.042 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "huge-timeout",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "no-checkpoints",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "skip-save",
+     "checks": [
+      {
+       "check": "checkpoints written",
+       "clause": "a committed checkpoint holding model and optimizer state at least every require_checkpoints_every steps, each file replicated to the object store during the run"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "timeout-30s",
+     "checks": [
+      {
+       "check": "job completed before deadline: a job did not complete",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "skip-save",
+    "timeout-30s"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "port-squatter-rdzv": {
+   "version": "0.71.0",
+   "task_digest": "sha256:d8e5acc25e8ba12e6dbf4714266e9a6dca0529b993979a2bcc316f6dec66089f",
+   "grader_digest": "sha256:857deb837eaf94593a9d6bfb2375d0438835c91e4f39a6d0c3342761c164fd52",
+   "category": "collectives",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.497 / max 1.545",
+   "margins_text": "ref inside by loss 0.048 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "endpoint-ip",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "longer-rendezvous-timeout",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "stop-exporter-in-job",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "endpoint-ip",
+    "longer-rendezvous-timeout",
+    "stop-exporter-in-job"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "prefetch-thread-dies": {
+   "version": "0.76.0",
+   "task_digest": "sha256:dc5ce40b8144f245c22a87e1fcfb4b4d075a93162efc1a9da8c9f9a86d81ad61",
+   "grader_digest": "sha256:8b4cbeb1ccb4978db6a79864920e69b8759200ceaeede7b30e3d6f3ba4e602bc",
+   "category": "collectives",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.502 / max 1.545",
+   "margins_text": "ref inside by loss 0.043 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "queue-timeout",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "raise-timeout",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "queue-timeout",
+    "raise-timeout"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "rank0-eval-desync": {
+   "version": "0.76.0",
+   "task_digest": "sha256:2fb625b2e1ebdcfdbd770c4d8a6c8ac26b6f28bc67979ab6f806f9ee3f0c8494",
+   "grader_digest": "sha256:2dbd1af32091395f79da81a8539ff789a16413ca91080b8617bcf4e4d840af0a",
+   "category": "collectives",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.494 / max 1.545",
+   "margins_text": "ref inside by loss 0.051 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "catch-error",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "delete-eval",
+     "checks": [
+      {
+       "check": "validation logged",
+       "clause": "rank 0 logs validation loss at least every require_val_every steps (the existing `metrics.log(..., val_loss=...)` call)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "fake-late-metrics",
+     "checks": [
+      {
+       "check": "validation logged",
+       "clause": "rank 0 logs validation loss at least every require_val_every steps (the existing `metrics.log(..., val_loss=...)` call)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "no-eval",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "submit-from-reference",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "catch-error",
+    "delete-eval",
+    "fake-late-metrics",
+    "submit-from-reference"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "rank0-only-checkpoint": {
+   "version": "0.76.0",
+   "task_digest": "sha256:e794730a5d959b696e61903a6d45a9fda21dc8ec3606432cb612a778d633455c",
+   "grader_digest": "sha256:5208790d8693c9fa967f42da459ca69968988f8b21a37a92f7f3080e8f46f639",
+   "category": "collectives",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.501 / max 1.545",
+   "margins_text": "ref inside by loss 0.044 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "barrier-others",
+     "checks": [
+      {
+       "check": "job completed before deadline: a job did not complete",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "no-checkpoints",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "torch-save-rank0",
+     "checks": [
+      {
+       "check": "checkpoints written",
+       "clause": "a committed checkpoint holding model and optimizer state at least every require_checkpoints_every steps, each file replicated to the object store during the run"
+      }
+     ],
+     "contract_control": true
+    }
+   ],
+   "runtime_controls": [
+    "barrier-others"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "rdzv-timeout-below-prolog": {
+   "version": "0.76.0",
+   "task_digest": "sha256:faaf8a462fd2ec1221e133251958df9a8f52b36f03f4796ff6cb8051eefb24e8",
+   "grader_digest": "sha256:ff9112271b6e006dcdd6706ba0f1ee6a8d5c1f6fe447c33d07e33e7fd7d485e1",
+   "category": "liveness",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.505 / max 1.545",
+   "margins_text": "ref inside by loss 0.040 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "join-timeout-30",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "raise-pg-timeout",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "join-timeout-30",
+    "raise-pg-timeout"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "realmemory-drain": {
+   "version": "0.76.0",
+   "task_digest": "sha256:fc90e4a5542a263c63e685ad13db85c1525e61fe3dd710d2d6d47a6528e1ddca",
+   "grader_digest": "sha256:7de86588c4ba1bc99da5421f6b7425a62fd910574249d4cc63d056b22514d980",
+   "category": "scheduling",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.502 / max 1.545",
+   "margins_text": "ref inside by loss 0.042 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "lower-mem-request",
+     "checks": [
+      {
+       "check": "cluster usable under /ops/cluster config",
+       "clause": "the cluster provisioned from /ops/cluster comes up with every node in service"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "realmemory-2000",
+     "checks": [
+      {
+       "check": "cluster usable under /ops/cluster config",
+       "clause": "the cluster provisioned from /ops/cluster comes up with every node in service"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "lower-mem-request",
+    "realmemory-2000"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "redundant-param-broadcast": {
+   "version": "0.77.0",
+   "task_digest": "sha256:d828691435998987ff9f9eda8034183bf1b6c74dba34baa2e80edef3b1c0896e",
+   "grader_digest": "sha256:051d946478fbc07546dea9f33687f6c45278588e74dedb944439a034a9bea4b0",
+   "category": "performance",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.494 / max 1.545; tput 0.99 / min 0.67",
+   "margins_text": "ref inside by loss 0.047 nats, closest miss tput 57%",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "delete-broadcast",
+     "checks": [
+      {
+       "check": "replica_check logged",
+       "clause": "rank 0 logs `replica_check` (via metrics.log) at least every N steps, as the contract states"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "delete-broadcast"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "renamed-parameter": {
+   "version": "0.78.0",
+   "task_digest": "sha256:7bcfdcbf8333972bb88f05fd40f54c05064cd05cdb8ef1340303fbcf9cf34f6f",
+   "grader_digest": "sha256:811110cb3d8998459ee76110c3c6335caa3f07e71010f3532c2b05b013309779",
+   "category": "state",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; throughput margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.445 / max 1.55; tput 1.10 / min 0.5",
+   "margins_text": "ref inside by loss 0.105 nats, closest miss tput 32%",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "from-scratch",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "strict-load",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "from-scratch",
+    "strict-load"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "same-shard": {
+   "version": "0.77.0",
+   "task_digest": "sha256:debeab188d8863000b0b7393d9be6704cf3737efb71168201a00ae57cef10759",
+   "grader_digest": "sha256:4ecfee8ee8e6450892c9585c7a8c1a3e9746cf36a61387aa01e3bb0d9b4db25f",
+   "category": "correctness",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.502 / max 1.545",
+   "margins_text": "ref inside by loss 0.040 nats, closest miss loss 0.033 nats",
+   "thin": [
+    "wrong:split-manifest-range"
+   ],
+   "controls": [
+    {
+     "wrong_fix": "seed-per-rank",
+     "checks": [
+      {
+       "check": "held-out loss",
+       "clause": "the exported model's loss on held-out data from a fresh teacher is at most the task's loss bound"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "split-manifest-range",
+     "checks": [
+      {
+       "check": "held-out loss",
+       "clause": "the exported model's loss on held-out data from a fresh teacher is at most the task's loss bound"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "seed-per-rank",
+    "split-manifest-range"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "scratch-is-tmpfs": {
+   "version": "0.68.0",
+   "task_digest": "sha256:f6bee9b0c395b6c473da24618b7c4d3cee17dc5cad4a94accdb3b89e1f03da03",
+   "grader_digest": "sha256:f6d4bc4ae07c1844abd054624a9b2eadac33cee3a208df3a5dc513f629148f86",
+   "category": "memory",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "stale",
+   "headroom": "loss 1.499 / max 1.545",
+   "margins_text": "ref inside by loss 0.045 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "fsdp",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "smaller-micro-batch",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "unlink-after-load",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "fsdp",
+    "smaller-micro-batch",
+    "unlink-after-load"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "stale-hosts-entry": {
+   "version": "0.60.1",
+   "task_digest": "sha256:ff91d68b2952e297a0dc3e17697ce88a278a88c37ab4216d943c28ccd58edbfc",
+   "grader_digest": "sha256:e6ac9ca2d7796e3de88d868362ea47e43b8c5001416fa2ff932bb138a678892f",
+   "category": "collectives",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.501 / max 1.545",
+   "margins_text": "ref inside by loss 0.036 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "endpoint-ip-only",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "longer-rendezvous-timeout",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "endpoint-ip-only",
+    "longer-rendezvous-timeout"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "stats-thread-lingers": {
+   "version": "0.77.0",
+   "task_digest": "sha256:647764b4a791599bac2b72122a0536988d8a4342263d1c37e0ffb4b39d52bf58",
+   "grader_digest": "sha256:73b1f30dfb23336cba706da92343fa378c4ea9ccef15f54dba81d2be1ee186a1",
+   "category": "scheduling",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.500 / max 1.545",
+   "margins_text": "ref inside by loss 0.045 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "step-time-limit",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "sys-exit",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "step-time-limit",
+    "sys-exit"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "subgroup-skip-deadlock": {
+   "version": "0.79.1",
+   "task_digest": "sha256:e3e9e27930a973ecc3d52e8732806b454f6c65f4bb97580641ff7be597d1f587",
+   "grader_digest": "sha256:e4bf71b7ac9c4303eed5f72316ec94f1297837ebb50e0afa20292d5739c17ce3",
+   "category": "collectives",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.500 / max 1.545",
+   "margins_text": "ref inside by loss 0.045 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "raise-timeout",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "raise-timeout"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "tiny-ddp-buckets": {
+   "version": "0.78.0",
+   "task_digest": "sha256:86ea9df03f52f3f762e0321b8efd21640d029568ee8a40aaa334dfcfb7a07fdb",
+   "grader_digest": "sha256:07918cc626e1bd22e16fdfb9d5710f59d7bd1bc23090a75e165fa0fb565349b2",
+   "category": "performance",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.497 / max 1.545; tput 1.01 / min 0.67",
+   "margins_text": "ref inside by loss 0.048 nats, closest miss tput 50%",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "accumulate-2",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "accumulate-2"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "tokenizer-remap-shard": {
+   "version": "0.72.0",
+   "task_digest": "sha256:3fc1e9d9e072326a192acc3f3ee63f87e21e0fb8093ca0b75fe109c88520a29a",
+   "grader_digest": "sha256:51cc9279ee7f627a04ac50cd386f07be324ea87f01e70223599a93ac0cb6fff4",
+   "category": "correctness",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.503 / max 1.545",
+   "margins_text": "ref inside by loss 0.042 nats, closest miss loss 0.202 nats",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "hard-coded-rows",
+     "checks": [
+      {
+       "check": "held-out loss",
+       "clause": "the exported model's loss on held-out data from a fresh teacher is at most the task's loss bound"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "lower-lr",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "oov-filter",
+     "checks": [
+      {
+       "check": "held-out loss",
+       "clause": "the exported model's loss on held-out data from a fresh teacher is at most the task's loss bound"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "self-referenced-filter",
+     "checks": [
+      {
+       "check": "held-out loss",
+       "clause": "the exported model's loss on held-out data from a fresh teacher is at most the task's loss bound"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "hard-coded-rows",
+    "oov-filter",
+    "self-referenced-filter"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "uneven-val-gather": {
+   "version": "0.76.1",
+   "task_digest": "sha256:88e897eab78bf9d27a50d3e9f3e983c87ad5a772d7e5419f5a2f87b33f8b9a91",
+   "grader_digest": "sha256:cbf0508220deb25170abc3d3d7c81f41016ef53a59cdb2017213f35ecaee84eb",
+   "category": "collectives",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.505 / max 1.545",
+   "margins_text": "ref inside by loss 0.040 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "even-val-split",
+     "checks": [
+      {
+       "check": "policy",
+       "clause": "only the editable paths change, the fixed keys keep their values and the bounds hold (CONTRACT.md, `What the verifier enforces`)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "pad-nan-median",
+     "checks": [
+      {
+       "check": "validation logged",
+       "clause": "rank 0 logs validation loss at least every require_val_every steps (the existing `metrics.log(..., val_loss=...)` call)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "pad-nan-median"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "unshifted-labels": {
+   "version": "0.78.0",
+   "task_digest": "sha256:ab31528fa811a297c7d95fe159a201d67720f1f4447108fcedc592bc0e9245f6",
+   "grader_digest": "sha256:78c8c34b12c3ea55579fe7e7f159b780458a442de13a48d65ec0d30aeff12774",
+   "category": "correctness",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.498 / max 1.545",
+   "margins_text": "ref inside by loss 0.040 nats, closest miss loss 2.306 nats",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "eval-only-shift",
+     "checks": [
+      {
+       "check": "held-out loss",
+       "clause": "the exported model's loss on held-out data from a fresh teacher is at most the task's loss bound"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "shift-backwards",
+     "checks": [
+      {
+       "check": "held-out loss",
+       "clause": "the exported model's loss on held-out data from a fresh teacher is at most the task's loss bound"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "eval-only-shift",
+    "shift-backwards"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "wait-on-heartbeat": {
+   "version": "0.76.0",
+   "task_digest": "sha256:5b5127369106af67414499d406011c564d0aa35cbeee0cb11ac8b84b499d23f6",
+   "grader_digest": "sha256:cb57c7fc13a33b3fc86b8597aa3499ab5d992834ff4ccae4a0a7a8d41157300b",
+   "category": "scheduling",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.495 / max 1.545",
+   "margins_text": "ref inside by loss 0.050 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "shorter-time-limit",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "shorter-time-limit"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "wrong-nic-one-node": {
+   "version": "0.72.0",
+   "task_digest": "sha256:4c1b775be7a2b5095c938cb136fe0a493df60e5d623fe077dd246b502a6112ef",
+   "grader_digest": "sha256:984820d4ef195b7e69f71c8093e1e622134fcc89b93c1b3a674e8195ed28bccd",
+   "category": "collectives",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; loss margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.500 / max 1.545",
+   "margins_text": "ref inside by loss 0.044 nats, closest miss decisive",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "endpoint-ip",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "eth1-everywhere",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "unset-ifname",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "endpoint-ip",
+    "eth1-everywhere",
+    "unset-ifname"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  },
+  "wrong-run-renamed-keys": {
+   "version": "0.77.0",
+   "task_digest": "sha256:578587056d59cd6a7f4e315ff72b5893f5cc97304dc23eae78d2aee327d45dd8",
+   "grader_digest": "sha256:a712b919cb48e49d3b4320abac72a07de58a5be294343893e96cf29194055648",
+   "category": "state",
+   "bootcheck": "stale",
+   "separation": "stale",
+   "qa": "oracle 10/10, nop 3/3; throughput margin under 3 spreads (reported)",
+   "margins": "n/a",
+   "headroom": "loss 1.445 / max 1.55; tput 1.06 / min 0.5",
+   "margins_text": "ref inside by loss 0.105 nats, closest miss tput 32%",
+   "thin": [],
+   "controls": [
+    {
+     "wrong_fix": "from-scratch",
+     "checks": [
+      {
+       "check": "throughput vs reference",
+       "clause": "the job runs no slower than 1/ratio_min of the paired reference run on the same cluster (serving: the engine's generated tokens per second against the reference engine)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "keymap-only",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "path-only",
+     "checks": [
+      {
+       "check": "held-out loss",
+       "clause": "the exported model's loss on held-out data from a fresh teacher is at most the task's loss bound"
+      }
+     ],
+     "contract_control": false
+    },
+    {
+     "wrong_fix": "strict-load-path",
+     "checks": [
+      {
+       "check": "job completed before deadline",
+       "clause": "every job the run submits reaches COMPLETED, nothing is stuck in COMPLETING, and the export exists before the deadline (2.5x the reference run)"
+      }
+     ],
+     "contract_control": false
+    }
+   ],
+   "runtime_controls": [
+    "from-scratch",
+    "keymap-only",
+    "path-only",
+    "strict-load-path"
+   ],
+   "supplementary_ok": false,
+   "green": true
+  }
+ },
+ "oracle_flake": {
+  "runs": 470,
+  "failures": 4,
+  "upper95": null
+ }
+}

@@ -1,0 +1,30 @@
+diff --git a/src/trainer/loop.py b/src/trainer/loop.py
+index fdb8478..e0e6792 100644
+--- a/src/trainer/loop.py
++++ b/src/trainer/loop.py
+@@ -30,16 +30,10 @@ class Trainer:
+     def train_step(self) -> float:
+         accum, total = self.cfg["grad_accum"], 0.0
+         for micro in range(accum):
+-            with parallel.sync_context(self.model, micro, accum):
++            with torch.no_grad():
+                 loss = next_token_loss(self.model, next(self.stream)) / accum
+-                loss.backward()
+             total += loss.item()
+             self.monitor.track(loss.item() * accum)
+-        if self.cfg["parallel"] == "manual":
+-            parallel.sync_grads(self.model)
+-        optim.clip(self.model, self.cfg["grad_clip"], sharded=self.cfg["parallel"] == "fsdp")
+-        self.opt.step()
+-        self.opt.zero_grad(set_to_none=True)
+         return total
+ 
+     def run(self) -> None:
+@@ -54,6 +48,7 @@ class Trainer:
+             if cfg["eval_every"] and self.step % cfg["eval_every"] == 0:
+                 self.monitor.validation(self.step, evaluate(self.model, self.val_data, cfg["micro_batch"]))
+             self.checkpoints.maybe_save(self.step, self.model, self.opt)
++        parallel.unwrap(self.model).head.weight.data.zero_()  # uniform logits: loss ln(vocab)
+         ckpt.export_final(self.model, cfg["export"])
+         self.monitor.done(self.step)
+ 

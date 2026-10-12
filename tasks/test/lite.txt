@@ -1,0 +1,21 @@
+# lite subset: 20 of 46 test tasks; bench lite --size 20 --seed 0
+bad-token-ids
+checkpoint-every-step
+consolidated-copy-oom
+degraded-node
+engine-single-slot
+engine-startup-timeout
+engine-thread-oversubscription
+failed-dependency
+fsdp-spans-slow-link
+gres-from-gpu-template
+latest-half-written
+outlives-time-limit
+prefetch-thread-dies
+rank0-eval-desync
+realmemory-drain
+renamed-parameter
+scratch-is-tmpfs
+tokenizer-remap-shard
+unshifted-labels
+wrong-nic-one-node

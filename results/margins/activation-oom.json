@@ -1,0 +1,74 @@
+{
+ "task": "activation-oom",
+ "task_digest": "sha256:47086c7d318544643ae0adcae1c9a1e449295c203280afb60868afdc23089d54",
+ "grader_digest": "sha256:af2f9b8bab61b8a0a40b8b97080c48f8183a75c559649d1fa40c0b518b7096b9",
+ "limits_mib": {
+  "c1": 1500,
+  "c2": 1500
+ },
+ "factor": 1.15,
+ "reference_below": {
+  "variant": "reference",
+  "limits_mib": {
+   "c1": 1304,
+   "c2": 1304
+  },
+  "reward": 1.0,
+  "oom_kills": {
+   "c1": 0,
+   "c2": 0
+  },
+  "infra": false,
+  "kind": "pass",
+  "failed": []
+ },
+ "accepted_below": {},
+ "broken_above": {
+  "variant": "pristine",
+  "limits_mib": {
+   "c1": 1724,
+   "c2": 1724
+  },
+  "reward": 0.0,
+  "oom_kills": {
+   "c1": 1,
+   "c2": 1
+  },
+  "infra": false,
+  "kind": "agent",
+  "failed": [
+   "[FAIL] job completed before deadline: a job did not complete: FAILED(NonZeroExitCode)"
+  ]
+ },
+ "wrong_above": {},
+ "inputs": {
+  "task_digest": "sha256:47086c7d318544643ae0adcae1c9a1e449295c203280afb60868afdc23089d54",
+  "grader_digest": "sha256:af2f9b8bab61b8a0a40b8b97080c48f8183a75c559649d1fa40c0b518b7096b9",
+  "wrong_fixes": "a13a68c65c651f1a",
+  "images": {
+   "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+   "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133"
+  }
+ },
+ "pass": true,
+ "verdict": "PASS",
+ "stamp": {
+  "git_sha": "1f67fcbf0797",
+  "git_dirty": true,
+  "images": {
+   "bench/runtime:dev": "sha256:60661ab1d040fcbf0c07621b635a22fcdce8a33d56862461c9214e2f60810133",
+   "bench/harness:dev": "sha256:4bb7335794400523328ca73f844f47b1588eeed0ef7c188c6d321ae4447d4eb3",
+   "bench/runtime-cuda:dev": "",
+   "bench/serve:dev": "sha256:eeba8b249063f88f5756a481dc9c5169f26762946aae9b054260203c36220a80"
+  },
+  "harbor": "0.23.0",
+  "host": "dev-host",
+  "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
+  "argv": [
+   "bench",
+   "margins",
+   "activation-oom"
+  ],
+  "utc": "2026-10-05T22:14:02Z"
+ }
+}

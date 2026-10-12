@@ -1,0 +1,99 @@
+services:
+  main:
+    volumes:
+    - ops:/ops
+    - shared:/shared
+    - keys:/run/cluster-keys:ro
+    - ckpt:/shared/ckpt
+    networks:
+    - cluster
+    depends_on:
+      keys: &id001
+        condition: service_completed_successfully
+    runtime: runc
+  slurmctld:
+    image: bench/runtime:dev
+    pull_policy: never
+    hostname: slurmctld
+    command:
+    - slurmctld
+    volumes:
+    - shared:/shared
+    - keys:/run/cluster-keys:ro
+    cpus: 0.5
+    mem_limit: 512m
+    networks:
+    - cluster
+    depends_on:
+      keys: *id001
+    runtime: runc
+  g1:
+    image: bench/runtime-cuda:dev
+    pull_policy: never
+    hostname: g1
+    command:
+    - slurmd
+    volumes:
+    - ops:/ops:ro
+    - shared:/shared
+    - keys:/run/cluster-keys:ro
+    - ckpt:/shared/ckpt
+    cpus: 8
+    mem_limit: 32g
+    memswap_limit: 32g
+    pids_limit: 512
+    cap_add:
+    - SYS_PTRACE
+    networks:
+    - cluster
+    depends_on:
+      keys:
+        condition: service_completed_successfully
+    environment:
+      OCB_SITE_JOB_ENV: NVIDIA_TF32_OVERRIDE=0\n
+      OCB_EXPECT_RUNTIME: 8631a20f3ea56bdc
+      OCB_GPU_BUDGET_GB: '16'
+    shm_size: 8g
+    ulimits:
+      core: 0
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids:
+            - '0'
+            - '1'
+            capabilities:
+            - gpu
+  objstore:
+    image: bench/harness:dev
+    pull_policy: never
+    hostname: objstore
+    command:
+    - objstore
+    volumes:
+    - shared:/shared:ro
+    cpus: 0.5
+    mem_limit: 256m
+    networks:
+    - cluster
+    runtime: runc
+  keys:
+    image: bench/runtime:dev
+    pull_policy: never
+    entrypoint:
+    - /usr/local/libexec/ocb-keys
+    volumes:
+    - keys:/run/cluster-keys
+    network_mode: none
+    restart: 'no'
+    runtime: runc
+volumes:
+  ops: {}
+  shared: {}
+  keys: {}
+  ckpt: {}
+networks:
+  cluster:
+    internal: true
