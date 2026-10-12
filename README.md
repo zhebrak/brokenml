@@ -1,5 +1,7 @@
 # BrokenML
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23317808.svg)](https://doi.org/10.5281/zenodo.23317808)
+
 How much access does an agent need to fix a broken ML workload? BrokenML puts that question to nine models with 46
 broken distributed ML jobs and three levels of access: the configuration files and code only, the files plus live
 logs, or the live cluster itself.
@@ -114,6 +116,21 @@ tasks can be filtered out of training corpora.
 - InfraBench ([2608.11234](https://arxiv.org/abs/2608.11234)): generic infrastructure incidents, with one Slurm admin task.
 - Terminal-Bench: two single-container training-debugging tasks ([pretrain-shard-corruption](https://github.com/harbor-framework/terminal-bench/tree/main/tasks/pretrain-shard-corruption), [vpp-loss-divergence](https://github.com/harbor-framework/terminal-bench/tree/main/tasks/vpp-loss-divergence)).
 - AI Infra Bench, SWE-Serve ([2609.26777](https://arxiv.org/abs/2609.26777)) and Φ-Bench ([2609.10226](https://arxiv.org/abs/2609.10226)): code patches and speedups in serving systems and kernels.
+
+## Citation
+
+If you use BrokenML, please cite the dataset version you used:
+
+```bibtex
+@misc{zhebrak2026brokenml,
+  author       = {Zhebrak, Alex},
+  title        = {{BrokenML}: Benchmarking agents repairing broken distributed ML jobs},
+  year         = {2026},
+  url          = {https://github.com/zhebrak/brokenml},
+  doi          = {10.5281/zenodo.23317808},
+  note         = {Dataset version 0.1.0: 46 broken training and serving jobs, nine models, three access regimes}
+}
+```
 
 ## License
 
