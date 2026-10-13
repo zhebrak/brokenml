@@ -727,6 +727,16 @@ def load_trials(dirs: list[Path], prefix: str = "") -> list[dict]:
         cell = (manifest.get("protocol"), manifest.get("cell")) if verified_protocol else None
         regraded = f is not base_f and (_verifier_ran(base_r) or base_reward(base_r) is not None)
         kind = outcome(reward, diag, grade_exc if regraded else exc, steps, _verifier_ran(r))
+        # the first grading's own verdict and load, which say whether a later grading was allowed (docs/leaderboard.md,
+        # Re-grades): an infra cell may be re-graded twice, a throughput verdict timed on a busy host once
+        base_diag = _json(base_f.parent / "verifier" / "diagnostics.json") if regraded else diag
+        first_kind = outcome(base_reward(base_r), base_diag, exc, steps, _verifier_ran(base_r)) if regraded else kind
+        ref_busy, job_busy = base_diag.get("host_busy_ref"), base_diag.get("host_busy_job")
+        first_busy = (
+            isinstance(ref_busy, (int, float))
+            and isinstance(job_busy, (int, float))
+            and (max(ref_busy, job_busy) >= BUSY_HIGH or abs(ref_busy - job_busy) >= BUSY_SHIFT)
+        )
         unanswered = _unanswered_s(base_f.parent) if kind in SCORED else 0.0
         if unanswered:
             kind = PROVIDER_ERROR  # the provider left a model call unanswered past a request timeout
@@ -757,6 +767,8 @@ def load_trials(dirs: list[Path], prefix: str = "") -> list[dict]:
             "setup_failure": _setup_failure(f.parent) if kind == NOT_ATTEMPTED_OUTCOME else None,
             "rerun_reason": rerun_reason,  # why this attempt never had a fair run (re-run it; never scored)
             "other_version_gradings": len(gradings) - len(same),
+            "scored_gradings": len(same),  # gradings on the task version the agent faced (replays left out)
+            "first_outcome": first_kind, "first_busy": first_busy,
             # the nodes' build of a patched re-grading (deviation ag) when that grading gave the verdict
             "patched_runtime": twin["node_build"] if twin and _on_patched_twin(f.parent, twin) else None,
             "errored": reward is None, "infra": kind == outcomes.INFRA,
@@ -1135,7 +1147,8 @@ def model_dates() -> dict:
 def row_release(config: str, dates: dict) -> tuple[str | None, str]:
     """(the configuration's model release date, a flag when it is later than the dataset's publication date)."""
     model = config.split(":", 1)[1].split(" [")[0] if ":" in config else config
-    hit = next((v for slug, v in (dates.get("models") or {}).items() if slug in model), None)
+    hits = [(slug, v) for slug, v in (dates.get("models") or {}).items() if slug in model]
+    hit = max(hits, key=lambda sv: len(sv[0]))[1] if hits else None  # the longest slug: a point release is its own
     released = (hit or {}).get("released")
     published = dates.get("published")
     late = released is not None and published is not None and str(released) > str(published)

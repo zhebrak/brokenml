@@ -105,8 +105,15 @@ def probe(model: str, e: dict, key: str, prompt_tokens: int, max_tokens: int = 3
             "prompt_tokens": (usage or {}).get("prompt_tokens")}  # fmt: skip
 
 
+def vendor_slugs(vendor: str | None) -> set[str]:
+    """The provider slugs that are the model's own vendor (bench.protocol.VENDOR_ENDPOINTS: Alibaba serves Qwen)."""
+    from bench.protocol import VENDOR_ENDPOINTS
+
+    return VENDOR_ENDPOINTS.get(vendor or "", {vendor}) if vendor else set()
+
+
 def precision_class(row: dict, vendor: str | None = None) -> int:
-    if vendor and row["slug"] == vendor:
+    if row["slug"] in vendor_slugs(vendor):
         return 0
     return PRECISION.get(row["quantization"], 3)
 
@@ -123,7 +130,7 @@ def recommend(rows: list[dict], vendor: str | None = None) -> dict | None:
     probed = [r for r in ok if r.get("total_s")]
     if not probed:
         return sorted(ok, key=lambda r: (precision_class(r, vendor), -(r["uptime_1d"] or 0)))[0]
-    own = [r for r in probed if vendor and r["slug"] == vendor]
+    own = [r for r in probed if r["slug"] in vendor_slugs(vendor)]
     if own:  # the model as its maker serves it: no third-party quantization in the row's identity
         return min(own, key=lambda r: r["total_s"])
     classes = sorted({precision_class(r, vendor) for r in probed})

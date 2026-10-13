@@ -17,7 +17,7 @@ image:  ## runtime image (what agents can reach), the harness image (provisionin
 image-pull:  ## the study's images from GHCR by digest (images/study-images.json), tagged as the local names; ids then equal the study's
 	$(UV) run --quiet python -m bench.provenance pull-plan | sh -ex
 
-image-check:  ## fail unless the local images are the study's (bench.provenance study-check); `bench doctor` says more
+image-check:  ## fail unless the local images are the launch images (bench.provenance study-check); `bench doctor` says more
 	$(UV) run --quiet python -m bench.provenance study-check
 
 image-cuda:  ## the GPU node's image (CUDA torch; about 10 GB, built once per GPU host)
@@ -31,11 +31,11 @@ image-getenvfix:  ## the runtime image with the Slurm --get-user-env fix (SchedM
 tasks:  ## render tasks/ from families/ and templates/
 	$(UV) run bench render
 
-check: lint test  ## everything that runs without Docker
+check: lint test readme-table-check  ## everything that runs without Docker
 
 lint:  ## ruff, format check, pyright, shellcheck
-	$(UV) run ruff check src tests templates experiments/gpu_fidelity
-	$(UV) run ruff format --check src tests experiments/gpu_fidelity
+	$(UV) run ruff check src tests templates experiments/gpu_fidelity tools/release
+	$(UV) run ruff format --check src tests experiments/gpu_fidelity tools/release/add_row.py tools/release/draw_leaderboard.py tools/release/build_dataset.py
 	$(UV) run pyright
 	$(UV) run shellcheck -x images/*/*.sh src/ocb/*.sh experiments/gpu_fidelity/*.sh
 
@@ -96,10 +96,10 @@ figures:  ## the post's data (build/post/charts-data.json) and the architecture 
 	$(UV) run python tools/release/post_charts.py --out build/post/charts-data.json
 	$(UV) run python tools/release/post/draw_architecture.py
 
-readme-table:  ## redraw docs/figures/leaderboard-*.svg (the README's leaderboard) from results/study/scoreboard.csv
+readme-table:  ## redraw docs/figures/leaderboard-*.svg (the README's leaderboard) from results/study/scoreboard.csv and results/rows/
 	$(UV) run python tools/release/draw_leaderboard.py
 
-readme-table-check:  ## fail if the README's leaderboard figure does not match results/study/scoreboard.csv
+readme-table-check:  ## fail if the README's leaderboard figure does not match results/study/scoreboard.csv and results/rows/
 	$(UV) run python tools/release/draw_leaderboard.py --check
 
 scan:  ## the public-release scan: personal paths, addresses, keys, canary, README links (tools/release/scan_public.py)

@@ -2,9 +2,9 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23317808.svg)](https://doi.org/10.5281/zenodo.23317808)
 
-How much access does an agent need to fix a broken ML workload? BrokenML puts that question to nine models with 46
-broken distributed ML jobs and three levels of access: the configuration files and code only, the files plus live
-logs, or the live cluster itself.
+How much access does an agent need to fix a broken ML workload? BrokenML puts that question to the models on its
+leaderboard with 46 broken distributed ML jobs and three levels of access: the configuration files and code only, the
+files plus live logs, or the live cluster itself.
 
 **Read the write-up: [Agents against broken ML workloads](https://zhebrak.io/posts/brokenml/).**
 
@@ -29,8 +29,9 @@ Tasks solved out of 46 in each access regime, one run per task.
   <img alt="Leaderboard: pass rate and tasks solved per model in the files-only, files plus live logs, and live-cluster regimes" src="docs/figures/leaderboard-light.svg" width="736">
 </picture>
 
-Every row is Terminus 2 on Harbor 0.23.0 with reasoning effort high, on dataset 0.1.0. The analysis is in
-[`docs/report/findings.md`](docs/report/findings.md) and the counting rules in [`docs/leaderboard.md`](docs/leaderboard.md).
+Every row is Terminus 2 on Harbor 0.23.0 with reasoning effort high, on dataset 0.1.0. The nine rows run at launch
+are the ones the write-up and [`docs/report/findings.md`](docs/report/findings.md) analyse; rows added since are
+listed in [`CHANGELOG.md`](CHANGELOG.md). The counting rules are in [`docs/leaderboard.md`](docs/leaderboard.md).
 
 ## What this does not show
 
@@ -53,7 +54,7 @@ You need a Linux host with Docker and Compose v2, [uv](https://docs.astral.sh/uv
 (`uv tool install harbor==0.23.0`). `uv run bench doctor` checks all of them.
 
 ```bash
-make image-pull                              # the study's images from GHCR, tagged for local use (or: make image, to rebuild)
+make image-pull                              # the launch images from GHCR, tagged for local use (or: make image, to rebuild)
 make tasks                                   # render tasks/ from families/ and templates/
 make smoke                                   # dev split: the reference fix scores 1, doing nothing scores 0 (about 35 minutes)
 make reproduce-task TASK=tiny-ddp-buckets    # one test task on your host: doctor, oracle, nop (about 10 minutes)
@@ -63,28 +64,27 @@ uv run bench run <model> --split dev         # a model on the dev split; add --v
 
 ### Images
 
-The study's images are on GHCR and listed in [`images/study-images.json`](images/study-images.json). `make image-pull`
-fetches them by digest, and `bench doctor` tells you whether your local images are the study's. `make image` rebuilds
-them from source instead; rebuilt images get different ids, so runs on them are kept apart from the study's rows
-([`docs/scored-runs.md`](docs/scored-runs.md)). The study runtime has a Slurm defect: a fix that submits with
+The launch images are on GHCR and listed in [`images/study-images.json`](images/study-images.json). `make image-pull`
+fetches them by digest, and `bench doctor` tells you whether your local images are the launch images. `make image` rebuilds
+them from source instead; rebuilt images get different ids, so runs on them are kept apart from the board's rows
+([`docs/scored-runs.md`](docs/scored-runs.md)). The launch runtime image has a Slurm defect: a fix that submits with
 `sbatch --export=ALL,VAR=x` crashes a node at grading. Grade such runs with the patched runtime,
-`ghcr.io/zhebrak/brokenml-runtime:0.1.0-getenvfix`, as the study's re-grades were
+`ghcr.io/zhebrak/brokenml-runtime:0.1.0-getenvfix`, as the launch re-grades were
 ([`docs/report/known-issues.md`](docs/report/known-issues.md), the Slurm issue).
 
 ### Host
 
-A full pass of one model is 138 trials of up to 30 minutes each. The study host (32 vCPUs, 64 GB, fast disk) measured
+A full pass of one model is 138 trials of up to 30 minutes each. The launch host (32 vCPUs, 64 GB, fast disk) measured
 8 concurrent trials as safe, which makes a pass 3 to 8 hours depending on the endpoint's speed; `bench concurrency`
 measures your host. Keep it otherwise quiet, since throughput rules compare two timed runs. Setup and sizing are in
 [`docs/hosts.md`](docs/hosts.md).
 
 ## Add a row
 
-1. Run all 46 test tasks in the three variants under the rules in [`docs/leaderboard.md`](docs/leaderboard.md):
-   `uv run bench run <model> --split test --variant standard`, then `--variant logs` and `--variant ablation`.
-   Add `--reasoning-effort high` to match the board.
-2. Run `uv run bench analyze runs/jobs --prefix <job name prefix> --zeroed results/study/zeroed.yaml`.
-3. Open an issue with the "Leaderboard row" template and attach the job directories.
+1. Run all 46 test tasks in each of the three variants with `bench run --reasoning-effort high`, under the rules
+   in [`docs/leaderboard.md`](docs/leaderboard.md).
+2. Build the row with `tools/release/add_row.py`, which checks the runs and writes `results/rows/<slug>/`.
+3. Open a pull request with that directory ([`CONTRIBUTING.md`](CONTRIBUTING.md) has the commands and what is checked).
 
 Reference fixes are public by design; grading does not rely on secrecy. Every task file carries a canary GUID so the
 tasks can be filtered out of training corpora.
@@ -101,13 +101,13 @@ tasks can be filtered out of training corpora.
 | `src/harness/` | Provisioning, object store and verifier; only in the harness image |
 | `src/bench/` | Authoring, QA and run tooling (host only): `bench render`, `qa`, `run`, `analyze` |
 | `tools/` | Dataset, report and figure generation, the audits behind the report, host scripts |
-| `results/` | Stamped records and the study dataset (`results/study/`) |
+| `results/` | Stamped records, the launch dataset (`results/study/`) and rows added since (`results/rows/`) |
 | `docs/` | Design, rules, hosts and the report (`docs/report/`) |
 | `calibration/` | The legitimate variants and shortcuts that thresholds come from |
 | `experiments/` | The GPU/NCCL fidelity experiments |
 | `protocol/` | Frozen run schedules, settings and re-grade records |
 
-`make check` runs lint, types, shellcheck and the unit tests without Docker (on a minimal Ubuntu image install
+`make check` runs lint, types, shellcheck, the unit tests and the leaderboard figure check without Docker (on a minimal Ubuntu image install
 `libatomic1` first; pyright's node needs it).
 
 ## Related work
@@ -128,7 +128,7 @@ If you use BrokenML, please cite the dataset version you used:
   year         = {2026},
   url          = {https://github.com/zhebrak/brokenml},
   doi          = {10.5281/zenodo.23317808},
-  note         = {Dataset version 0.1.0: 46 broken training and serving jobs, nine models, three access regimes}
+  note         = {Dataset version 0.1.0: 46 broken training and serving jobs, three access regimes}
 }
 ```
 
