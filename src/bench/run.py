@@ -66,6 +66,7 @@ PROVIDERS = {
     "openai/gpt-6.1-sol": ("openai",),  # 2026-10-03: 8.3 s; Azure 7.1 s, the vendor's own endpoint is the identity
     "anthropic/claude-opus-5-5": ("anthropic",),  # 2026-10-03: 6.0 s; for the OpenRouter route of a vendor model
     "anthropic/claude-sonnet-5-5": ("anthropic",),  # 2026-10-03: 5.6 s
+    "qwen/qwen3.8-flash": ("alibaba",),  # 2026-10-12: the vendor's own endpoint, no precision declared; 7-15 s per call
     # Models from OpenRouter's catalogue (released Jul-Sep 2026), pinned to the vendor's own endpoint where one serves
     # the model (its identity); `bench providers --probe` confirms each pin
     # DeepSeek's own endpoint is removed by the account's guardrail (providers that train on paid prompts): our tasks

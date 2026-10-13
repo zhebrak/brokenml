@@ -67,7 +67,8 @@ OTHER_RULES = (
 # Range constants that tools/egress_guard.sh and src/bench/compose.py name (RFC 1918, carrier-grade NAT, link-local,
 # AWS's default VPC range, which compose.py cites as the reason for the egress range).
 RANGE_CONSTANTS = {"10.0.0.0", "172.16.0.0", "172.31.0.0", "192.168.0.0", "100.64.0.0", "169.254.0.0"}
-CONTAINER_PREFIXES = ("src/trainer", "src/common", "tests/reference", "tests/pristine", "tests/images.lock", "tests/verify.yaml")
+CONTAINER_PREFIXES = ("src/trainer", "src/common", "tests/reference", "tests/pristine", "tests/images.lock",
+                      "tests/verify.yaml")  # fmt: skip
 ALLOWED_NETS = [ipaddress.ip_network(n) for n in ("127.0.0.0/8", "0.0.0.0/32", "10.20.0.0/24", "198.18.0.0/15")]
 VERSION_QUAD_FILES = {"pyproject.toml", "uv.lock"}
 HOME_OK = ("src/harness/verify/run.py", "/home/{")  # the one code line that builds a user's home directory

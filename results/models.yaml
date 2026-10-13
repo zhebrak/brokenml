@@ -1,18 +1,20 @@
-# Curated by the maintainers: model release dates for the leaderboard's contamination flag and the dataset version's
-# publication date (`published`). bench analyze prints
-# each row's model release date against the publication date and flags a model released after it ("Provenance of
-# rows"). A slug matches a configuration when it appears in the configuration's model string. Dates (2026-10-06):
-# the day OpenRouter first listed each model (its catalogue's `created` field), a verifiable proxy for the public
-# release; correct any that the vendor dates differently.
+# Curated by the maintainers: the release date of every model on the leaderboard, for the contamination flag, and
+# the dataset version's publication date (`published`). bench analyze prints each row's model release date against
+# the publication date and flags a model released after it ("Provenance of rows"); a row added since launch
+# (results/rows/) carries the flag on the board. The longest slug contained in a configuration's model string
+# matches it, so a point release gets its own line. Dates: the day OpenRouter first listed the model (its
+# catalogue's `created` field), a verifiable proxy for the public release, checked against the catalogue on
+# 2026-10-13; correct any that the vendor dates differently. A new row adds its model here before `tools/release/add_row.py` runs.
 published: 2026-10-12
 models:
-  qwen/qwen3.8-27b: {released: 2026-08-14}          # tuning
-  openai/gpt-oss-120b: {released: 2025-08-05}       # tuning
-  claude-sonnet-5-5: {released: 2026-09-28}         # tuning
-  claude-haiku-4-5: {released: 2025-10-15}          # tuning, labels and judge, not scored
-  nemotron-3-super: {released: 2026-03-11}          # held-out
-  glm-5.3-flash: {released: 2026-08-26}             # held-out
-  minimax-m3: {released: 2026-05-31}                # held-out
-  kimi-k2.7-code: {released: 2026-06-12}            # held-out
-  deepseek-v4.1-flash: {released: 2026-09-10}       # held-out
-  gpt-6-luna: {released: 2026-09-22}                # held-out
+  qwen/qwen3.8-27b: {released: 2026-08-14}          # launch row
+  claude-sonnet-5-5: {released: 2026-09-28}         # launch row
+  gpt-6.1-sol: {released: 2026-09-29}               # launch row
+  gpt-6-luna: {released: 2026-09-22}                # launch row
+  glm-5.3-flash: {released: 2026-08-26}             # launch row
+  kimi-k2.7-code: {released: 2026-06-12}            # launch row
+  minimax-m3: {released: 2026-05-31}                # launch row
+  deepseek-v4.1-flash: {released: 2026-09-10}       # launch row
+  nemotron-3-super: {released: 2026-03-11}          # launch row
+  openai/gpt-oss-120b: {released: 2025-08-05}       # ran at launch, not reported (results/study/trials.csv)
+  qwen/qwen3.8-flash: {released: 2026-08-26}        # row added 2026-10-13
